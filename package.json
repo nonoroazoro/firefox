@@ -1,7 +1,7 @@
 {
   "name": "firefox",
   "version": "1.0.0",
-  "description": "Addons, Greasemonkey Scripts, UserChromeJS of Firefox.",
+  "description": "Extensions, Greasemonkey Scripts, UserChromeJS of Firefox.",
   "repository": {
     "type": "git",
     "url": "https://github.com/nonoroazoro/firefox.git"
