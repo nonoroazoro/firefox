@@ -1,0 +1,7 @@
+{
+    "extends": "eslint-config-zoro/base",
+    "globals": {
+        "Utils": true,
+        "content": true
+    }
+}
