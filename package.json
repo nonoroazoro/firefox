@@ -13,7 +13,8 @@
   },
   "homepage": "https://github.com/nonoroazoro/firefox#readme",
   "scripts": {
-    "precommit": "lint-staged"
+    "precommit": "lint-staged",
+    "lint": "eslint **/*.js"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
