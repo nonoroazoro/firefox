@@ -7,7 +7,7 @@
 // ==/UserScript==
 
 const ThunderPlus = {
-    init: () =>
+    init: function ()
     {
         if (location.href === "chrome://browser/content/browser.xul")
         {
@@ -18,12 +18,12 @@ const ThunderPlus = {
     /**
      * copy download links to clipboard.
      */
-    copy: () =>
+    copy: function ()
     {
-        Utils.copy(this.links.join("\n"));
+        Utils.copy(this._links.join("\n"));
     },
 
-    get links()
+    get _links()
     {
         const result = [];
         const doc = content.document;
@@ -38,14 +38,14 @@ const ThunderPlus = {
         let value;
         const result = [];
         const regex = /(^ed2k:\/\/)|(^thunder:\/\/)|(^magnet:\?xt=)/i;
-        elements.forEach((element) =>
+        for (const element of elements)
         {
             value = element[key].trim();
             if (regex.test(value))
             {
                 result.push(value);
             }
-        });
+        }
         return result;
     }
 };
