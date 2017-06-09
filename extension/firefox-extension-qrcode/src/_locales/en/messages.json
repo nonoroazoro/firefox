@@ -1,0 +1,17 @@
+{
+    "extensionName":
+    {
+        "message": "Tiny QR Code",
+        "description": "Name of the extension."
+    },
+    "extensionDescription":
+    {
+        "message": "Generate a QR Code of current URL.",
+        "description": "Description of the extension."
+    },
+    "browserActionDefaultTitle":
+    {
+        "message": "Generate QR Code",
+        "description": "Default title of the browser action."
+    }
+}

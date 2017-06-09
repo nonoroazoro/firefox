@@ -1,0 +1,30 @@
+{
+  "name": "firefox-extension-qrcode",
+  "description": "A Firefox web extension, to generate a QR Code of current URL.",
+  "version": "1.0.1",
+  "author": {
+    "name": "nonoroazoro",
+    "email": "xiaochao.k@gmail.com"
+  },
+  "license": "MIT",
+  "main": "src/manifest.json",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nonoroazoro/firefox-extension-qrcode"
+  },
+  "keywords": [
+    "firefox",
+    "extension",
+    "qr",
+    "qrcode"
+  ],
+  "scripts": {
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "del": "^2.2.2",
+    "gulp": "^3.9.1",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-zip": "^4.0.0"
+  }
+}

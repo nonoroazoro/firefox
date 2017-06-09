@@ -1,0 +1,17 @@
+{
+    "extensionName":
+    {
+        "message": "Tiny QR Code",
+        "description": "Name of the extension."
+    },
+    "extensionDescription":
+    {
+        "message": "生成当前标签页地址的二维码。",
+        "description": "Description of the extension."
+    },
+    "browserActionDefaultTitle":
+    {
+        "message": "生成二维码",
+        "description": "Default title of the browser action."
+    }
+}
