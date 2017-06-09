@@ -20,17 +20,17 @@ const ThunderPlus = {
      */
     copy: () =>
     {
-        Utils.copy(this.urls.join("\n"));
+        Utils.copy(this.links.join("\n"));
     },
 
-    get urls()
+    get links()
     {
         const result = [];
         const doc = content.document;
         result.push(...this._filter(doc.getElementsByTagName("a"), "href"));
         result.push(...this._filter(doc.getElementsByTagName("input"), "value"));
         result.push(...this._filter(doc.getElementsByTagName("textarea"), "value"));
-        return [...new Set(result)];
+        return [...new Set(result)].sort((a, b) => a.localeCompare(b));
     },
 
     _filter: (elements, key) =>
