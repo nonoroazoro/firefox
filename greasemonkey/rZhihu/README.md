@@ -1,3 +1,5 @@
-# [rZhihu](https://greasyfork.org/zh-CN/scripts/30036-rzhihu)
+# rZhihu - A Greasemonkey/Tampermonkey Script
 
-A Greasemonkey/Tampermonkey Script, adding Google-like keyboard shortcuts for Zhihu homepage.
+Adding Google-like keyboard shortcuts for Zhihu homepage.
+
+> [Install this Script](https://greasyfork.org/zh-CN/scripts/30036-rzhihu)
