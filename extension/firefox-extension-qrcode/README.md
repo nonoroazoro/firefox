@@ -1,11 +1,11 @@
 ﻿# firefox-extension-qrcode
 
-A Firefox web extension, to generate a QR Code of current URL.
+A Firefox web extension, generating QR Code for current page.
 
 ## Screenshots
 
 - **QR Code**
-  ![QR Code](./screenshots/1.png?raw=true "QR Code")
+  ![QR Code](./screenshots/1.png "QR Code")
 
 - **Click QR Code to Open in New Tab**
-  ![QR Code in New Tab](./screenshots/2.png?raw=true "QR Code in New Tab")
+  ![QR Code in New Tab](./screenshots/2.png "QR Code in New Tab")
