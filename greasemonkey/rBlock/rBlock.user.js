@@ -3,10 +3,10 @@
 // @author          nonoroazoro
 // @description     移除一些网站用于数据统计的链接跳转，加快网站访问速度。
 // @description:en  Removes redirects of web sites.
-// @homepageURL     https://raw.githubusercontent.com/nonoroazoro/firefox/master/greasemonkey/rBlock/rBlock.user.js
+// @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rBlock
 // @namespace       https://greasyfork.org/zh-CN/scripts/20568-rblock
 // @grant           none
-// @version         1.3.5
+// @version         1.3.6
 // @run-at          document-end
 // @include         /^https?:\/\/(.+\.)?google\./
 // @include         /^https?:\/\/(.+\.)?zhihu\./
