@@ -10,7 +10,7 @@
   "main": "src/manifest.json",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nonoroazoro/firefox-extension-qrcode"
+    "url": "https://github.com/nonoroazoro/firefox/tree/master/extension/tiny-qrcode"
   },
   "keywords": [
     "firefox",
