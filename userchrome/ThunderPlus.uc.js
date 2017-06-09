@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name           ThunderPlus.uc.js
-// @namespace      https://github.com/nonoroazoro/firefox/userchrome/ThunderPlus.uc.js
+// @namespace      https://raw.githubusercontent.com/nonoroazoro/firefox/master/userchrome/ThunderPlus.uc.js
 // @description    迅雷下载链接嗅探。
 // @charset        UTF-8
 // @version        1.0
