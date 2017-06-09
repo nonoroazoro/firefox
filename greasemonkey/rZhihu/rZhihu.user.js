@@ -3,7 +3,7 @@
 // @author          nonoroazoro
 // @description     为知乎首页添加类似 Google Reader 的快捷键。
 // @description:en  Add Google-like keyboard shortcuts for Zhihu homepage.
-// @homepageURL     https://github.com/nonoroazoro/firefox/master/greasemonkey/rZhihu/rZhihu.user.js
+// @homepageURL     https://raw.githubusercontent.com/nonoroazoro/firefox/master/greasemonkey/rZhihu/rZhihu.user.js
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
 // @version         1.0.5
