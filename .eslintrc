@@ -1,8 +1,11 @@
 {
     "extends": "eslint-config-zoro/base",
+    "env": {
+        "greasemonkey": true,
+        "webextensions": true
+    },
     "globals": {
         "content": true,
-        "GM_info": true,
         "Utils": true
     }
 }
