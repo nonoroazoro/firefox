@@ -6,9 +6,10 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.0.6
+// @version         1.0.7
 // @run-at          document-end
 // @include         https://www.zhihu.com/
+// @include         https://www.zhihu.com/#*
 // ==/UserScript==
 
 const ignoreList = ["INPUT", "DIV", "TEXTAREA"];
