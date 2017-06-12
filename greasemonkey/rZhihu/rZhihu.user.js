@@ -6,7 +6,7 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.0.7
+// @version         1.0.8
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
@@ -52,6 +52,11 @@ function _keydownHandler(e)
     {
         // press "u"
         _unlike();
+    }
+    else if (e.keyCode === 86)
+    {
+        // press "v"
+        _openAnswerInNewTab();
     }
 }
 
@@ -113,16 +118,18 @@ function _flip(index)
  */
 function _toggle()
 {
-    const story = stories[currentIndex];
-    const expand = story.querySelector(".is-collapsed .RichContent-inner");
+    const expand = _query(".is-collapsed .RichContent-inner");
     if (expand)
     {
         expand.click();
     }
     else
     {
-        const collapse = story.querySelector(".ContentItem-actions > button:last-child");
-        collapse.click();
+        const collapse = _query(".ContentItem-actions > button:last-child");
+        if (collapse)
+        {
+            collapse.click();
+        }
     }
 }
 
@@ -131,9 +138,42 @@ function _toggle()
  */
 function _unlike()
 {
-    const story = stories[currentIndex];
-    const unlike = story.querySelector("button:first-child");
-    unlike.click();
+    const element = _query("button:first-child");
+    if (element)
+    {
+        element.click();
+    }
+}
+
+/**
+ * open answer in a new tab.
+ */
+function _openAnswerInNewTab()
+{
+    const element = _query(".ContentItem-title > a");
+    if (element)
+    {
+        element.click();
+    }
+}
+
+/**
+ * find the specified element in current story.
+ *
+ * @param {string} selector
+ * @returns {Element}
+ */
+function _query(selector)
+{
+    if (selector)
+    {
+        const story = stories[currentIndex];
+        if (story)
+        {
+            return story.querySelector(selector);
+        }
+    }
+    return null;
 }
 
 /**
