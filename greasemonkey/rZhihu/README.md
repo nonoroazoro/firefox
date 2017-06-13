@@ -2,7 +2,8 @@
 
 Adding Google-like keyboard shortcuts for Zhihu homepage.
 
-## Features
+
+## Keybindings
 
 |    快捷键    |          说明           |
 |:-----------:|:-----------------------:|
@@ -10,6 +11,7 @@ Adding Google-like keyboard shortcuts for Zhihu homepage.
 |   O/Enter   |      展开/收起日报。      |
 |      U      |      不感兴趣/撤销。      |
 |      V      |  在新标签页中打开当前回答。 |
+|     LMB     |   鼠标左键点击选择日报。   |
 
 
 ## Installation
