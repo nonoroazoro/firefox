@@ -6,7 +6,7 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.0.8
+// @version         1.0.9
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
@@ -23,7 +23,18 @@ function start()
 {
     storyContainer = document.querySelector(".TopstoryMain");
     observe(storyContainer, update);
+    storyContainer.addEventListener("click", _clickHandler);
     document.body.addEventListener("keydown", _keydownHandler);
+}
+
+function _clickHandler(e)
+{
+    // highlight the clicked story.
+    const index = _getIndexOfStory(_getAncestor(e.target, "TopstoryItem"));
+    if (index !== -1)
+    {
+        _flip(index, false);
+    }
 }
 
 function _keydownHandler(e)
@@ -56,7 +67,7 @@ function _keydownHandler(e)
     else if (e.keyCode === 86)
     {
         // press "v"
-        _openAnswerInNewTab();
+        _openInNewTab();
     }
 }
 
@@ -78,8 +89,11 @@ function _prev()
 
 /**
  * flip to story.
+ *
+ * @param {number} index
+ * @param {boolean} [ensureVisible=true]
  */
-function _flip(index)
+function _flip(index, ensureVisible = true)
 {
     if (!inProgress)
     {
@@ -106,7 +120,10 @@ function _flip(index)
             currentIndex = targetIndex;
             target.style.borderColor = "#A4D2F8";
 
-            window.scrollTo(0, target.offsetTop);
+            if (ensureVisible)
+            {
+                window.scrollTo(0, target.offsetTop);
+            }
         }
 
         inProgress = false;
@@ -139,18 +156,21 @@ function _toggle()
 function _unlike()
 {
     const element = _query("button:first-child");
-    if (element)
+    if (element && element.innerText !== "广告")
     {
         element.click();
     }
 }
 
 /**
- * open answer in a new tab.
+ * open current story in a new tab.
  */
-function _openAnswerInNewTab()
+function _openInNewTab()
 {
-    const element = _query(".ContentItem-title > a");
+    // 1. answer;
+    // 2. empty answer;
+    // 3. advertisement.
+    const element = _query(".ContentItem-title > a, .QuestionItem-title > a, .Advert--card > a");
     if (element)
     {
         element.click();
@@ -174,6 +194,48 @@ function _query(selector)
         }
     }
     return null;
+}
+
+/**
+ * get ancestor of the element with specified class name.
+ *
+ * @param {Element} element
+ * @param {string} className
+ * @returns {Element}
+ */
+function _getAncestor(element, className)
+{
+    if (element && className)
+    {
+        let ancestor = element;
+        while (ancestor)
+        {
+            if (ancestor.className.trim().split(/\W+/).indexOf(className) !== -1)
+            {
+                return ancestor;
+            }
+            else
+            {
+                ancestor = ancestor.parentNode;
+            }
+        }
+    }
+    return null;
+}
+
+/**
+ * get the index of story.
+ *
+ * @param {Element} story
+ * @returns {number}
+ */
+function _getIndexOfStory(story)
+{
+    if (story && stories)
+    {
+        return Array.prototype.indexOf.call(stories, story);
+    }
+    return -1;
 }
 
 /**
