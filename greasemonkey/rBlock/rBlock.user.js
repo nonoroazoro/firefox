@@ -6,7 +6,7 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rBlock
 // @namespace       https://greasyfork.org/zh-CN/scripts/20568-rblock
 // @grant           none
-// @version         1.3.6
+// @version         1.3.7
 // @run-at          document-end
 // @include         /^https?:\/\/(.+\.)?google\./
 // @include         /^https?:\/\/(.+\.)?zhihu\./
