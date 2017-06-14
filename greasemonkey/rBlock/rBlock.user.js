@@ -10,6 +10,7 @@
 // @run-at          document-end
 // @include         /^https?:\/\/(.+\.)?google\./
 // @include         /^https?:\/\/(.+\.)?zhihu\./
+// @include         https://forum.gamer.com.tw/*
 // ==/UserScript==
 
 const rBlock = {
@@ -111,6 +112,27 @@ const rBlock = {
                     {
                         _openInNewTab(elem);
                     }
+                }
+            });
+        }
+
+        // 3. 巴哈姆特
+        if (_host === "forum.gamer.com.tw")
+        {
+            this._blockers.push({
+                start: function ()
+                {
+                    this._block();
+                    _observe(this._block);
+                },
+
+                _block: function ()
+                {
+                    // 1. general
+                    revealURL(
+                        document.querySelectorAll(`a[href*="?url="]`),
+                        /.*url=(http[^&]+)/i
+                    );
                 }
             });
         }
