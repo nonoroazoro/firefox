@@ -280,7 +280,7 @@ function observe(element, callback)
 function debounce(callback, delay = 500)
 {
     let timer = null;
-    return function (...args)
+    return function _inner(...args)
     {
         const context = this;
         window.clearTimeout(timer);
