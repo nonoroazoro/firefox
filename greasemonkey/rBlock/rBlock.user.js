@@ -17,7 +17,7 @@ const rBlock = {
 
     _blockers: [],
 
-    start: function ()
+    start()
     {
         this.init();
         for (const blocker of this._blockers)
@@ -26,7 +26,7 @@ const rBlock = {
         }
     },
 
-    init: function ()
+    init()
     {
         this._blockers = [];
         const _host = window.location.host;
@@ -35,7 +35,7 @@ const rBlock = {
         if (/^(.+\.)?google\./.test(_host))
         {
             this._blockers.push({
-                start: function ()
+                start()
                 {
                     // 1. for static pages.
                     // when google instant predictions is disabled,
@@ -49,7 +49,7 @@ const rBlock = {
                 },
 
                 // block redirects of google
-                _block: function ()
+                _block()
                 {
                     // 1. general
                     let elems = document.querySelectorAll(`a[href*="url="]`);
@@ -93,13 +93,13 @@ const rBlock = {
         if (/^(.+\.)?zhihu\./.test(_host))
         {
             this._blockers.push({
-                start: function ()
+                start()
                 {
                     this._block();
                     _observe(this._block);
                 },
 
-                _block: function ()
+                _block()
                 {
                     // 1. general
                     revealURL(
@@ -120,13 +120,13 @@ const rBlock = {
         if (_host === "forum.gamer.com.tw")
         {
             this._blockers.push({
-                start: function ()
+                start()
                 {
                     this._block();
                     _observe(this._block);
                 },
 
-                _block: function ()
+                _block()
                 {
                     // 1. general
                     revealURL(
@@ -210,7 +210,7 @@ function _openInNewTab(p_elem)
 function debounce(p_callback, p_delay = 500)
 {
     let timer = null;
-    return function (...args)
+    return function _inner(...args)
     {
         const context = this;
         window.clearTimeout(timer);
@@ -225,7 +225,7 @@ function throttle(p_callback, p_threshhold = 500, p_scope)
 {
     let last;
     let timer;
-    return function (...args)
+    return function _inner(...args)
     {
         const now = +new Date();
         const context = p_scope || this;
