@@ -6,7 +6,7 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.0.9
+// @version         1.1.0
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
@@ -170,7 +170,7 @@ function _openInNewTab()
     // 1. answer;
     // 2. empty answer;
     // 3. advertisement.
-    const element = _query(".ContentItem-title > a, .QuestionItem-title > a, .Advert--card > a");
+    const element = _query(".ContentItem-title a, .QuestionItem-title > a, .Advert--card > a");
     if (element)
     {
         element.click();
@@ -280,7 +280,7 @@ function observe(element, callback)
 function debounce(callback, delay = 500)
 {
     let timer = null;
-    return function _inner(...args)
+    return function (...args)
     {
         const context = this;
         window.clearTimeout(timer);
