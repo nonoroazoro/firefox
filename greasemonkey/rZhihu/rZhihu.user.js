@@ -59,6 +59,11 @@ function _keydownHandler(e)
         // press "o/enter"
         _toggle();
     }
+    else if (e.keyCode === 67)
+    {
+        // press "c"
+        _toggleComment();
+    }
     else if (e.keyCode === 85)
     {
         // press "u"
@@ -147,6 +152,19 @@ function _toggle()
         {
             collapse.click();
         }
+    }
+}
+
+
+/**
+ * toggle comment expand/collapse.
+ */
+function _toggleComment()
+{
+    const ct = _query(".ContentItem-actions > button:nth-child(2)");
+    if (ct)
+    {
+        ct.click();
     }
 }
 
