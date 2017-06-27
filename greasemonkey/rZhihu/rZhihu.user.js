@@ -6,18 +6,29 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.1.1
+// @version         1.1.2
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
 // ==/UserScript==
 
-const ignoreList = ["INPUT", "DIV", "TEXTAREA"];
 let currentIndex = 0;
 let inProgress = false;
 let maxIndex = -1;
 let stories = null;
 let storyContainer = null;
+const ignoreList = [
+    {
+        nodeName: "DIV",
+        className: "public-DraftEditor-content"
+    },
+    {
+        nodeName: "INPUT"
+    },
+    {
+        nodeName: "TEXTAREA"
+    }
+];
 
 function start()
 {
@@ -39,7 +50,7 @@ function _clickHandler(e)
 
 function _keydownHandler(e)
 {
-    if (!stories || ignoreList.indexOf(e.target.nodeName) !== -1 || e.altKey || e.shiftKey || e.ctrlKey || e.metaKey)
+    if (!stories || _isIgnored(e.target) || e.altKey || e.shiftKey || e.ctrlKey || e.metaKey)
     {
         return;
     }
@@ -74,6 +85,30 @@ function _keydownHandler(e)
         // press "v"
         _openInNewTab();
     }
+}
+
+/**
+ * check if key press should be ignored.
+ */
+function _isIgnored(target)
+{
+    let ignored = false;
+    const nodeName = target.nodeName;
+    const className = target.className;
+    for (const item of ignoreList)
+    {
+        ignored = nodeName === item.nodeName;
+        if (item.className)
+        {
+            ignored = ignored && (className.indexOf(item.className) !== -1);
+        }
+
+        if (ignored)
+        {
+            break;
+        }
+    }
+    return ignored;
 }
 
 /**
@@ -160,10 +195,20 @@ function _toggle()
  */
 function _toggleComment()
 {
-    const ct = _query(".ContentItem-actions > button:nth-child(2)");
-    if (ct)
+    const close = document.querySelector(".Modal.Modal--fullPage > button");
+    if (close)
     {
-        ct.click();
+        // should close the dialog when comment dialog is shown.
+        close.click();
+    }
+    else
+    {
+        // otherwise expand/collapse the comment.
+        const comment = _query(".ContentItem-actions > button:nth-child(2)");
+        if (comment)
+        {
+            comment.click();
+        }
     }
 }
 
