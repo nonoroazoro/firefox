@@ -14,7 +14,7 @@
 // @include     https://login.taobao.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.2.5
+// @version     1.2.6
 // @grant       none
 // ==/UserScript==
 
@@ -135,20 +135,7 @@ const getLazyActions = () =>
 {
     const actions = [];
 
-    if (host === "forum.gamer.com.tw")
-    {
-        // 巴哈姆特。
-
-        // 自动开启图片。
-        actions.push(() =>
-        {
-            if (window.forumShowAllMedia)
-            {
-                window.forumShowAllMedia();
-            }
-        });
-    }
-    else if (host === "tieba.baidu.com")
+    if (host === "tieba.baidu.com")
     {
         // 贴吧。
 
