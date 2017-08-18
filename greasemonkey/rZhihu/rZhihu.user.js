@@ -6,7 +6,7 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.1.2
+// @version         1.1.3
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
@@ -217,10 +217,19 @@ function _toggleComment()
  */
 function _unlike()
 {
-    const element = _query("button:first-child");
-    if (element && element.innerText !== "广告")
+    let element = _query("button:first-child");
+    if (element)
     {
-        element.click();
+        if (element.innerText === "广告")
+        {
+            element.click();
+            element = document.querySelector(".Menu > button:first-child");
+        }
+
+        if (element)
+        {
+            element.click();
+        }
     }
 }
 
