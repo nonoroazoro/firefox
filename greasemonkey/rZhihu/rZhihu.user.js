@@ -155,10 +155,10 @@ function _flip(index, ensureVisible = true)
         {
             if (targetIndex !== currentIndex)
             {
-                stories[currentIndex].style.borderColor = "#E7EAF1";
+                stories[currentIndex].style.border = "1px solid #E7EAF1";
             }
             currentIndex = targetIndex;
-            target.style.borderColor = "#A4D2F8";
+            target.style.border = "1px solid #A4D2F8";
 
             if (ensureVisible)
             {
