@@ -12,9 +12,10 @@
 // @include     http://tieba.baidu.com/*
 // @include     https://forum.gamer.com.tw/*
 // @include     https://login.taobao.com/*
+// @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.2.7
+// @version     1.2.8
 // @grant       none
 // ==/UserScript==
 
@@ -92,13 +93,11 @@ const getInstantActions = () =>
         // 默认显示密码登录（而非 QR 码登录）界面。
         actions.push(() =>
         {
-            // 始终显示密码登录。
-            let elems = document.querySelectorAll(`.static-form, .iconfont.static`);
-            elems.forEach(e => e.setAttribute("style", "display: block !important"));
-
-            // 删除扫码登录。
-            elems = document.querySelectorAll(`.login-switch, .login-tip, .iconfont.quick, .quick-form`);
-            elems.forEach(e => e.remove());
+            _disableQRLogin(
+                ".login-switch, .login-tip, .iconfont.quick, .quick-form",
+                ".static-form, .iconfont.static",
+                `input[name="TPL_username"]`
+            );
         });
     }
     else if (host === "passport.jd.com")
@@ -108,13 +107,25 @@ const getInstantActions = () =>
         // 默认显示密码登录（而非 QR 码登录）界面。
         actions.push(() =>
         {
-            // 删除扫码登录。
-            let elems = document.querySelectorAll(`.login-tab, .login-box > .mt.tab-h, .qrcode-login, #qrCoagent`);
-            elems.forEach(e => e.remove());
+            _disableQRLogin(
+                ".login-tab, .login-box > .mt.tab-h, .qrcode-login, #qrCoagent",
+                ".login-box, #entry",
+                `input[name="loginname"]`
+            );
+        });
+    }
+    else if (host === "login.xiami.com")
+    {
+        // 虾米。
 
-            // 始终显示密码登录。
-            elems = document.querySelectorAll(`.login-box, #entry`);
-            elems.forEach(e => e.setAttribute("style", "display: block !important; visibility: visible !important;"));
+        // 默认显示密码登录（而非 QR 码登录）界面。
+        actions.push(() =>
+        {
+            _disableQRLogin(
+                ".login-switch, .login-qrcode, .qrcode-tips",
+                ".login-xm",
+                `input[name="account"]`
+            );
         });
     }
     else if (/^(.+\.)?github\./.test(host))
@@ -206,5 +217,29 @@ function _disableKeydown(p_keys)
                 e.stopPropagation();
             }
         }, true);
+    }
+}
+
+/**
+ * 默认显示密码登录（而非 QR 码登录）界面
+ */
+function _disableQRLogin(p_hide, p_show, p_focus)
+{
+    // 删除扫码登录。
+    let elems = document.querySelectorAll(p_hide);
+    elems.forEach(e => e.remove());
+
+    // 始终显示密码登录。
+    elems = document.querySelectorAll(p_show);
+    elems.forEach(e => e.setAttribute("style", "display: block !important; visibility: visible !important;"));
+
+    // 自动聚焦用户名输入框。
+    if (p_focus)
+    {
+        const elem = document.querySelector(p_focus);
+        if (elem)
+        {
+            setTimeout(() => elem.select(), 300);
+        }
     }
 }
