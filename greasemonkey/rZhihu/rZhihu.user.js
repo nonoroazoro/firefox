@@ -6,12 +6,13 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.1.3
+// @version         1.1.4
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
 // ==/UserScript==
 
+const DATA_SET_NAME = "data-za-extra-module";
 let currentIndex = 0;
 let inProgress = false;
 let maxIndex = -1;
@@ -318,7 +319,7 @@ function update(mutations)
     {
         try
         {
-            const index = JSON.parse(storyContainer.dataset["zaModuleInfo"])["list"]["list_size"] - 1;
+            const index = JSON.parse(storyContainer.getAttribute(DATA_SET_NAME))["list"]["list_size"] - 1;
             if (index !== maxIndex)
             {
                 maxIndex = index;
@@ -343,7 +344,7 @@ function observe(element, callback)
     {
         (new window.MutationObserver(debounce(callback))).observe(element, {
             attributes: true,
-            attributeFilter: ["data-za-module-info"]
+            attributeFilter: [DATA_SET_NAME]
         });
     }
 }
