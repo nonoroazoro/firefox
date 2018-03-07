@@ -11,11 +11,12 @@
 // @include     http://poedb.tw/dps*
 // @include     http://tieba.baidu.com/*
 // @include     https://forum.gamer.com.tw/*
+// @include     https://auth.alipay.com/*
 // @include     https://login.taobao.com/*
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.2.8
+// @version     1.2.9
 // @grant       none
 // ==/UserScript==
 
@@ -97,6 +98,20 @@ const getInstantActions = () =>
                 ".login-switch, .login-tip, .iconfont.quick, .quick-form",
                 ".static-form, .iconfont.static",
                 `input[name="TPL_username"]`
+            );
+        });
+    }
+    else if (host === "auth.alipay.com")
+    {
+        // 支付宝。
+
+        // 默认显示密码登录（而非 QR 码登录）界面。
+        actions.push(() =>
+        {
+            _disableQRLogin(
+                "#J-qrcode",
+                "#J-login",
+                "#J-input-user"
             );
         });
     }
