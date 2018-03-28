@@ -16,11 +16,29 @@
         }
     },
     "permissions": [
+        "storage",
         "tabs"
     ],
     "background": {
         "scripts": [
-            "backgrounds/background.js"
+            "background.js"
         ]
-    }
+    },
+    "content_scripts": [
+        {
+            "matches": [
+                "http://*/*",
+                "https://*/*"
+            ],
+            "exclude_matches": [
+                "http://localhost/*"
+            ],
+            "js": [
+                "vendor/mousetrap.min.js",
+                "common/storage.js",
+                "contentscripts.js"
+            ],
+            "run_at": "document_end"
+        }
+    ]
 }
