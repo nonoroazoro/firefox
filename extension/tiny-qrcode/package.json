@@ -13,18 +13,19 @@
     "url": "https://github.com/nonoroazoro/firefox/tree/master/extension/tiny-qrcode"
   },
   "keywords": [
-    "firefox",
     "extension",
+    "firefox",
     "qr",
-    "qrcode"
+    "qrcode",
+    "webextension"
   ],
   "scripts": {
     "build": "gulp"
   },
   "devDependencies": {
-    "del": "^2.2.2",
+    "del": "^3.0.0",
     "gulp": "^3.9.1",
     "gulp-task-listing": "^1.0.1",
-    "gulp-zip": "^4.0.0"
+    "gulp-zip": "^4.1.0"
   }
 }
