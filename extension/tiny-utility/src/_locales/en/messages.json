@@ -1,0 +1,10 @@
+{
+    "extensionName": {
+        "message": "Tiny Utility",
+        "description": "Name of the extension."
+    },
+    "extensionDescription": {
+        "message": "Offering utilities which can not be implemented in UserChromeJS.",
+        "description": "Description of the extension."
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "extensionName": {
+        "message": "Tiny Utility",
+        "description": "Name of the extension."
+    },
+    "extensionDescription": {
+        "message": "以 Web Extension 的形式提供那些无法在 UserChromeJS 中使用的工具。",
+        "description": "Description of the extension."
+    }
+}

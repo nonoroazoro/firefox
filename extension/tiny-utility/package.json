@@ -1,0 +1,30 @@
+{
+  "name": "tiny-utility",
+  "description": "A Firefox web extension, Offering utilities which can not be implemented in UserChromeJS.",
+  "version": "1.0.0",
+  "author": {
+    "name": "nonoroazoro",
+    "email": "xiaochao.k@gmail.com"
+  },
+  "license": "MIT",
+  "main": "src/manifest.json",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/nonoroazoro/firefox/tree/master/extension/tiny-utility"
+  },
+  "keywords": [
+    "extension",
+    "firefox",
+    "utility",
+    "webextension"
+  ],
+  "scripts": {
+    "build": "gulp"
+  },
+  "devDependencies": {
+    "del": "^3.0.0",
+    "gulp": "^3.9.1",
+    "gulp-task-listing": "^1.0.1",
+    "gulp-zip": "^4.1.0"
+  }
+}
