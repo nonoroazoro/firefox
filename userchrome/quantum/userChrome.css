@@ -1,0 +1,19 @@
+@namespace url(http://www.mozilla.org/keymaster/gatekeeper/there.is.only.xul);
+
+/* Do not modify this style. */
+toolbarbutton#alltabs-button
+{
+    -moz-binding: url("userChrome.xml#js");
+}
+
+/* Hide unused panel button. */
+#PanelUI-button
+{
+    display: none;
+}
+
+/* Hide unused location bar items. */
+#pageActionButton, #reader-mode-button, #urlbar-zoom-button
+{
+    display: none;
+}
