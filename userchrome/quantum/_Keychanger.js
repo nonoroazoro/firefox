@@ -74,9 +74,6 @@ return {
         document.getElementById("menu_eyedropper").doCommand();
     },
 
-    // Reader Mode
-    // "Alt+K": "ReaderParent.toggleReaderMode(event);",
-
     // Undo Closed Tab
     "Alt+Z": "undoCloseTab();",
 
@@ -161,12 +158,6 @@ return {
     "Alt+J": function ()
     {
         document.getElementById("tongwen_softcup-browser-action").doCommand();
-    },
-
-    // Convert to Traditional Chinese
-    "Ctrl+Alt+J": function ()
-    {
-        TongWen.trans(TongWen.TRAFLAG);
     },
 
     // Net Video Hunter
