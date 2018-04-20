@@ -2,30 +2,44 @@ console.log("=== tiny-utility contentscripts loaded ===");
 
 /* global Mousetrap, TinyStorage */
 
-const KEYBOARD_SHORTCUTS = {
-    "f3": function handler(e)
-    {
-        // Dictionary
-        e.preventDefault();
+const STORAGE_DICT_SEARCH_ENGINE = "dictSearchEngine";
+const STORAGE_DICT_SEARCH_SHORTCUT = "dictSearchShortcut";
 
-        let url = "http://dict.youdao.com";
-        const select = getSelectedText();
-        if (select !== "")
+const DICT_SEARCH_ENGINES = {
+    "youdao": {
+        getSearchUrl(select)
         {
-            url = `${url}/search?q=${encodeURI(select)}`;
+            let url = "http://dict.youdao.com";
+            if (select)
+            {
+                url = `${url}/search?q=${encodeURI(select)}`;
+            }
+            return url;
         }
-
-        browser.runtime.sendMessage({
-            payload: url,
-            type: "openLink"
-        });
+    },
+    "iciba": {
+        getSearchUrl(select)
+        {
+            let url = "http://www.iciba.com";
+            if (select)
+            {
+                url = `${url}/${encodeURI(select)}`;
+            }
+            return url;
+        }
+    },
+    "bing": {
+        getSearchUrl(select)
+        {
+            let url = "https://cn.bing.com/dict";
+            if (select)
+            {
+                url = `${url}/search?q=${encodeURI(select)}`;
+            }
+            return url;
+        }
     }
 };
-
-function bindKeyboardShortcut(combo, callback)
-{
-    Mousetrap.bind(combo, callback);
-}
 
 function getSelectedText()
 {
@@ -52,7 +66,29 @@ function getSelectedText()
     return text;
 }
 
-Object.keys(KEYBOARD_SHORTCUTS).forEach((key) =>
+async function bindKeyboardShortcuts()
 {
-    bindKeyboardShortcut(key, KEYBOARD_SHORTCUTS[key]);
-});
+    const searchShortcut = await TinyStorage.get(STORAGE_DICT_SEARCH_SHORTCUT) || "f3";
+    const shortcuts = {
+        [searchShortcut]: async function handler(e)
+        {
+            // Dictionary Search.
+            e.preventDefault();
+
+            const searchEngine = await TinyStorage.get(STORAGE_DICT_SEARCH_ENGINE);
+            const engine = DICT_SEARCH_ENGINES[searchEngine] || STORAGE_DICT_SEARCH_ENGINE["youdao"];
+            const url = engine.getSearchUrl(getSelectedText());
+            browser.runtime.sendMessage({
+                payload: url,
+                type: "openLink"
+            });
+        }
+    };
+
+    Object.keys(shortcuts).forEach((key) =>
+    {
+        Mousetrap.bind(key, shortcuts[key]);
+    });
+}
+
+bindKeyboardShortcuts();
