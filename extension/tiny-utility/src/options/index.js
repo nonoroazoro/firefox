@@ -32,7 +32,7 @@ async function restoreOptions()
         }
     }
 
-    const searchShortcut = await TinyStorage.get(STORAGE_DICT_SEARCH_SHORTCUT) || "";
+    const searchShortcut = await TinyStorage.get(STORAGE_DICT_SEARCH_SHORTCUT) || "f3";
     shortcutElement.value = searchShortcut.toUpperCase();
 }
 

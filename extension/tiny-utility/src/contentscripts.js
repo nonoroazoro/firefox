@@ -76,7 +76,7 @@ async function bindKeyboardShortcuts()
             e.preventDefault();
 
             const searchEngine = await TinyStorage.get(STORAGE_DICT_SEARCH_ENGINE);
-            const engine = DICT_SEARCH_ENGINES[searchEngine] || STORAGE_DICT_SEARCH_ENGINE["youdao"];
+            const engine = DICT_SEARCH_ENGINES[searchEngine] || DICT_SEARCH_ENGINES["youdao"];
             const url = engine.getSearchUrl(getSelectedText());
             browser.runtime.sendMessage({
                 payload: url,
