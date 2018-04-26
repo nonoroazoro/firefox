@@ -7,16 +7,17 @@
 // @include     /^https?:\/\/(.+\.)?github\./
 // @include     http://bbs.3dmgame.com/*
 // @include     http://bbs.kafan.cn/*
+// @include     http://css-blocks.com/*
 // @include     http://forum.gamer.com.tw/*
 // @include     http://poedb.tw/dps*
 // @include     http://tieba.baidu.com/*
-// @include     https://forum.gamer.com.tw/*
 // @include     https://auth.alipay.com/*
+// @include     https://forum.gamer.com.tw/*
 // @include     https://login.taobao.com/*
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.2.9
+// @version     1.3.0
 // @grant       none
 // ==/UserScript==
 
@@ -149,6 +150,13 @@ const getInstantActions = () =>
 
         // 禁用快捷键: "s"，"w"。
         _disableKeydown("s w");
+    }
+    else if (host === "css-blocks.com")
+    {
+        // css-blocks
+
+        // 禁用快捷键: "s"，"w"。
+        _disableKeydown("s w 1 2");
     }
 
     return actions;
