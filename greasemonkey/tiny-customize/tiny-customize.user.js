@@ -10,6 +10,7 @@
 // @include     http://css-blocks.com/*
 // @include     http://forum.gamer.com.tw/*
 // @include     http://poedb.tw/dps*
+// @include     http://subhd.com/*
 // @include     http://tieba.baidu.com/*
 // @include     https://auth.alipay.com/*
 // @include     https://forum.gamer.com.tw/*
@@ -17,7 +18,7 @@
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.3.0
+// @version     1.3.1
 // @grant       none
 // ==/UserScript==
 
@@ -86,6 +87,16 @@ const getInstantActions = () =>
             {
                 setTimeout(() => form.submit(), 0);
             });
+        });
+    }
+    else if (host === "subhd.com")
+    {
+        // Sub HD
+
+        // 禁止弹窗。
+        actions.push(() =>
+        {
+            window.open = _noop;
         });
     }
     else if (host === "login.taobao.com")
