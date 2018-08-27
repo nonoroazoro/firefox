@@ -1,4 +1,4 @@
-console.log("=== tiny-utility contentscripts loaded ===");
+// console.log("=== tiny-utility contentscripts loaded ===");
 
 /* global Mousetrap, TinyStorage */
 
@@ -35,6 +35,17 @@ const DICT_SEARCH_ENGINES = {
             if (select)
             {
                 url = `${url}/search?q=${encodeURI(select)}`;
+            }
+            return url;
+        }
+    },
+    "cambridge": {
+        getSearchUrl(select)
+        {
+            let url = "https://dictionary.cambridge.org/dictionary/english";
+            if (select)
+            {
+                url = `${url}/${encodeURI(select)}`;
             }
             return url;
         }

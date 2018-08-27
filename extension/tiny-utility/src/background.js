@@ -1,4 +1,4 @@
-console.log("=== tiny-utility background loaded ===");
+// console.log("=== tiny-utility background loaded ===");
 
 browser.runtime.onMessage.addListener(handleMessage);
 
