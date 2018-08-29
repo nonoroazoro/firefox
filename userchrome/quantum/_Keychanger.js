@@ -57,7 +57,10 @@ return {
     "Alt+D": "gURLBar.focus();",
 
     // Clear History
-    "Alt+Delete": `Components.classes["@mozilla.org/browser/browserglue;1"].getService(Components.interfaces.nsIBrowserGlue).sanitize(window);`,
+    "Alt+Delete": function ()
+    {
+        document.getElementById("sanitizeItem").doCommand();
+    },
 
     // Home Page
     "Alt+Home": "BrowserHome();",
@@ -73,6 +76,9 @@ return {
     {
         document.getElementById("menu_eyedropper").doCommand();
     },
+
+    // Reader Mode
+    // "Alt+K": "ReaderParent.toggleReaderMode(event);",
 
     // Undo Closed Tab
     "Alt+Z": "undoCloseTab();",
@@ -158,6 +164,12 @@ return {
     "Alt+J": function ()
     {
         document.getElementById("tongwen_softcup-browser-action").doCommand();
+    },
+
+    // Convert to Traditional Chinese
+    "Ctrl+Alt+J": function ()
+    {
+        TongWen.trans(TongWen.TRAFLAG);
     },
 
     // Net Video Hunter
