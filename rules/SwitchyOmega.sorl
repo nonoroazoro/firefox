@@ -344,6 +344,7 @@
 *.skype.com
 *.skypeassets.com
 *.slack-edge.com
+*.slack-msgs.com
 *.slack.com
 *.snipaste.com
 *.socket.io
