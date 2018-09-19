@@ -1,7 +1,7 @@
 ! Title: Tiny uBlock filters
 ! Expires: 4 days
 ! Description: Filters optimized by nonoroazoro, mainly used for blocking annoying elements.
-! Homepage: https://github.com/nonoroazoro/firefox/blob/master/rules/uBlockOriginFilters.txt
+! Homepage: https://github.com/nonoroazoro/firefox/blob/master/rules/uBlockFilters.txt
 
 act.feng.com##.quick_links
 bbs.d.163.com##.btn-donwload-client-msg
