@@ -8,6 +8,7 @@ bbs.nga.cn###selectTextHintWindow
 bbs.ngacn.cc###selectTextHintWindow
 blog.163.com##.js-show-regGuideLayer.f-trans.m-regGuideLayer
 blog.csdn.net##.save_code
+dict.youdao.com##.c-logo
 dict.youdao.com##.dialog-guide-download
 dict.youdao.com###follow
 dj.iciba.com##.fr.side
