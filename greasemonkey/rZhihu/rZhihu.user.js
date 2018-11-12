@@ -12,10 +12,10 @@
 // @include         https://www.zhihu.com/#*
 // ==/UserScript==
 
-const DATA_SET_NAME = "data-za-extra-module";
 let currentIndex = 0;
 let inProgress = false;
 let maxIndex = -1;
+let currentTopic = null;
 let stories = null;
 let storyContainer = null;
 const ignoreList = [
@@ -33,13 +33,13 @@ const ignoreList = [
 
 function start()
 {
-    storyContainer = document.querySelector(".TopstoryMain");
+    storyContainer = document.getElementById("TopstoryContent");
     observe(storyContainer, update);
-    storyContainer.addEventListener("click", _clickHandler);
-    document.body.addEventListener("keydown", _keydownHandler);
+    storyContainer.addEventListener("click", _handleClick);
+    document.body.addEventListener("keydown", _handleKeydown);
 }
 
-function _clickHandler(e)
+function _handleClick(e)
 {
     // highlight the clicked story.
     const index = _getIndexOfStory(_getAncestor(e.target, "TopstoryItem"));
@@ -49,7 +49,7 @@ function _clickHandler(e)
     }
 }
 
-function _keydownHandler(e)
+function _handleKeydown(e)
 {
     if (!stories || _isIgnored(e.target) || e.altKey || e.shiftKey || e.ctrlKey || e.metaKey)
     {
@@ -304,7 +304,7 @@ function _getAncestor(element, className)
 }
 
 /**
- * get the index of story.
+ * Gets the index of the story.
  *
  * @param {Element} story
  * @returns {number}
@@ -319,30 +319,43 @@ function _getIndexOfStory(story)
 }
 
 /**
- * update after the original zhihu story list is loaded.
+ * Gets all the stories.
+ */
+// function _getStories()
+// {
+//     return document.querySelectorAll("#TopstoryContent .Card.TopstoryItem");
+// }
+
+/**
+ * Update after the original zhihu story list is loaded.
  */
 function update(mutations)
 {
     if (mutations.length > 0)
     {
-        try
+        const topicContainer = storyContainer.children[0];
+        if (topicContainer)
         {
-            const index = JSON.parse(storyContainer.getAttribute(DATA_SET_NAME))["list"]["list_size"] - 1;
-            if (index !== maxIndex)
+            if (topicContainer.className !== currentTopic)
             {
-                maxIndex = index;
-                stories = document.querySelectorAll(".Card.TopstoryItem");
+                // Switch topic and reset index.
+                currentIndex = 0;
+                currentTopic = topicContainer.className;
+            }
+
+            const subContainer = topicContainer.children[0];
+            if (subContainer)
+            {
+                maxIndex = subContainer.children.length - 1;
+                stories = subContainer.querySelectorAll(".Card.TopstoryItem");
+                return;
             }
         }
-        catch (e)
-        {
-            const index = storyContainer.children.length - 1;
-            if (index !== maxIndex)
-            {
-                maxIndex = index;
-                stories = storyContainer.children;
-            }
-        }
+
+        // Reset.
+        currentIndex = 0;
+        maxIndex = -1;
+        stories = [];
     }
 }
 
@@ -351,8 +364,8 @@ function observe(element, callback)
     if (element && typeof callback === "function")
     {
         (new window.MutationObserver(debounce(callback))).observe(element, {
-            attributes: true,
-            attributeFilter: [DATA_SET_NAME]
+            childList: true,
+            subtree: true
         });
     }
 }
