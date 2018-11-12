@@ -234,23 +234,28 @@ function _toggleComment()
  */
 function _unlike()
 {
-    let element = _query("button:first-child");
-    if (element)
+    const undo = _query("button:first-child");
+    if (undo && undo.textContent === "撤销")
     {
-        if (element.textContent === "广告")
-        {
-            element.click();
-            element = document.querySelector(".Menu > button:first-child");
-        }
-
+        undo.click();
+    }
+    else
+    {
+        const element = _query(".ContentItem-actions > .Popover > button:last-child");
         if (element)
         {
             element.click();
-            if (element.textContent !== "撤销")
+            Promise.resolve().then(() =>
             {
-                // auto-next
-                _next();
-            }
+                const unlike = document.querySelector(".Menu.AnswerItem-selfMenu button:last-child");
+                if (unlike && unlike.textContent === "不感兴趣")
+                {
+                    unlike.click();
+
+                    // auto-next
+                    _next();
+                }
+            });
         }
     }
 }
