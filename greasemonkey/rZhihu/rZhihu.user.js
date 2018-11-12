@@ -12,10 +12,11 @@
 // @include         https://www.zhihu.com/#*
 // ==/UserScript==
 
-let currentIndex = 0;
+let currentIndex = -1;
 let inProgress = false;
 let maxIndex = -1;
 let currentTopic = null;
+let currentTopicStrip = null;
 let stories = null;
 let storyContainer = null;
 const ignoreList = [
@@ -33,10 +34,22 @@ const ignoreList = [
 
 function start()
 {
+    initCurrentTopicStrip();
     storyContainer = document.getElementById("TopstoryContent");
     observe(storyContainer, update);
     storyContainer.addEventListener("click", _handleClick);
     document.body.addEventListener("keydown", _handleKeydown);
+}
+
+function initCurrentTopicStrip()
+{
+    currentTopicStrip = document.createElement("div");
+    currentTopicStrip.style.position = "absolute";
+    currentTopicStrip.style.right = "0";
+    currentTopicStrip.style.top = "0";
+    currentTopicStrip.style.bottom = "0";
+    currentTopicStrip.style.width = "1px";
+    currentTopicStrip.style.backgroundColor = "#6cb8ff";
 }
 
 function _handleClick(e)
@@ -113,7 +126,7 @@ function _isIgnored(target)
 }
 
 /**
- * flip to next story.
+ * Flip to next story.
  */
 function _next()
 {
@@ -121,7 +134,7 @@ function _next()
 }
 
 /**
- * flip to previous story.
+ * Flip to previous story.
  */
 function _prev()
 {
@@ -129,7 +142,7 @@ function _prev()
 }
 
 /**
- * flip to story.
+ * Flip to story.
  *
  * @param {number} index
  * @param {boolean} [ensureVisible=true]
@@ -154,16 +167,16 @@ function _flip(index, ensureVisible = true)
         const target = stories[targetIndex];
         if (target)
         {
-            if (targetIndex !== currentIndex)
-            {
-                stories[currentIndex].style.border = "1px solid #E7EAF1";
-            }
             currentIndex = targetIndex;
-            target.style.border = "1px solid #A4D2F8";
-
+            // Show strip.
+            stories[currentIndex].appendChild(currentTopicStrip);
             if (ensureVisible)
             {
-                window.scrollTo(0, target.offsetTop);
+                window.scrollTo({
+                    left: 0,
+                    top: target.offsetTop - target.offsetHeight,
+                    behavior: "smooth"
+                });
             }
         }
 
@@ -172,7 +185,7 @@ function _flip(index, ensureVisible = true)
 }
 
 /**
- * toggle story expand/collapse.
+ * Toggle story expand/collapse.
  */
 function _toggle()
 {
@@ -192,7 +205,7 @@ function _toggle()
 }
 
 /**
- * toggle comment expand/collapse.
+ * Toggle comment expand/collapse.
  */
 function _toggleComment()
 {
@@ -217,7 +230,7 @@ function _toggleComment()
 }
 
 /**
- * toggle story unlike.
+ * Toggle story unlike.
  */
 function _unlike()
 {
@@ -243,7 +256,7 @@ function _unlike()
 }
 
 /**
- * open current story in a new tab.
+ * Open current story in a new tab.
  */
 function _openInNewTab()
 {
@@ -258,7 +271,7 @@ function _openInNewTab()
 }
 
 /**
- * find the specified element in current story.
+ * Finds the specified element in current story.
  *
  * @param {string} selector
  * @returns {Element}
@@ -277,7 +290,7 @@ function _query(selector)
 }
 
 /**
- * get ancestor of the element with specified class name.
+ * Gets the ancestor of the element with specified class name.
  *
  * @param {Element} element
  * @param {string} className
@@ -319,15 +332,7 @@ function _getIndexOfStory(story)
 }
 
 /**
- * Gets all the stories.
- */
-// function _getStories()
-// {
-//     return document.querySelectorAll("#TopstoryContent .Card.TopstoryItem");
-// }
-
-/**
- * Update after the original zhihu story list is loaded.
+ * Updates after the story list is loaded.
  */
 function update(mutations)
 {
@@ -339,21 +344,22 @@ function update(mutations)
             if (topicContainer.className !== currentTopic)
             {
                 // Switch topic and reset index.
-                currentIndex = 0;
+                currentIndex = -1;
                 currentTopic = topicContainer.className;
             }
 
             const subContainer = topicContainer.children[0];
             if (subContainer)
             {
-                maxIndex = subContainer.children.length - 1;
-                stories = subContainer.querySelectorAll(".Card.TopstoryItem");
+                // Ignore adverts.
+                stories = subContainer.querySelectorAll(".Card.TopstoryItem:not(.TopstoryItem--advertCard)");
+                maxIndex = stories.length - 1;
                 return;
             }
         }
 
         // Reset.
-        currentIndex = 0;
+        currentIndex = -1;
         maxIndex = -1;
         stories = [];
     }
@@ -363,7 +369,7 @@ function observe(element, callback)
 {
     if (element && typeof callback === "function")
     {
-        (new window.MutationObserver(debounce(callback))).observe(element, {
+        (new window.MutationObserver(callback)).observe(element, {
             childList: true,
             subtree: true
         });
@@ -382,7 +388,7 @@ function debounce(callback, delay = 500)
 }
 
 /**
- * check if run-at is working correctly.
+ * Check if run-at is working correctly.
  */
 function isRunAtAvailabe()
 {
