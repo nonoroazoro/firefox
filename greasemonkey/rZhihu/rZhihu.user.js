@@ -48,7 +48,7 @@ function initCurrentTopicStrip()
     currentTopicStrip.style.right = "0";
     currentTopicStrip.style.top = "0";
     currentTopicStrip.style.bottom = "0";
-    currentTopicStrip.style.width = "1px";
+    currentTopicStrip.style.width = "2px";
     currentTopicStrip.style.backgroundColor = "#6cb8ff";
 }
 
