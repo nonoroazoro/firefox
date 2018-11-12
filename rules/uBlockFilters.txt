@@ -87,6 +87,7 @@ www.jscd.gov.cn##.bdselect_share_bg
 www.jscd.gov.cn##.bdselect_share_box
 www.zhangxinxu.com##.shink_rel
 www.zhangxinxu.com###sidebar
+www.zhihu.com##.AppHeader-inner > [href="//www.zhihu.com"]
 www.zhihu.com##.TopstoryPageHeader-main > [href="//www.zhihu.com"]
 www.zhihu.com###zh-tooltip
 zhuanlan.zhihu.com##.ColumnPageHeader.Sticky
