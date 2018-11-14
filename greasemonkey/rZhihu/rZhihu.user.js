@@ -6,12 +6,13 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rZhihu
 // @namespace       https://greasyfork.org/zh-CN/scripts/30036-rzhihu
 // @grant           none
-// @version         1.2.0
+// @version         1.2.1
 // @run-at          document-end
 // @include         https://www.zhihu.com/
 // @include         https://www.zhihu.com/#*
 // ==/UserScript==
 
+let headerHeight = 0;
 let currentIndex = -1;
 let inProgress = false;
 let maxIndex = -1;
@@ -39,6 +40,12 @@ function start()
     observe(storyContainer, update);
     storyContainer.addEventListener("click", _handleClick);
     document.body.addEventListener("keydown", _handleKeydown);
+
+    const header = document.querySelector(".AppHeader");
+    if (header)
+    {
+        headerHeight = (header.offsetHeight || 50) + 10;
+    }
 }
 
 function initCurrentTopicStrip()
@@ -174,7 +181,7 @@ function _flip(index, ensureVisible = true)
             {
                 window.scrollTo({
                     left: 0,
-                    top: target.offsetTop - target.offsetHeight,
+                    top: target.offsetTop - headerHeight,
                     behavior: "smooth"
                 });
             }
