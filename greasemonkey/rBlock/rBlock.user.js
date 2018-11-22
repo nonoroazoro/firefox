@@ -6,7 +6,7 @@
 // @homepageURL     https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/rBlock
 // @namespace       https://greasyfork.org/zh-CN/scripts/20568-rblock
 // @grant           none
-// @version         1.3.7
+// @version         1.3.8
 // @run-at          document-end
 // @include         /^https?:\/\/(.+\.)?google\./
 // @include         /^https?:\/\/(.+\.)?zhihu\./
@@ -131,7 +131,7 @@ const rBlock = {
                     // 1. general
                     revealURL(
                         document.querySelectorAll(`a[href*="?url="]`),
-                        /.*url=(http[^&]+)/i
+                        /.*url=(http.+)/i
                     );
                 }
             });
