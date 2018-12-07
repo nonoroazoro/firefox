@@ -12,13 +12,14 @@
 // @include     http://poedb.tw/dps*
 // @include     http://subhd.com/*
 // @include     http://tieba.baidu.com/*
+// @include     http://www.ruanyifeng.com/*
 // @include     https://auth.alipay.com/*
 // @include     https://forum.gamer.com.tw/*
 // @include     https://login.taobao.com/*
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.3.1
+// @version     1.3.2
 // @grant       none
 // ==/UserScript==
 
@@ -46,6 +47,22 @@ const getInstantActions = () =>
                 window.AntiAd.verifyLink = () => false;
             }
         });
+    }
+    else if (host === "www.ruanyifeng.com")
+    {
+        const elem = document.querySelector("#main-content");
+        if (elem)
+        {
+            const backup = elem.innerHTML;
+            setTimeout(() =>
+            {
+                elem.innerHTML = backup;
+                if (elem.previousElementSibling)
+                {
+                    elem.previousElementSibling.remove();
+                }
+            }, 1001);
+        }
     }
     else if (
         host === "bbs.kafan.cn" ||
@@ -83,7 +100,7 @@ const getInstantActions = () =>
                 }
             });
 
-            elem.addEventListener("paste", (e) =>
+            elem.addEventListener("paste", () =>
             {
                 setTimeout(() => form.submit(), 0);
             });
