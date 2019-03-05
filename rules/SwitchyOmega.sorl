@@ -208,7 +208,6 @@
 *.jquery.com
 *.js.org
 *.jsbin.com
-*.jsdelivr.net
 *.jsfiddle.net
 *.jshell.net
 *.jsonview.com
@@ -235,6 +234,7 @@
 *.mega.nz
 *.microsoft.com
 *.mikocon.com
+*.mitmproxy.org
 *.momentcdn.net
 *.momentjs.cn
 *.mongodb.com
@@ -248,6 +248,7 @@
 *.mydigitallife.net
 *.ndpsoftware.com
 *.netspotapp.com
+*.nextcloud.com
 *.nexusmods.com
 *.nginx.com
 *.node.green
@@ -429,6 +430,7 @@
 *.windows.net
 *.wistia.com
 *.wnacg.download
+*.wnacg.org
 *.wnacg.us
 *.wolframalpha.com
 *.wordpress.com
