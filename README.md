@@ -1,3 +1,3 @@
 # firefox
 
-Extensions, Greasemonkey Scripts, UserChromeJS of Firefox.
+Customized Extensions, Scripts, UserChromeJS and Rules of Firefox.
