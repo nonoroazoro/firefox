@@ -61,18 +61,15 @@ www.3dmgame.com##.head
 www.3dmgame.com##.head_top
 www.3dmgame.com##.yxFenlei
 www.chiphell.com##.bdshare-slide-button-box
-www.douyu.com##.Bottom-Guess
-www.douyu.com##.FlashVersionTips
+www.douyu.com##.Background-holder
 www.douyu.com##.Header-broadcast-wrap
 www.douyu.com##.Header-download-wrap
-www.douyu.com##.layout-Aside
+www.douyu.com##.Header-menu > .Header-menu-link:nth-child(n+4)
+www.douyu.com##.Header-yubamessage-wrap
 www.douyu.com##.layout-Player-aside
 www.douyu.com##.layout-Player-asideToggle
-www.douyu.com##.Promotion
-www.douyu.com##.Task
-www.douyu.com##.Wallet
-www.douyu.com###js-bottom
-www.douyu.com###js-player-toolbar
+www.douyu.com##.LotteryContainer-svgaWrap
+www.douyu.com##.PlayerToolbar
 www.facebook.com###pagelet_growth_expanding_cta
 www.iciba.com##.ad-sign
 www.iciba.com##.cb-downloadbar
