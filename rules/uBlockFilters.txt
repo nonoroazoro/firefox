@@ -62,6 +62,7 @@ www.3dmgame.com##.head_top
 www.3dmgame.com##.yxFenlei
 www.chiphell.com##.bdshare-slide-button-box
 www.douyu.com##.Background-holder
+www.douyu.com##.Bottom
 www.douyu.com##.Header-broadcast-wrap
 www.douyu.com##.Header-download-wrap
 www.douyu.com##.Header-menu > .Header-menu-link:nth-child(n+4)
@@ -70,6 +71,8 @@ www.douyu.com##.layout-Player-aside
 www.douyu.com##.layout-Player-asideToggle
 www.douyu.com##.LotteryContainer-svgaWrap
 www.douyu.com##.PlayerToolbar
+www.douyu.com###js-aside
+www.douyu.com###js-player-guessgame
 www.facebook.com###pagelet_growth_expanding_cta
 www.iciba.com##.ad-sign
 www.iciba.com##.cb-downloadbar
