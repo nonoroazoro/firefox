@@ -28,11 +28,14 @@ koolshare.cn###toptb
 manhua.dmzj.com###app_manhua
 manhua.dmzj.com###bdshare
 manhua.dmzj.com###fixbdshare
+nba.stats.qq.com##.goal > .home
+nba.stats.qq.com##.goal > .visit
 nga.178.com###selectTextHintWindow
 pan.baidu.com##.banner-active
 pan.baidu.com##.link-item.find-light
 pianyuan.net##.bdshare-slide-button-box
 segmentfault.com##.widget-register
+sports.qq.com##.team > .score
 tieba.baidu.com##.app_download_box
 tieba.baidu.com##.aside_region.celebrity
 tieba.baidu.com##.dialogJ
