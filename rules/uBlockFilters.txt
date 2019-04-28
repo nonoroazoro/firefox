@@ -23,6 +23,7 @@ icons8.com##.app-intercom
 jsfiddle.net###s-bottom
 kbs.sports.qq.com##.info > .inner
 kbs.sports.qq.com##.match-situation > .team-info
+kbs.sports.qq.com##.schedule-item > .score
 koolshare.cn##.bdshare-slide-button-box
 koolshare.cn###toptb
 manhua.dmzj.com###app_manhua
