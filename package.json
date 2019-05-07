@@ -4,9 +4,12 @@
   "description": "Customized Extensions, Scripts, UserChromeJS and Rules of Firefox.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/nonoroazoro/firefox.git"
+    "url": "https://github.com/nonoroazoro/firefox"
   },
-  "author": "nonoroazoro",
+  "author": {
+    "email": "xiaochao.k@gmail.com",
+    "name": "nonoroazoro"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/nonoroazoro/firefox/issues"
