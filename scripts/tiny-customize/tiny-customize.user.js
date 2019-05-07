@@ -15,11 +15,12 @@
 // @include     http://www.ruanyifeng.com/*
 // @include     https://auth.alipay.com/*
 // @include     https://forum.gamer.com.tw/*
+// @include     https://kbs.sports.qq.com/*
 // @include     https://login.taobao.com/*
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.3.2
+// @version     1.3.3
 // @grant       none
 // ==/UserScript==
 
@@ -88,7 +89,7 @@ const getInstantActions = () =>
         // 屏蔽默认自动全选物品信息、自动查询物品信息。
         actions.push(() =>
         {
-            const elem = document.querySelector(`#iteminfo`);
+            const elem = document.querySelector("#iteminfo");
             const form = document.querySelector(`form[action^="dps"]`);
             elem.addEventListener("click", e => e.stopPropagation(), true);
             elem.addEventListener("keydown", (e) =>
@@ -218,10 +219,10 @@ const getLazyActions = () =>
         actions.push(() =>
         {
             let spans;
-            const elems = document.querySelectorAll(`#j_p_postlist > div`);
-            elems.forEach((e) =>
+            const elements = document.querySelectorAll("#j_p_postlist > div");
+            elements.forEach((e) =>
             {
-                spans = e.querySelectorAll(`.core_reply_tail span`);
+                spans = e.querySelectorAll(".core_reply_tail span");
                 for (const s of spans)
                 {
                     if (s.innerText.trim() === "商业推广")
@@ -231,6 +232,15 @@ const getLazyActions = () =>
                     }
                 }
             });
+        });
+    }
+    else if (host === "kbs.sports.qq.com")
+    {
+        // 删除比赛剧透。
+        const elements = document.querySelectorAll(".video-item .title");
+        elements.forEach((e) =>
+        {
+            e.textContent = e.textContent.slice(0, e.textContent.indexOf(" "));
         });
     }
 
@@ -277,12 +287,12 @@ function _disableKeydown(p_keys)
 function _disableQRLogin(p_hide, p_show, p_focus)
 {
     // 删除扫码登录。
-    let elems = document.querySelectorAll(p_hide);
-    elems.forEach(e => e.remove());
+    let elements = document.querySelectorAll(p_hide);
+    elements.forEach(e => e.remove());
 
     // 始终显示密码登录。
-    elems = document.querySelectorAll(p_show);
-    elems.forEach(e => e.setAttribute("style", "display: block !important; visibility: visible !important;"));
+    elements = document.querySelectorAll(p_show);
+    elements.forEach(e => e.setAttribute("style", "display: block !important; visibility: visible !important;"));
 
     // 自动聚焦用户名输入框。
     if (p_focus)
