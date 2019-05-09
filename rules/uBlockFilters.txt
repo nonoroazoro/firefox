@@ -24,6 +24,7 @@ jsfiddle.net###s-bottom
 kbs.sports.qq.com##.info > .inner
 kbs.sports.qq.com##.match-situation > .team-info
 kbs.sports.qq.com##.schedule-item > .score
+kbs.sports.qq.com##.txp_video_title
 koolshare.cn##.bdshare-slide-button-box
 koolshare.cn###toptb
 manhua.dmzj.com###app_manhua
