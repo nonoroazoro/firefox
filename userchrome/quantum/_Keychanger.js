@@ -21,27 +21,26 @@ return {
     // Reload Skip Cache
     "R": "BrowserReloadSkipCache();",
 
-    // InoReader
+    // Open InoReader
     "F1": function ()
     {
-        // gBrowser.selectedTab = gBrowser.addTab("https://www.inoreader.com");
-        openUILinkIn("https://www.inoreader.com", "tab");
+        Common.openURL("https://www.inoreader.com");
     },
 
-    // Google Cache of Current Page
+    // Open Google Cache of Current Page
     "F2": function ()
     {
-        const url = gBrowser.selectedBrowser.documentURI.spec;
+        const url = gBrowser.currentURI.spec;
         if (url !== "" && !url.startsWith("about:"))
         {
-            openUILinkIn(`https://www.google.com/search?q=cache:${encodeURI(url)}`, "tab");
+            Common.openURL(`https://www.google.com/search?q=cache:${url}`);
         }
     },
 
-    // Config Page
+    // Open About Page
     "F4": function ()
     {
-        openUILinkIn("about:about", "tab");
+        Common.openURL("about:about");
     },
 
     // Open Profiles Folder
@@ -105,6 +104,11 @@ return {
     "Ctrl+Alt+R": function ()
     {
         // "Services.appinfo.invalidateCachesOnRestart() || Application.restart();"
+        const XRE = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULRuntime);
+        if (typeof XRE.invalidateCachesOnRestart == "function")
+        {
+            XRE.invalidateCachesOnRestart();
+        }
         Components.classes["@mozilla.org/toolkit/app-startup;1"]
             .getService(Components.interfaces.nsIAppStartup)
             .quit(Components.interfaces.nsIAppStartup.eAttemptQuit | Components.interfaces.nsIAppStartup.eRestart);
@@ -155,15 +159,19 @@ return {
 
     // ******************************** Addons ********************************
     // RESTer
-    "F6": function ()
+    "F8": function ()
     {
-        openUILinkIn("moz-extension://dd361e60-ba04-b943-a334-cb33a505edfd/site/index.html", "tab");
+        Common.openURL("moz-extension://c449bbe8-33ff-c940-9840-c306167e216b/site/index.html");
     },
 
     // Convert to Simplified Chinese
     "Alt+J": function ()
     {
-        document.getElementById("tongwen_softcup-browser-action").doCommand();
+        document.getElementById("nav-bar-overflow-button").click();
+        setTimeout(() =>
+        {
+            document.getElementById("tongwen_softcup-browser-action").doCommand();
+        }, 250);
     },
 
     // Convert to Traditional Chinese

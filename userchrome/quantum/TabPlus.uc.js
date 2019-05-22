@@ -3,6 +3,7 @@
 // @namespace      https://github.com/nonoroazoro
 // @description    Enhance the Tabs.
 // @charset        UTF-8
+// @version        1.1  2019-05-22  Disable newTabRight.
 // @version        1.0  2018-03-20  Added support for Firefox Quantum.
 // ==/UserScript==
 
@@ -85,10 +86,10 @@ const TabPlus = {
      */
     newTabRight: function ()
     {
-        gBrowser.tabContainer.addEventListener("TabOpen", (e) =>
-        {
-            gBrowser.moveTabTo(e.target, gBrowser.mCurrentTab._tPos + 1);
-        });
+        // gBrowser.tabContainer.addEventListener("TabOpen", (e) =>
+        // {
+        //     gBrowser.moveTabTo(e.target, gBrowser.mCurrentTab._tPos + 1);
+        // });
     },
 
     /*
