@@ -61,5 +61,27 @@ const Common = {
             Services.console.logStringMessage(Object.keys(message).sort().join("\n"))
         }
         Services.console.logStringMessage(message);
+    },
+
+    /**
+     * Find the element of Firefox and do the command.
+     *
+     * @param {string} id The id of the addon.
+     * @param {boolean} [inNavbar=false] Indicates if the addon is currently hidden in the nav bar.
+     */
+    doCommand(id, inNavbar = false)
+    {
+        if (inNavbar)
+        {
+            document.getElementById("nav-bar-overflow-button").click();
+            setTimeout(() =>
+            {
+                document.getElementById(id).doCommand();
+            }, 250);
+        }
+        else
+        {
+            document.getElementById(id).doCommand();
+        }
     }
 };
