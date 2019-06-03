@@ -58,7 +58,7 @@ return {
     // Clear History
     "Alt+Delete": function ()
     {
-        document.getElementById("sanitizeItem").doCommand();
+        Common.doCommand("sanitizeItem");
     },
 
     // Home Page
@@ -73,7 +73,7 @@ return {
     // Firefox Color Picker
     "Alt+P": function ()
     {
-        document.getElementById("menu_eyedropper").doCommand();
+        Common.doCommand("menu_eyedropper");
     },
 
     // Reader Mode
@@ -88,7 +88,7 @@ return {
     // Inspect DOM Elements
     "Ctrl+E": function ()
     {
-        document.getElementById("menuitem_inspector").doCommand();
+        Common.doCommand("menuitem_inspector");
     },
 
     // New Tab
@@ -167,11 +167,7 @@ return {
     // Convert to Simplified Chinese
     "Alt+J": function ()
     {
-        document.getElementById("nav-bar-overflow-button").click();
-        setTimeout(() =>
-        {
-            document.getElementById("tongwen_softcup-browser-action").doCommand();
-        }, 250);
+        Common.doCommand("tongwen_softcup-browser-action", true);
     },
 
     // Convert to Traditional Chinese
@@ -186,18 +182,24 @@ return {
     // Show QR Code
     "Alt+Q": function (e)
     {
-        document.getElementById("tinyqrcode_nonoroazoro_com-browser-action").doCommand();
+        Common.doCommand("tinyqrcode_nonoroazoro_com-browser-action");
     },
 
     // Switch Proxy Mode
     "X": function ()
     {
-        document.getElementById("switchyomega_feliscatus_addons_mozilla_org-browser-action").doCommand();
+        Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-browser-action");
     },
 
     // Copy all Thunder download links
     "Alt+M": function (e)
     {
         ThunderPlus.copy();
+    },
+
+    // Save page to file
+    "Alt+S": function (e)
+    {
+        Common.doCommand("_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action", true);
     }
 };
