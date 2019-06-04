@@ -1,7 +1,7 @@
 {
   "name": "tiny-qrcode",
   "description": "A Firefox web extension, to generate a QR Code of current URL.",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "author": {
     "name": "nonoroazoro",
     "email": "xiaochao.k@gmail.com"
@@ -23,9 +23,9 @@
     "build": "gulp"
   },
   "devDependencies": {
-    "del": "^3.0.0",
-    "gulp": "^3.9.1",
-    "gulp-task-listing": "^1.0.1",
-    "gulp-zip": "^4.1.0"
+    "gulp": "^4.0.2",
+    "gulp-task-listing": "^1.1.0",
+    "gulp-zip": "^5.0.0",
+    "rimraf": "^2.6.3"
   }
 }
