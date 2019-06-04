@@ -1,6 +1,6 @@
 ﻿# tiny-qrcode
 
-A Firefox web extension, generating QR Code for current page.
+A Firefox web extension, to generate a QR Code of current URL.
 
 ## Screenshots
 
