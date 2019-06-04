@@ -1,27 +1,26 @@
-const del = require("del");
-const gulp = require("gulp");
+const { src, dest, series } = require("gulp");
+const rimraf = require("rimraf");
 const zip = require("gulp-zip");
-const taskListing = require("gulp-task-listing");
 
 const manifest = require("./src/manifest.json");
-const xpi = `${manifest.applications.gecko.id}.xpi`;
+const filename = `${manifest.applications.gecko.id}.xpi`;
 
-gulp.task("help", taskListing.withFilters(null, "default|clean"));
-
-// Clean.
-gulp.task("clean", () =>
+/**
+ * Clean.
+ */
+function clean(cb)
 {
-    return del("dist/*");
-});
+    rimraf("dist/*", cb);
+}
 
-// Packaging (to .xpi file).
-gulp.task("build", () =>
+/**
+ * Packaging (to .xpi file).
+ */
+function build()
 {
-    return gulp.src("src/**/*")
-        .pipe(zip(xpi))
-        .pipe(gulp.dest("dist"));
-});
+    return src("src/**/*")
+        .pipe(zip(filename))
+        .pipe(dest("dist"));
+}
 
-gulp.task("default", ["clean", "build"], () =>
-{
-});
+exports.default = series(clean, build);
