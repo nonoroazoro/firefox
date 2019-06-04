@@ -21,7 +21,7 @@
             "32": "icons/button-32.png",
             "64": "icons/button-64.png"
         },
-        "default_title": "__MSG_browserActionDefaultTitle__",
+        "default_title": "__MSG_generateQR__",
         "default_popup": "popup/index.html"
     },
     "permissions": [
@@ -29,8 +29,17 @@
     ],
     "background": {
         "scripts": [
+            "commands.js",
             "backgrounds/lib/qr.min.js",
             "backgrounds/background.js"
         ]
+    },
+    "commands": {
+        "generateQR": {
+            "description": "__MSG_generateQR__",
+            "suggested_key": {
+                "default": "Alt+Q"
+            }
+        }
     }
 }
