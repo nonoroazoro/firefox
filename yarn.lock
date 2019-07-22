@@ -432,10 +432,10 @@ escape-string-regexp@^1.0.2, escape-string-regexp@^1.0.5:
   resolved "https://registry.yarnpkg.com/escape-string-regexp/-/escape-string-regexp-1.0.5.tgz#1b61c0562190a8dff6ae3bb2cf0200ca130b86d4"
   integrity sha1-G2HAViGQqN/2rjuyzwIAyhMLhtQ=
 
-eslint-config-zoro@^2.4.0:
-  version "2.4.0"
-  resolved "https://registry.yarnpkg.com/eslint-config-zoro/-/eslint-config-zoro-2.4.0.tgz#02286ee9094551871eab9424361aa02823fb2be8"
-  integrity sha512-H9TB2nbqnR1DnZ8tSe+cWRYbtY46z61vGMBI1/lDRJK6AhPTLV2F+RhXZAm5ebCahSBgyMbph6P2p8n7ocijiQ==
+eslint-config-zoro@^2.4.1:
+  version "2.4.1"
+  resolved "https://registry.yarnpkg.com/eslint-config-zoro/-/eslint-config-zoro-2.4.1.tgz#d175a829c81da6c6fb970c27ea50d492d25b3e22"
+  integrity sha512-bu86eTg9qfgLKIuGhFiPDylxmE12Vm955qkvlAKN5xeTiU6L6O9sk2lWKR/K7fpPVyKFMmX5rAcUizqFliaGxw==
 
 eslint-scope@3.7.1:
   version "3.7.1"
