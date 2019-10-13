@@ -90,6 +90,7 @@ www.iciba.com##.menu-mac-button
 www.inoreader.com###list_menu
 www.jscd.gov.cn##.bdselect_share_bg
 www.jscd.gov.cn##.bdselect_share_box
+www.nexusmods.com##.agroup
 www.zhangxinxu.com##.shink_rel
 www.zhangxinxu.com###sidebar
 www.zhihu.com##.AppHeader-inner > [href="//www.zhihu.com"]
