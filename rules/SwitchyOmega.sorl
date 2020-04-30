@@ -123,6 +123,7 @@
 *.facebook.com
 *.factorio.com
 *.factorio.school
+*.factorioprints.com
 *.fastly.net
 *.fb.me
 *.fbcdn.net
@@ -349,6 +350,8 @@
 *.ruanyifeng.com
 *.runkit.com
 *.runkit.sh
+*.rust-lang.org
+*.rustup.rs
 *.sap.com
 *.scikit-learn.org
 *.scipy-lectures.org
@@ -474,4 +477,3 @@
 *.zimuzu.tv
 *.zmz2017.com
 *.zodgame.us
-factorioprints.com
