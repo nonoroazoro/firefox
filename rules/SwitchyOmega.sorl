@@ -88,6 +88,7 @@
 *.dataquest.io
 *.david-dm.org
 *.definitelytyped.org
+*.deno.land
 *.devdocs.io
 *.devhints.cn
 *.devhints.io
