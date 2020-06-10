@@ -22,6 +22,4 @@ gulp.task("build", () =>
         .pipe(gulp.dest("dist"));
 });
 
-gulp.task("default", ["clean", "build"], () =>
-{
-});
+gulp.task("default", gulp.series("clean", "build"));

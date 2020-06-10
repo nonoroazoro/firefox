@@ -42,7 +42,7 @@ const DICT_SEARCH_ENGINES = {
     "cambridge": {
         getSearchUrl(select)
         {
-            let url = "https://dictionary.cambridge.org/dictionary/english";
+            let url = "https://dictionary.cambridge.org/zhs/%E8%AF%8D%E5%85%B8/%E8%8B%B1%E8%AF%AD-%E6%B1%89%E8%AF%AD-%E7%AE%80%E4%BD%93";
             if (select)
             {
                 url = `${url}/${encodeURI(select)}`;
@@ -87,7 +87,7 @@ async function bindKeyboardShortcuts()
             e.preventDefault();
 
             const searchEngine = await TinyStorage.get(STORAGE_DICT_SEARCH_ENGINE);
-            const engine = DICT_SEARCH_ENGINES[searchEngine] || DICT_SEARCH_ENGINES["youdao"];
+            const engine = DICT_SEARCH_ENGINES[searchEngine] || DICT_SEARCH_ENGINES["cambridge"];
             const url = engine.getSearchUrl(getSelectedText());
             browser.runtime.sendMessage({
                 payload: url,
