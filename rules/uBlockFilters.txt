@@ -2,6 +2,7 @@
 ! Description: Filters optimized by nonoroazoro, mainly used to block annoying elements.
 ! Homepage: https://github.com/nonoroazoro/firefox/blob/master/rules/uBlockFilters.txt
 
+||www.91flac.com^$all
 ||www.flac123.com^$all
 ||www.hifini.com^$all
 act.feng.com##.quick_links
