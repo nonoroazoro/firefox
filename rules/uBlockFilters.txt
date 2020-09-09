@@ -5,6 +5,7 @@
 ||www.91flac.com^$all
 ||www.flac123.com^$all
 ||www.hifini.com^$all
+||www.wsyyb.com^$all
 act.feng.com##.quick_links
 bbs.d.163.com##.btn-donwload-client-msg
 bbs.nga.cn###selectTextHintWindow
