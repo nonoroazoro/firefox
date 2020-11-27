@@ -1,0 +1,7 @@
+{
+  "search.exclude": {
+    "**/.vscode": true,
+    "**/dist": true,
+    "**/yarn.lock": true
+  }
+}
