@@ -20,7 +20,7 @@ function generateQRImage(p_message, p_sender, p_done)
         cache[p_message.text] = dataURL;
     }
 
-    p_done({ dataURL: dataURL });
+    p_done({ dataURL });
 }
 
 /**

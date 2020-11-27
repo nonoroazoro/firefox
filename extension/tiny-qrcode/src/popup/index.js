@@ -62,7 +62,7 @@ function updateQRCodeImage(text)
     browser.runtime.sendMessage(
         {
             size: 10,
-            text: text
+            text
         },
         (res) =>
         {
