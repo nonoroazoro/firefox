@@ -1,7 +1,7 @@
 {
   "name": "tiny-qrcode",
   "description": "A Firefox web extension, to generate a QR Code of current URL.",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "author": {
     "name": "nonoroazoro",
     "email": "xiaochao.k@gmail.com"
