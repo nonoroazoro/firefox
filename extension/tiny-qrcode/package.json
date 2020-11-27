@@ -20,7 +20,7 @@
     "webextension"
   ],
   "scripts": {
-    "build": "gulp"
+    "build": "./node_modules/.bin/gulp"
   },
   "devDependencies": {
     "gulp": "^4.0.2",
