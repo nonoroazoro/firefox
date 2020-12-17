@@ -1,0 +1,26 @@
+no-csp-reports: * true
+no-scripting: behind-the-scene false
+* changyan.itc.cn * block
+* sjs.sinajs.cn * block
+* baomitu.com * block
+* cnzz.com * block
+* google-analytics.com * block
+* googlesyndication.com * block
+* hs-scripts.com * block
+* huiqituan.com * block
+* huo360.com * block
+* hyz86.com * block
+* lifu11.com * block
+* changyan.sohu.com * block
+* sorryapp.com * block
+* tsdlp.com * block
+* zhiyaspa.com * block
+* honeybadger.io * block
+* xianliao.me * block
+* yandex.net * block
+icons8.com crisp.chat * block
+icons8.com pinterest.com * block
+subhd.com taobao.com * block
+lolico.moe namesilo.com * block
+lolico.moe wp.com * block
+dict.youdao.com http://dict.youdao.com/infoline/web xmlhttprequest block
