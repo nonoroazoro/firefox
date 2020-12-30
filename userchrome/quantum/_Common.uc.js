@@ -1,31 +1,56 @@
 // ==UserScript==
-// @name           Common.uc.js
+// @name           _Common.uc.js
 // @description    Common library for UserChrome.js.
 // @charset        UTF-8
-// @version        1.1  2019-05-22  Added Services and log.
-// @version        1.0  2018-03-20  Added support for Firefox Quantum.
+// @history        2020-12-30  Added support for Firefox 84.
 // ==/UserScript==
 
-/**
- * Common utilities for UserChrome.js
- */
 const Common = {
     copy(str)
     {
-        Components.classes["@mozilla.org/widget/clipboardhelper;1"].getService(Components.interfaces.nsIClipboardHelper).copyString(str);
+        Components.classes["@mozilla.org/widget/clipboardhelper;1"]
+            .getService(Components.interfaces.nsIClipboardHelper)
+            .copyString(str);
     },
 
-    create(name, attributes)
+    /**
+     * Creates an HTML Element.
+     */
+    createElement(tagName, attributes)
     {
-        const element = document.createElement(name);
+        const element = document.createElement(tagName);
         if (attributes)
         {
-            Object.keys(attributes).forEach(function (key)
+            Object.keys(attributes).forEach(key =>
             {
                 element.setAttribute(key, attributes[key])
             });
         }
         return element;
+    },
+
+    /**
+     * Creates an XUL element.
+     */
+    createXULElement(localName, attributes)
+    {
+        const element = document.createXULElement(localName);
+        if (attributes)
+        {
+            Object.keys(attributes).forEach(key =>
+            {
+                element.setAttribute(key, attributes[key])
+            });
+        }
+        return element;
+    },
+
+    /**
+     * Launch program.
+     */
+    launch(filename)
+    {
+        FileUtils.getFile("UChrm", ["program", filename]).launch();
     },
 
     /**
@@ -35,32 +60,14 @@ const Common = {
      */
     openURL(url, inBackground = false)
     {
-        // Use openTrustedLinkIn
         openTrustedLinkIn(url, "tab", { inBackground });
-
-        // Or use openTrustedLinkIn
-        // gBrowser.loadOneTab(url, {
-        //     relatedToCurrent: true,
-        //     inBackground,
-        //     referrerURI: BrowserUtils.makeURI(url),
-        //     triggeringPrincipal: Services.scriptSecurityManager.createNullPrincipal({})
-        // });
     },
 
-    toast(message, title)
+    toast(message, title = "UserChrome.js")
     {
         Components.classes["@mozilla.org/alerts-service;1"]
             .getService(Components.interfaces.nsIAlertsService)
-            .showAlertNotification("", title || "UserChrome.js", message, false, "", null);
-    },
-
-    log(message)
-    {
-        if (typeof message === "object")
-        {
-            Services.console.logStringMessage(Object.keys(message).sort().join("\n"))
-        }
-        Services.console.logStringMessage(message);
+            .showAlertNotification("", title, message, false, "", null);
     },
 
     /**
@@ -83,5 +90,73 @@ const Common = {
         {
             document.getElementById(id).doCommand();
         }
+    },
+
+    /**
+     * Gets Firefox preference.
+     *
+     * @param {string} name Preference name.
+     * @param {any} type Preference type.
+     * @param {any} defaultValue Preference default value.
+     */
+    getPreference(name, type, defaultValue)
+    {
+        try
+        {
+            switch (type)
+            {
+                case "complex":
+                    return Services.prefs.getComplexValue(name, Components.interfaces.nsIFile);
+
+                case "str":
+                    return unescape(Services.prefs.getCharPref(name).toString());
+
+                case "int":
+                    return Services.prefs.getIntPref(name);
+
+                case "bool":
+                default:
+                    return Services.prefs.getBoolPref(name);
+            }
+        } catch { }
+        return defaultValue;
+    },
+
+    /**
+     * Sets Firefox preference.
+     *
+     * @param {string} name Preference name.
+     * @param {any} type Preference type.
+     * @param {any} defaultValue Preference default value.
+     */
+    setPreference(name, type, defaultValue)
+    {
+        try
+        {
+            switch (type)
+            {
+                case "complex":
+                    return Services.prefs.setComplexValue(name, Components.interfaces.nsIFile, defaultValue);
+
+                case "str":
+                    return Services.prefs.setCharPref(name, escape(defaultValue));
+
+                case "int":
+                    defaultValue = parseInt(defaultValue);
+                    return Services.prefs.setIntPref(name, defaultValue);
+
+                case "bool":
+                default:
+                    return Services.prefs.setBoolPref(name, defaultValue);
+            }
+        } catch { }
+        return;
+    },
+
+    restartFirefox()
+    {
+        Components.classes["@mozilla.org/toolkit/app-startup;1"]
+            .getService(Components.interfaces.nsIAppStartup)
+            .quit(Components.interfaces.nsIAppStartup.eAttemptQuit | Components.interfaces.nsIAppStartup.eRestart);
     }
 };

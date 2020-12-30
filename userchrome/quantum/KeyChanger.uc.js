@@ -27,7 +27,7 @@ const KeyChanger = {
             }
 
             // Prepare custom keys.
-            keyset = Common.createXULElement("keyset", { "id": "keychanger-keyset" });
+            keyset = Common.createXULElement("keyset", { id: "keychanger-keyset" });
             keyset.appendChild(keys);
 
             // Insert default and custom keys.
@@ -38,7 +38,7 @@ const KeyChanger = {
 
     makeKeys()
     {
-        const config = this.loadText(FileUtils.getFile("UChrm", ["_Keychanger.js"], false));
+        const config = this.loadText(FileUtils.getFile("UChrm", ["_Keychanger.config.js"], false));
         if (!config)
         {
             return null;
@@ -199,12 +199,13 @@ const KeyChanger = {
     createMenu()
     {
         const container = document.getElementById("menu_preferences").parentNode;
+        const separator = Common.createXULElement("menuseparator", { id: "keychanger-separator" });
         const menu = Common.createXULElement("menuitem", {
-            "label": "Reload KeyChanger",
-            "accesskey": "R",
-            "oncommand": "KeyChanger.register()"
+            label: "Reload KeyChanger",
+            accesskey: "R",
+            oncommand: "KeyChanger.register()"
         });;
-        container.append(menu);
+        container.append(separator, menu);
     },
 
     loadText(configFile)

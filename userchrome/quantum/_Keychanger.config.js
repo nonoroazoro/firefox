@@ -52,6 +52,12 @@ return {
     // Addons
     "Alt+A": "BrowserOpenAddonsMgr();",
 
+    // Copy page URL
+    "Alt+C": function ()
+    {
+        Common.copy(gBrowser.currentURI.spec);
+    },
+
     // Focus URL bar
     "Alt+D": "gURLBar.focus();",
 
@@ -63,6 +69,9 @@ return {
 
     // Home Page
     "Alt+Home": "BrowserHome();",
+
+    // Reader Mode
+    // "Alt+K": "ReaderParent.toggleReaderMode(event);",
 
     // Back
     "Alt+Left": "BrowserBack()",
@@ -76,8 +85,8 @@ return {
         Common.doCommand("menu_eyedropper");
     },
 
-    // Reader Mode
-    // "Alt+K": "ReaderParent.toggleReaderMode(event);",
+    // Browse page info
+    "Alt+U": "BrowserPageInfo();",
 
     // Undo Closed Tab
     "Alt+Z": "undoCloseTab();",
@@ -94,6 +103,12 @@ return {
     // New Tab
     "Ctrl+N": "BrowserOpenTab();",
 
+    // Toggle mute and disable Mac's fucking Minimize shortcut
+    "Ctrl+M": function ()
+    {
+        gBrowser.selectedTab.toggleMuteAudio();
+    },
+
     // Preferences
     "Ctrl+P": "openPreferences();",
 
@@ -103,87 +118,79 @@ return {
     // Restart Firefox
     "Ctrl+Alt+R": function ()
     {
-        // "Services.appinfo.invalidateCachesOnRestart() || Application.restart();"
-        const XRE = Components.classes["@mozilla.org/xre/app-info;1"].getService(Components.interfaces.nsIXULRuntime);
-        if (typeof XRE.invalidateCachesOnRestart == "function")
-        {
-            XRE.invalidateCachesOnRestart();
-        }
-        Components.classes["@mozilla.org/toolkit/app-startup;1"]
-            .getService(Components.interfaces.nsIAppStartup)
-            .quit(Components.interfaces.nsIAppStartup.eAttemptQuit | Components.interfaces.nsIAppStartup.eRestart);
+        Common.restartFirefox();
     },
 
     // ****************************** UserChrome.js ******************************
     // NetEase Music Global Hotkey
-    "Ctrl+Alt+Left": function (e)
-    {
-        // 感谢黑仪大螃蟹。
-        if (gBrowser.selectedBrowser.documentURI.asciiHost !== "music.163.com")
-        {
-            let browser = null;
-            const length = gBrowser.browsers.length;
-            for (let i = 0; i < length; i++)
-            {
-                browser = gBrowser.browsers[i];
-                if (browser.documentURI.asciiHost === "music.163.com")
-                {
-                    const button = browser.contentDocument.querySelector(".prv");
-                    button && button.click();
-                    break;
-                }
-            }
-        }
-    },
+    // "Ctrl+Alt+Left": function (e)
+    // {
+    //     // 感谢黑仪大螃蟹。
+    //     if (gBrowser.selectedBrowser.documentURI.asciiHost !== "music.163.com")
+    //     {
+    //         let browser = null;
+    //         const length = gBrowser.browsers.length;
+    //         for (let i = 0; i < length; i++)
+    //         {
+    //             browser = gBrowser.browsers[i];
+    //             if (browser.documentURI.asciiHost === "music.163.com")
+    //             {
+    //                 const button = browser.contentDocument.querySelector(".prv");
+    //                 button && button.click();
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // },
 
     // NetEase Music Global Hotkey
-    "Ctrl+Alt+Right": function (e)
-    {
-        // 感谢黑仪大螃蟹。
-        if (gBrowser.selectedBrowser.documentURI.asciiHost != "music.163.com")
-        {
-            let browser = null;
-            const length = gBrowser.browsers.length;
-            for (let i = 0; i < length; i++)
-            {
-                browser = gBrowser.browsers[i];
-                if (browser.documentURI.asciiHost === "music.163.com")
-                {
-                    const button = browser.contentDocument.querySelector(".nxt");
-                    button && button.click();
-                    break;
-                }
-            }
-        }
-    },
+    // "Ctrl+Alt+Right": function (e)
+    // {
+    //     // 感谢黑仪大螃蟹。
+    //     if (gBrowser.selectedBrowser.documentURI.asciiHost != "music.163.com")
+    //     {
+    //         let browser = null;
+    //         const length = gBrowser.browsers.length;
+    //         for (let i = 0; i < length; i++)
+    //         {
+    //             browser = gBrowser.browsers[i];
+    //             if (browser.documentURI.asciiHost === "music.163.com")
+    //             {
+    //                 const button = browser.contentDocument.querySelector(".nxt");
+    //                 button && button.click();
+    //                 break;
+    //             }
+    //         }
+    //     }
+    // },
 
     // ******************************** Addons ********************************
     // RESTer
     "F8": function ()
     {
-        Common.openURL("moz-extension://c449bbe8-33ff-c940-9840-c306167e216b/site/index.html");
+        Common.openURL("moz-extension://8f6f7d5a-3885-3841-a4c5-34b8ff25dd23/site/index.html");
     },
 
     // Convert to Simplified Chinese
-    "Alt+J": function ()
-    {
-        Common.doCommand("tongwen_softcup-browser-action", true);
-    },
+    // "Alt+J": function ()
+    // {
+    //     Common.doCommand("tongwen_softcup-browser-action", true);
+    // },
 
     // Convert to Traditional Chinese
-    "Ctrl+Alt+J": function ()
-    {
-        TongWen.trans(TongWen.TRAFLAG);
-    },
+    // "Ctrl+Alt+J": function ()
+    // {
+    //     TongWen.trans(TongWen.TRAFLAG);
+    // },
+
+    // Show QR Code
+    // "Alt+Q": function (e)
+    // {
+    //     Common.doCommand("tinyqrcode_nonoroazoro_com-browser-action");
+    // },
 
     // Net Video Hunter
     "Alt+N": "com.netvideohunter.downloader.Overlay_Instance.openMediaListWindow();",
-
-    // Show QR Code
-    "Alt+Q": function (e)
-    {
-        Common.doCommand("tinyqrcode_nonoroazoro_com-browser-action");
-    },
 
     // Switch Proxy Mode
     "X": function ()
@@ -198,8 +205,8 @@ return {
     },
 
     // Save page to file
-    "Alt+S": function (e)
-    {
-        Common.doCommand("_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action", true);
-    }
+    // "Alt+S": function (e)
+    // {
+    //     Common.doCommand("_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action", true);
+    // }
 };
