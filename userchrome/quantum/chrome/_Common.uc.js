@@ -157,10 +157,17 @@ const Common = {
         return;
     },
 
+    getSelectedText()
+    {
+        return BrowserUtils.getSelectionDetails(content).fullText;
+    },
+
     restartFirefox()
     {
-        Components.classes["@mozilla.org/toolkit/app-startup;1"]
-            .getService(Components.interfaces.nsIAppStartup)
-            .quit(Components.interfaces.nsIAppStartup.eAttemptQuit | Components.interfaces.nsIAppStartup.eRestart);
+        Services.startup.quit(Services.startup.eAttemptQuit | Services.startup.eRestart);
+
+        // Components.classes["@mozilla.org/toolkit/app-startup;1"]
+        //     .getService(Components.interfaces.nsIAppStartup)
+        //     .quit(Components.interfaces.nsIAppStartup.eAttemptQuit | Components.interfaces.nsIAppStartup.eRestart);
     }
 };
