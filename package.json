@@ -16,10 +16,10 @@
   },
   "homepage": "https://github.com/nonoroazoro/firefox#readme",
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
-    "eslint": "^6.2.2",
-    "eslint-config-zoro": "^2.5.1",
-    "husky": "^3.0.4",
-    "lint-staged": "^9.2.4"
+    "babel-eslint": "^10.1.0",
+    "eslint": "^7.16.0",
+    "eslint-config-zoro": "^4.1.0",
+    "husky": "^4.3.6",
+    "lint-staged": "^10.5.3"
   }
 }
