@@ -1,9 +1,9 @@
 // ==UserScript==
 // @name           KeyChanger.uc.js
-// @license        MIT License
+// @description    Add custom keybindings to Firefox.
 // @charset        UTF-8
 // @history        2020-12-30  Added support for Firefox 84.
-// @homepageURL    https://github.com/nonoroazoro/firefox/blob/master/userchrome/quantum/KeyChanger.uc.js
+// @homepageURL    https://github.com/nonoroazoro/firefox/tree/master/userchrome/quantum
 // ==/UserScript==
 
 const KeyChanger = {

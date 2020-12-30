@@ -3,6 +3,7 @@
 // @description    Common library for UserChrome.js.
 // @charset        UTF-8
 // @history        2020-12-30  Added support for Firefox 84.
+// @homepageURL    https://github.com/nonoroazoro/firefox/tree/master/userchrome/quantum
 // ==/UserScript==
 
 const Common = {
