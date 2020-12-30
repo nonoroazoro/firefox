@@ -2,65 +2,57 @@
 // @name           KeyChanger.uc.js
 // @license        MIT License
 // @charset        UTF-8
-// @version        1.0  2018-03-20  Added support for Firefox Quantum.
-// @homepageURL    https://github.com/Griever/userChromeJS/tree/master/KeyChanger
-// @note           https://developer.mozilla.org/ja/XUL_Tutorial/Keyboard_Shortcuts
+// @history        2020-12-30  Added support for Firefox 84.
+// @homepageURL    https://github.com/nonoroazoro/firefox/blob/master/userchrome/quantum/KeyChanger.uc.js
 // ==/UserScript==
 
 const KeyChanger = {
-    get file()
-    {
-        const aFile = FileUtils.getFile("UChrm", ["_Keychanger.js"], false);
-        delete this.file;
-        return this.file = aFile;
-    },
-
-    makeKeyset: function (p_toast)
+    register()
     {
         const keys = this.makeKeys();
-        if (!keys) return Common.toast("Error loading _Keychanger.js", "Keychanger");
-
-        // remove old keychanger-keyset.
-        let keyset = document.getElementById("keychanger-keyset");
-        if (keyset)
+        if (keys)
         {
-            keyset.parentNode.removeChild(keyset);
-        }
+            // Remove old keychanger-keyset.
+            let keyset = document.getElementById("keychanger-keyset");
+            if (keyset)
+            {
+                keyset.parentNode.removeChild(keyset);
+            }
 
-        // backup Firefox's default keys.
-        const dFrag = document.createDocumentFragment();
-        Array.slice(document.getElementsByTagName("keyset")).forEach(function (elem)
-        {
-            dFrag.appendChild(elem);
-        });
+            // Backup Firefox default keys.
+            const fragment = document.createDocumentFragment();
+            for (let k of document.getElementsByTagName("keyset"))
+            {
+                fragment.appendChild(k);
+            }
 
-        // prepare custom keys.
-        keyset = document.createElement("keyset");
-        keyset.setAttribute("id", "keychanger-keyset");
-        keyset.appendChild(keys);
+            // Prepare custom keys.
+            keyset = Common.createXULElement("keyset", { "id": "keychanger-keyset" });
+            keyset.appendChild(keys);
 
-        // insert default and custom keys.
-        const insPos = document.getElementById("mainPopupSet");
-        insPos.parentNode.insertBefore(keyset, insPos);
-        insPos.parentNode.insertBefore(dFrag, insPos);
-
-        if (p_toast)
-        {
-            Common.toast("Reloaded successfully", "Keychanger");
+            // Insert default and custom keys.
+            const container = document.getElementById("mainPopupSet").parentNode;
+            container.prepend(keyset, fragment);
         }
     },
 
-    makeKeys: function ()
+    makeKeys()
     {
-        const config = this.loadText(this.file);
-        if (!config) return null;
+        const config = this.loadText(FileUtils.getFile("UChrm", ["_Keychanger.js"], false));
+        if (!config)
+        {
+            return null;
+        }
 
         const sandbox = new Components.utils.Sandbox(new XPCNativeWrapper(window));
         const keys = Components.utils.evalInSandbox("(function () {" + config + "})()", sandbox);
-        if (!keys) return null;
+        if (!keys)
+        {
+            return null;
+        }
 
-        const dFrag = document.createDocumentFragment();
-        Object.keys(keys).forEach(function (n)
+        const fragment = document.createDocumentFragment();
+        Object.keys(keys).forEach(n =>
         {
             let keyString = n.toUpperCase().split("+");
             let modifiers = "";
@@ -167,17 +159,16 @@ const KeyChanger = {
                 }
             }
 
-            const elem = document.createElement("key");
+            const elem = document.createXULElement("key");
             if (modifiers !== "")
             {
                 elem.setAttribute("modifiers", modifiers.slice(0, -1));
             }
-
-            if (key)
+            if (key != null)
             {
                 elem.setAttribute("key", key);
             }
-            else if (keycode)
+            else if (keycode != null)
             {
                 elem.setAttribute("keycode", keycode);
             }
@@ -186,7 +177,7 @@ const KeyChanger = {
             switch (typeof cmd)
             {
                 case "function":
-                    elem.setAttribute("oncommand", "(" + cmd.toSource() + ").call(this, event);");
+                    elem.setAttribute("oncommand", "(" + cmd.toString() + ").call(this, event);");
                     break;
 
                 case "object":
@@ -199,44 +190,43 @@ const KeyChanger = {
                 default:
                     elem.setAttribute("oncommand", cmd);
             }
-            dFrag.appendChild(elem);
+            fragment.appendChild(elem);
         }, this);
 
-        return dFrag;
+        return fragment;
     },
 
-    createMenuitem: function ()
+    createMenu()
     {
-        const menuitem = document.createElement("menuitem");
-        menuitem.setAttribute("label", "Reload KeyChanger(R)");
-        menuitem.setAttribute("oncommand", "KeyChanger.makeKeyset(true);");
-        const insPos = document.getElementById("devToolsSeparator");
-        if (insPos)
-        {
-            insPos.parentNode.insertBefore(menuitem, insPos);
-        }
+        const container = document.getElementById("menu_preferences").parentNode;
+        const menu = Common.createXULElement("menuitem", {
+            "label": "Reload KeyChanger",
+            "accesskey": "R",
+            "oncommand": "KeyChanger.register()"
+        });;
+        container.append(menu);
     },
 
-    loadText: function (p_file)
+    loadText(configFile)
     {
-        const fstream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
-        const sstream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
-        fstream.init(p_file, -1, 0, 0);
-        sstream.init(fstream);
+        const fStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
+        const sStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
+        fStream.init(configFile, -1, 0, 0);
+        sStream.init(fStream);
 
-        let data = sstream.read(sstream.available());
+        let data = sStream.read(sStream.available());
         try
         {
             data = decodeURIComponent(escape(data));
         }
-        catch (e)
+        catch
         {
         }
-        sstream.close();
-        fstream.close();
+        sStream.close();
+        fStream.close();
         return data;
     }
 };
 
-KeyChanger.createMenuitem();
-KeyChanger.makeKeyset();
+KeyChanger.createMenu();
+KeyChanger.register();
