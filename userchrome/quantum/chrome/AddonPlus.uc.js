@@ -1,4 +1,4 @@
-﻿// ==UserScript==
+// ==UserScript==
 // @name           AddonPlus.uc.js
 // @description    Enhance the addons manager, now you can toggle the addons by one key.
 // @charset        UTF-8

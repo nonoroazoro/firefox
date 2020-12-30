@@ -103,7 +103,7 @@ return {
     // New Tab
     "Ctrl+N": "BrowserOpenTab();",
 
-    // Toggle mute and disable Mac's fucking Minimize shortcut
+    // Toggle mute and disable Mac's stupid Minimize shortcut
     "Ctrl+M": function ()
     {
         gBrowser.selectedTab.toggleMuteAudio();
