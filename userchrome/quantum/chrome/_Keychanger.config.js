@@ -67,6 +67,9 @@ return {
         Common.doCommand("sanitizeItem");
     },
 
+    // History
+    "Alt+H": `PlacesCommandHook.showPlacesOrganizer("History");`,
+
     // Home Page
     "Alt+Home": "BrowserHome();",
 
