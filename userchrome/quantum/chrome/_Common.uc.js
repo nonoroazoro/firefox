@@ -7,6 +7,9 @@
 // ==/UserScript==
 
 const Common = {
+    /**
+     * Copies string to clipboard.
+     */
     copy(str)
     {
         Components.classes["@mozilla.org/widget/clipboardhelper;1"]
