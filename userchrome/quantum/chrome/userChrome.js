@@ -1,597 +1,377 @@
-// 2019/12/11 automatically includes all files ending in .uc.xul and .uc.js from the profile's chrome folder
+// 2020-12-31
 
 (function ()
 {
-  "use strict";
+  const DEBUG = true;
+  const REPLACE_CACHE = true;
+  const BOWSER_CHROME_URL = "chrome://browser/content/browser.xhtml";
 
-  // -- config --
-  var INFO = true;
-  const REPLACECACHE = true; //スクリプトの更新日付によりキャッシュを更新する: true , しない:[false]
-  const USE_0_63_FOLDER = true; //0.63のフォルダ規則を使う[true], 使わないfalse
-  //=====================USE_0_63_FOLDER = falseの時===================
-  var UCJS = new Array("UCJSFiles", "userContent", "userMenu"); //UCJS Loader 仕様を適用 (NoScriptでfile:///を許可しておく)
-  var arrSubdir = new Array("", "xul", "TabMixPlus", "withTabMixPlus", "SubScript", "UCJSFiles", "userCrome.js.0.8", "userContent", "userMenu");    //スクリプトはこの順番で実行される
-  //===================================================================
-  const ALWAYSEXECUTE = ['rebuild_userChrome.uc.xul', 'rebuild_userChrome.uc.js']; //常に実行するスクリプト
-  var BROWSERCHROME = "chrome://browser/content/browser.xhtml"; //Firfox
-  //"chrome://browser/content/browser.xul"; //Firfox
-  //var BROWSERCHROME = "chrome://navigator/content/navigator.xul"; //SeaMonkey:
-  // -- config --
-  /* USE_0_63_FOLDER true の時
-   * chrome直下およびchrome/xxx.uc 内の *.uc.js および *.uc.xul
-   * chrome/xxx.xul 内の  *.uc.js , *.uc.xul および *.xul
-   * chrome/xxx.ucjs 内の *.uc.js は 特別に UCJS Loader 仕様を適用(NoScriptでfile:///を許可しておく)
-   */
-
-  /* USE_0.63_FOLDER false の時
-   *[ フォルダは便宜上複数のフォルダに分けているだけで任意。 下のarrSubdirで指定する ]
-   *[ UCJS Loaderを適用するフォルダをUCJSで指定する                                  ]
-    プロファイル-+-chrome-+-userChrome.js(このファイル)
-                          +-*.uc.jsまたは*.uc.xul群
-                          |
-                          +-SubScript--------+-*.uc.jsまたは*.uc.xul群
-                          |
-                          +-UCJSFiles--------+-*.uc.jsまたは*.uc.xul群
-                          | (UCJS_loaderでしか動かないもの JavaScript Version 1.7/日本語)
-                          |
-                          +-xul--------------+-*.xul, *.uc.xulおよび付随File
-                          |
-                          +-userCrome.js.0.8-+-*.uc.jsまたは*.uc.xul群 (綴りが変なのはなぜかって? )
-   */
-
-  //chrome/aboutでないならスキップ
+  // 略过空页面。
   if (!/^(chrome:|about:)/i.test(location.href)) return;
   if (/^(about:(blank|newtab|home))/i.test(location.href)) return;
-  //コモンダイアログに対するオーバーレイが今のところ無いので時間短縮のためスキップすることにした
-  if (location.href == 'chrome://global/content/commonDialog.xul') return;
-  if (location.href == 'chrome://global/content/commonDialog.xhtml') return;
-  if (location.href == 'chrome://global/content/selectDialog.xhtml') return;
-  if (location.href == 'chrome://global/content/alerts/alert.xul') return;
-  if (location.href == 'chrome://global/content/alerts/alert.xhtml') return;
-  if (/\.html?$/i.test(location.href)) return;
-  window.userChrome_js = {
-    USE_0_63_FOLDER,
-    UCJS,
-    arrSubdir,
-    ALWAYSEXECUTE,
-    INFO,
-    BROWSERCHROME,
-    REPLACECACHE,
 
-    // 创建脚本数据。
-    getScripts: function ()
+  // 略过对话框。
+  if (location.href === "chrome://global/content/commonDialog.xul") return;
+  if (location.href === "chrome://global/content/commonDialog.xhtml") return;
+  if (location.href === "chrome://global/content/selectDialog.xhtml") return;
+  if (location.href === "chrome://global/content/alerts/alert.xul") return;
+  if (location.href === "chrome://global/content/alerts/alert.xhtml") return;
+  if (/\.html?$/i.test(location.href)) return;
+
+  window.userChrome_js = {
+    scripts: [],
+    overlays: [],
+
+    shutdown: false,
+    overlayWait: 0,
+    overlayUrl: [],
+
+    prepareScripts()
     {
       const Cc = Components.classes;
       const Ci = Components.interfaces;
+      const Ds = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties);
       const ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
       const fph = ios.getProtocolHandler("file").QueryInterface(Ci.nsIFileProtocolHandler);
-      const ds = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties);
-      var Start = new Date().getTime();
-      //getdir
-      if (this.USE_0_63_FOLDER)
+
+      // Parse scripts.
+      try
       {
-        var o = [""];
-        this.UCJS = [];
-        this.arrSubdir = [];
-        var workDir = ds.get("UChrm", Ci.nsIFile);
-        var dir = workDir.directoryEntries;
-        while (dir.hasMoreElements())
+        const workDir = Ds.get("UChrm", Ci.nsIFile);
+        const files = workDir.directoryEntries.QueryInterface(Ci.nsISimpleEnumerator);
+        while (files.hasMoreElements())
         {
-          var file = dir.getNext().QueryInterface(Ci.nsIFile);
-          if (!file.isDirectory()) continue;
-          var dirName = file.leafName;
-          if (/(uc|xul|ucjs)$/i.test(dirName))
+          const file = files.getNext().QueryInterface(Ci.nsIFile);
+          if (/\.uc\.js$|\.uc\.xul$/i.test(file.leafName))
           {
-            o.push(dirName);
-            if (/ucjs$/i.test(dirName))
+            const script = _parseScriptFile(_readFile(file), file);
+            if (/\.uc\.js$/i.test(script.filename))
             {
-              this.UCJS.push(dirName);
+              this.scripts.push(script);
+            }
+            else
+            {
+              script.xul = '<?xul-overlay href=\"' + script.url + '\"?>\n';
+              this.overlays.push(script);
             }
           }
         }
-        [].push.apply(this.arrSubdir, o);
+        // Sort scripts by filename.
+        this.scripts.sort((a, b) => a.filename.localeCompare(b.filename));
       }
+      catch { }
 
-      var that = this;
-      var mediator = Components.classes["@mozilla.org/appshell/window-mediator;1"]
-        .getService(Components.interfaces.nsIWindowMediator);
-      if (mediator.getMostRecentWindow("navigator:browser"))
-        var mainWindowURL = that.BROWSERCHROME;
-      else if (mediator.getMostRecentWindow("mail:3pane"))
-        var mainWindowURL = "chrome://messenger/content/messenger.xul";
+      console.log("Prepared Scripts:", this.scripts)
+      console.log("Prepared Overlays:", this.overlays)
 
-      this.dirDisable = restoreState(getPref("userChrome.disable.directory", "str", "").split(','));
-      this.scriptDisable = restoreState(getPref("userChrome.disable.script", "str", "").split(','));
-      this.scripts = [];
-      this.overlays = [];
-
-      var findNextRe = /^\/\/ @(include|exclude)[ \t]+(\S+)/gm;
-      this.directory = { name: [], UCJS: [], enable: [] };
-      for (var i = 0, len = this.arrSubdir.length; i < len; i++)
+      // Parses script from file.
+      function _parseScriptFile(p_content, p_file)
       {
-        var s = [], o = [];
-        try
+        const result = {
+          file: p_file,
+          filename: p_file.leafName,
+          url: fph.getURLSpecFromFile(p_file)
+        };
+
+        const findNextRe = /^\/\/ @(include|exclude)[ \t]+(\S+)/gm;
+        const header = (p_content.match(/^\/\/ ==UserScript==[ \t]*\n(?:.*\n)*?\/\/ ==\/UserScript==[ \t]*\n/m) || [""])[0];
+
+        let match;
+
+        // Regex.
+        const rex = { include: [], exclude: [] };
+        while (match = findNextRe.exec(header))
         {
-          var dir = this.arrSubdir[i] == "" ? "root" : this.arrSubdir[i];
-          this.directory.name.push(dir);
-          this.directory.UCJS.push(checkUCJS(dir));
-
-          var workDir = ds.get("UChrm", Ci.nsIFile);
-          workDir.append(this.arrSubdir[i]);
-          var files = workDir.directoryEntries.QueryInterface(Ci.nsISimpleEnumerator);
-          while (files.hasMoreElements())
-          {
-            var file = files.getNext().QueryInterface(Ci.nsIFile);
-            if (/\.uc\.js$|\.uc\.xul$/i.test(file.leafName)
-              || /\.xul$/i.test(file.leafName) && /\xul$/i.test(this.arrSubdir[i]))
-            {
-              var script = getScriptData(readFile(file, true), file);
-              script.dir = dir;
-              if (/\.uc\.js$/i.test(script.filename))
-              {
-                script.ucjs = checkUCJS(script.file.path);
-                s.push(script);
-              }
-              else
-              {
-                script.xul = '<?xul-overlay href=\"' + script.url + '\"?>\n';
-                o.push(script);
-              }
-            }
-          }
+          rex[match[1]].push(match[2].replace(/^main$/i, BOWSER_CHROME_URL).replace(/\W/g, "\\$&").replace(/\\\*/g, ".*?"));
         }
-        catch (e) { }
-        this.debug('script', s);
-        [].push.apply(this.scripts, s.sort((a, b) => a.filename.localeCompare(b.filename)));
-        [].push.apply(this.overlays, o);
-      }
-
-      this.debug('Parsing getScripts: ' + ((new Date()).getTime() - Start) + 'msec');
-
-      //UCJSローダ必要か
-      function checkUCJS(aPath)
-      {
-        for (var i = 0, len = that.UCJS.length; i < len; i++)
+        if (rex.include.length === 0)
         {
-          if (aPath.indexOf(that.UCJS[i], 0) > -1)
-            return true;
+          rex.include.push(BOWSER_CHROME_URL);
         }
-        return false;
-      }
+        const exclude = rex.exclude.length > 0 ? "(?!" + rex.exclude.join("$|") + "$)" : "";
+        result.regex = new RegExp("^" + exclude + "(" + (rex.include.join("|") || ".*") + ")$", "i");
 
-      //メタデータ収集
-      function getScriptData(aContent, aFile)
-      {
-        var charset, description;
-        var header = (aContent.match(/^\/\/ ==UserScript==[ \t]*\n(?:.*\n)*?\/\/ ==\/UserScript==[ \t]*\n/m) || [""])[0];
-        var match, rex = { include: [], exclude: [] };
-        while ((match = findNextRe.exec(header)))
-        {
-          rex[match[1]].push(match[2].replace(/^main$/i, mainWindowURL).replace(/\W/g, "\\$&").replace(/\\\*/g, ".*?"));
-        }
-        if (rex.include.length == 0) rex.include.push(mainWindowURL);
-        var exclude = rex.exclude.length > 0 ? "(?!" + rex.exclude.join("$|") + "$)" : "";
-
+        // Charset.
         match = header.match(/\/\/ @charset\b(.+)\s*/i);
-        charset = "";
-        //try
         if (match)
         {
-          charset = match.length > 0 ? match[1].replace(/^\s+/, "") : "";
+          result.charset = match.length > 0 ? match[1].replace(/^\s+/, "") : "";
         }
 
+        // Description.
         match = header.match(/\/\/ @description\b(.+)\s*/i);
-        description = "";
-        //try
         if (match)
-          description = match.length > 0 ? match[1].replace(/^\s+/, "") : "";
-        //}catch(e){}
-        if (description == "" || !description)
         {
-          description = aFile.leafName;
+          result.description = match.length > 0 ? match[1].replace(/^\s+/, "") : "";
         }
-        var url = fph.getURLSpecFromFile(aFile);
+        if (result.description === "" || !result.description)
+        {
+          result.description = p_file.leafName;
+        }
 
-        return {
-          filename: aFile.leafName,
-          file: aFile,
-          url: url,
-          //namespace: "",
-          charset: charset,
-          description: description,
-          //code: aContent.replace(header, ""),
-          regex: new RegExp("^" + exclude + "(" + (rex.include.join("|") || ".*") + ")$", "i")
-        }
+        return result;
       }
 
-      //スクリプトファイル読み込み
-      function readFile(aFile, metaOnly)
+      function _readFile(p_file, p_metaOnly = true)
       {
-        if (typeof metaOnly == 'undefined')
-          metaOnly = false;
-        var stream = Cc["@mozilla.org/network/file-input-stream;1"].createInstance(Ci.nsIFileInputStream);
-        stream.init(aFile, 0x01, 0, 0);
-        var cvstream = Cc["@mozilla.org/intl/converter-input-stream;1"].
-          createInstance(Ci.nsIConverterInputStream);
-        cvstream.init(stream, "UTF-8", 1024, Ci.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
-        var content = "", data = {};
-        while (cvstream.readString(4096, data))
+        const stream = Cc["@mozilla.org/network/file-input-stream;1"].createInstance(Ci.nsIFileInputStream);
+        stream.init(p_file, 0x01, 0, 0);
+        const cStream = Cc["@mozilla.org/intl/converter-input-stream;1"].createInstance(Ci.nsIConverterInputStream);
+        cStream.init(stream, "UTF-8", 1024, Ci.nsIConverterInputStream.DEFAULT_REPLACEMENT_CHARACTER);
+        let content = "";
+        const data = {};
+        while (cStream.readString(4096, data))
         {
           content += data.value;
-          if (metaOnly &&
-            content.indexOf('// ==/UserScript==') > 0)
-            break;
-        }
-        cvstream.close();
-        return content.replace(/\r\n?/g, "\n");
-      }
-
-      //prefを読み込み
-      function getPref(aPrefString, aPrefType, aDefault)
-      {
-        var xpPref = Components.classes['@mozilla.org/preferences-service;1']
-          .getService(Components.interfaces.nsIPrefService);
-        try
-        {
-          switch (aPrefType)
+          if (p_metaOnly && content.indexOf("// ==/UserScript==") > 0)
           {
-            case 'complex':
-              return xpPref.getComplexValue(aPrefString, Components.interfaces.nsILocalFile);
-            case 'str':
-              return unescape(xpPref.getCharPref(aPrefString).toString());
-            case 'int':
-              return xpPref.getIntPref(aPrefString);
-            case 'bool':
-            default:
-              return xpPref.getBoolPref(aPrefString);
+            break;
           }
         }
-        catch (e)
-        {
-        }
-        return aDefault;
-      }
-
-      //pref文字列変換
-      function restoreState(a)
-      {
-        try
-        {
-          var sd = [];
-          for (var i = 0, max = a.length; i < max; ++i) sd[unescape(a[i])] = true;
-          return sd;
-        }
-        catch (e) { return []; }
+        cStream.close();
+        return content.replace(/\r\n?/g, "\n");
       }
     },
 
-    getLastModifiedTime: function (aScriptFile)
+    getLastModifiedTime(p_scriptFile)
     {
-      if (this.REPLACECACHE)
+      if (REPLACE_CACHE)
       {
-        return aScriptFile.lastModifiedTime;
+        return p_scriptFile.lastModifiedTime;
       }
       return "";
     },
 
-    //window.userChrome_js.loadOverlay
-    shutdown: false,
-    overlayWait: 0,
-    overlayUrl: [],
-    loadOverlay: function (url, observer, doc)
+    loadOverlay(p_url, p_observer, p_doc)
     {
-      window.userChrome_js.overlayUrl.push([url, observer, doc]);
+      window.userChrome_js.overlayUrl.push([p_url, p_observer, p_doc]);
       if (!window.userChrome_js.overlayWait) window.userChrome_js.load(++window.userChrome_js.overlayWait);
     },
 
-    load: function ()
+    load()
     {
       if (!window.userChrome_js.overlayUrl.length) return --window.userChrome_js.overlayWait;
-      var [url, aObserver, doc] = this.overlayUrl.shift();
-      if (!!aObserver && typeof aObserver == 'function')
+      const [url, aObserver, doc = document] = this.overlayUrl.shift();
+      if (typeof aObserver === "function")
       {
         aObserver.observe = aObserver;
       }
-      if (!doc) doc = document;
       if (!(doc instanceof XULDocument))
       {
         return 0;
       }
-      var observer = {
-        observe: function (subject, topic, data)
+      const observer = {
+        observe(p_subject, p_topic, p_data)
         {
-          if (topic == 'xul-overlay-merged')
+          if (p_topic === "xul-overlay-merged")
           {
-            //XXX We just caused localstore.rdf to be re-applied (bug 640158)
-            if ("retrieveToolbarIconsizesFromTheme" in window)
-              retrieveToolbarIconsizesFromTheme();
-            if (!!aObserver && typeof aObserver.observe == 'function')
+            // XXX We just caused localstore.rdf to be re-applied (bug 640158)
+            if (window.retrieveToolbarIconsizesFromTheme)
+            {
+              window.retrieveToolbarIconsizesFromTheme();
+            }
+            if (aObserver && typeof aObserver.observe === "function")
             {
               try
               {
-                aObserver.observe(subject, topic, data);
+                aObserver.observe(p_subject, p_topic, p_data);
               }
-              catch (ex)
+              catch (error)
               {
-                window.userChrome_js.error(url, ex);
+                DEBUG && console.log(`Failed to observe overlay:`, url, error);
               }
             }
-            if ('userChrome_js' in window)
+            if (window.userChrome_js)
             {
               window.userChrome_js.load();
             }
           }
         },
-        QueryInterface: function (aIID)
+        QueryInterface(handlerId)
         {
-          if (!aIID.equals(Components.interfaces.nsISupports)
-            && !aIID.equals(Components.interfaces.nsIObserver))
+          if (
+            !handlerId.equals(Components.interfaces.nsISupports)
+            && !handlerId.equals(Components.interfaces.nsIObserver)
+          )
           {
+            DEBUG && console.log(`Invalid handler id:`, handlerId);
             throw Components.results.NS_ERROR_NO_INTERFACE;
           }
-          return this
+          return this;
         }
       };
 
-      if (this.INFO) this.debug("document.loadOverlay: " + url);
-
       try
       {
+        DEBUG && console.log("document.loadOverlay:", url);
         if (window.userChrome_js.shutdown) return;
         doc.loadOverlay(url, observer);
       }
-      catch (ex)
+      catch (error)
       {
-        window.userChrome_js.error(url, ex);
+        DEBUG && console.log(`Failed to run document.loadOverlay:`, url, error);
       }
       return 0;
     },
 
-    //xulを読み込む
-    runOverlays: function (doc)
+    runOverlays(doc)
     {
+      let href;
       try
       {
-        var dochref = doc.location.href.replace(/#.*$/, "");
+        href = doc.location.href.replace(/#.*$/, "");
       }
-      catch (e)
+      catch
       {
         return;
       }
 
-      var overlay;
-
-      for (var m = 0, len = this.overlays.length; m < len; m++)
+      this.overlays.forEach((overlay, index) =>
       {
-        overlay = this.overlays[m];
-        if (this.ALWAYSEXECUTE.indexOf(overlay.filename) < 0
-          && (!!this.dirDisable['*']
-            || !!this.dirDisable[overlay.dir]
-            || !!this.scriptDisable[overlay.filename]))
+        if (overlay.regex.test(href))
         {
-          continue;
-        }
-
-        // decide whether to run the script
-        if (overlay.regex.test(dochref))
-        {
-          if (this.INFO) this.debug("loadOverlay: " + overlay.filename);
           this.loadOverlay(overlay.url + "?" + this.getLastModifiedTime(overlay.file), null, doc);
+          DEBUG && console.log(`Loaded Overlay ${index + 1}:`, overlay.filename);
         }
-      }
+        else
+        {
+          DEBUG && console.log(`Skipped Overlay ${index + 1}:`, overlay.filename);
+        }
+      });
     },
 
-    //uc.jsを読み込む
-    runScripts: function (doc)
+    runScripts(doc)
     {
+      if (!(doc instanceof HTMLDocument /* || doc instanceof XULDocument ||*/))
+      {
+        return;
+      }
+
+      let href;
       try
       {
-        var dochref = doc.location.href.replace(/#.*$/, "");
+        href = doc.location.href.replace(/#.*$/, "");
       }
-      catch (e)
-      {
-        return;
-      }
-      if (!(/*doc instanceof XULDocument ||*/ doc instanceof HTMLDocument))
+      catch
       {
         return;
       }
 
-      var script, aScript;
-      const Cc = Components.classes;
-      const Ci = Components.interfaces;
-      const maxJSVersion = (function getMaxJSVersion()
+      const scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
+        .getService(Components.interfaces.mozIJSSubScriptLoader);
+      this.scripts.forEach((script, index) =>
       {
-        var appInfo = Components
-          .classes["@mozilla.org/xre/app-info;1"]
-          .getService(Components.interfaces.nsIXULAppInfo);
-        var versionChecker = Components
-          .classes["@mozilla.org/xpcom/version-comparator;1"]
-          .getService(Components.interfaces.nsIVersionComparator);
-
-        // Firefox 3.5 and higher supports 1.8.
-        if (versionChecker.compare(appInfo.version, "3.5") >= 0)
+        if (script.regex.test(href))
         {
-          return "1.8";
-        }
-        // Firefox 2.0 and higher supports 1.7.
-        if (versionChecker.compare(appInfo.version, "2.0") >= 0)
-        {
-          return "1.7";
-        }
-        // Everything else supports 1.6.
-        return "1.6";
-      })();
-
-      for (var m = 0, len = this.scripts.length; m < len; m++)
-      {
-        script = this.scripts[m];
-        if (this.ALWAYSEXECUTE.indexOf(script.filename) < 0
-          && (!!this.dirDisable['*']
-            || !!this.dirDisable[script.dir]
-            || !!this.scriptDisable[script.filename])) continue;
-        if (!script.regex.test(dochref)) continue;
-        if (script.ucjs)
-        {
-          // for UCJS_loader
-          if (this.INFO) this.debug("loadUCJSSubScript: " + script.filename);
-          aScript = doc.createElementNS("http://www.w3.org/1999/xhtml", "script");
-          aScript.type = "application/javascript; version=" + maxJSVersion.toString().substr(0, 3);
-          aScript.src = script.url + "?" + this.getLastModifiedTime(script.file);
           try
           {
-            if (this.INFO) this.debug("append script: " + aScript.src);
-            doc.documentElement.appendChild(aScript);
+            scriptLoader.loadSubScript(script.url + "?" + this.getLastModifiedTime(script.file), doc.defaultView, script.charset);
+            DEBUG && console.log(`Loaded Script ${index + 1}:`, script.filename);
           }
-          catch (ex)
+          catch (error)
           {
-            this.error(script.filename, ex);
+            DEBUG && console.log(`Failed to load script ${index + 1}:`, script.filename, error);
           }
         }
         else
         {
-          // Not for UCJS_loader
-          if (this.INFO) this.debug("loadSubScript: " + script.filename);
-          try
-          {
-            if (script.charset)
-            {
-              Cc["@mozilla.org/moz/jssubscript-loader;1"].getService(Ci.mozIJSSubScriptLoader)
-                .loadSubScript(script.url + "?" + this.getLastModifiedTime(script.file), doc.defaultView, script.charset);
-            }
-            else
-            {
-              Cc["@mozilla.org/moz/jssubscript-loader;1"].getService(Ci.mozIJSSubScriptLoader)
-                .loadSubScript(script.url + "?" + this.getLastModifiedTime(script.file), doc.defaultView);
-            }
-          }
-          catch (ex)
-          {
-            this.error(script.filename, ex);
-          }
+          DEBUG && console.log(`Skipped Script ${index + 1}:`, script.filename);
         }
-      }
-    },
-
-    debug: function (aMsg)
-    {
-      Components.classes["@mozilla.org/consoleservice;1"]
-        .getService(Components.interfaces.nsIConsoleService)
-        .logStringMessage(aMsg);
-    },
-
-    error: function (aMsg, err)
-    {
-      const CONSOLE_SERVICE = Components.classes['@mozilla.org/consoleservice;1']
-        .getService(Components.interfaces.nsIConsoleService);
-      var error = Components.classes['@mozilla.org/scripterror;1']
-        .createInstance(Components.interfaces.nsIScriptError);
-      if (typeof (err) == 'object') error.init(aMsg + '\n' + err.name + ' : ' + err.message, err.fileName || null, null, err.lineNumber, null, 2, err.name);
-      else error.init(aMsg + '\n' + err + '\n', null, null, null, null, 2, null);
-      CONSOLE_SERVICE.logMessage(error);
+      });
     }
   };
 
-  var that = window.userChrome_js;
-  window.addEventListener("unload", function ()
+  // Startup.
+  const userChrome = window.userChrome_js;
+  window.addEventListener("unload", () =>
   {
-    that.shutdown = true;
+    userChrome.shutdown = true;
   }, false);
+  userChrome.prepareScripts();
 
-  if (that.INFO) that.debug("getScripts");
-  that.getScripts();
-
-  var href = location.href;
-  var doc = document;
-
-  //Bug 330458 Cannot dynamically load an overlay using document.loadOverlay
-  //until a previous overlay is completely loaded
-
-  if (that.INFO) that.debug("load " + href);
-
-  if (typeof gBrowser != undefined)
+  DEBUG && console.info("Load in url:", location.href);
+  // Bug 330458 Cannot dynamically load an overlay using document.loadOverlay
+  // until a previous overlay is completely loaded
+  if (gBrowser != null)
   {
-    that.runScripts(doc);
-    setTimeout(function (doc) { that.runOverlays(doc); }, 0, doc);
+    userChrome.runScripts(document);
+    setTimeout(() => { userChrome.runOverlays(document); }, 0);
   }
   else
   {
-    setTimeout(function (doc)
+    setTimeout(() =>
     {
-      that.runScripts(doc);
-      setTimeout(function (doc)
-      {
-        that.runOverlays(doc);
-      }, 0, doc);
-    }, 0, doc);
+      userChrome.runScripts(document);
+      setTimeout(() => { userChrome.runOverlays(document); }, 0);
+    }, 0);
   }
 
-  //Sidebar for Trunc
-  if (location.href != that.BROWSERCHROME) return;
-  window.document.addEventListener("load",
-    function (event)
-    {
-      if (!event.originalTarget.location) return;
-      if (/^(about:(blank|newtab|home))/i.test(event.originalTarget.location.href)) return;
-      if (!/^(about:|chrome:)/.test(event.originalTarget.location.href)) return;
-      var doc = event.originalTarget;
-      var href = doc.location.href;
-      if (that.INFO) that.debug("load Sidebar " + href);
-      setTimeout(function (doc)
-      {
-        that.runScripts(doc);
-        setTimeout(function (doc) { that.runOverlays(doc); }, 0, doc);
-      }, 0, doc);
-      if (href != "chrome://browser/content/web-panels.xul") return;
-      if (!window.document.getElementById("sidebar")) return;
-      var sidebarWindow = window.document.getElementById("sidebar").contentWindow;
-      if (sidebarWindow)
-      {
-        loadInWebpanel.init(sidebarWindow);
-      }
-    }
-    , true);
+  if (location.href != BOWSER_CHROME_URL) return;
 
-  var loadInWebpanel = {
+  // WebPanel
+  const loadInWebPanel = {
     sidebarWindow: null,
-
-    init: function (sidebarWindow)
+    init(sidebarWindow)
     {
       this.sidebarWindow = sidebarWindow;
       this.sidebarWindow.document.getElementById("web-panels-browser").addEventListener("load", this, true);
       this.sidebarWindow.addEventListener("unload", this, false);
     },
-
-    handleEvent: function (event)
+    handleEvent(event)
     {
       switch (event.type)
       {
-        case "unload":
-          this.uninit(event);
-          break;
         case "load":
           this.load(event);
           break;
+
+        case "unload":
+          this.unload(event);
+          break;
       }
     },
+    load(event)
+    {
+      const target = event.originalTarget;
+      if (!target.location) return;
 
-    uninit: function (event)
+      const href = target.location.href;
+      if (!/^chrome:/.test(href)) return;
+      DEBUG && console.log("Load in WebPanel:", href);
+      setTimeout(() =>
+      {
+        userChrome.runScripts(target);
+        setTimeout(() => { userChrome.runOverlays(target); }, 0);
+      }, 0);
+    },
+    unload()
     {
       this.sidebarWindow.document.getElementById("web-panels-browser").removeEventListener("load", this, true);
       this.sidebarWindow.removeEventListener("unload", this, false);
-    },
-
-    load: function (event)
-    {
-      var doc = event.originalTarget;
-      var href = doc.location.href;
-      if (!/^chrome:/.test(href)) return;
-      if (that.INFO) that.debug("load Webpanel " + href);
-      setTimeout(function (doc)
-      {
-        that.runScripts(doc);
-        setTimeout(function (doc) { that.runOverlays(doc); }, 0, doc);
-      }, 0, doc);
     }
   }
+
+  // Sidebar.
+  window.document.addEventListener("load", (event) =>
+  {
+    const target = event.originalTarget;
+    if (!target.location) return;
+
+    const href = target.location.href;
+    if (/^(about:(blank|newtab|home))/i.test(href)) return;
+    if (!/^(about:|chrome:)/.test(href)) return;
+    DEBUG && console.log("Load in sidebar:", href);
+    setTimeout(() =>
+    {
+      userChrome.runScripts(target);
+      setTimeout(() => { userChrome.runOverlays(target); }, 0);
+    }, 0);
+    if (href != "chrome://browser/content/web-panels.xul") return;
+    if (!window.document.getElementById("sidebar")) return;
+    const sidebarWindow = window.document.getElementById("sidebar").contentWindow;
+    if (sidebarWindow)
+    {
+      loadInWebPanel.init(sidebarWindow);
+    }
+  }, true);
 })();
