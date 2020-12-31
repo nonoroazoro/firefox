@@ -8,13 +8,35 @@
 
 const Common = {
     /**
+     * Gets Firefox IOService.
+     */
+    get IOService()
+    {
+        return Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+    },
+
+    /**
+     * Gets Firefox StyleSheetService.
+     */
+    get StyleSheetService()
+    {
+        return Cc["@mozilla.org/content/style-sheet-service;1"].getService(Ci.nsIStyleSheetService);
+    },
+
+    /**
+     * Gets Firefox ClipboardService.
+     */
+    get ClipboardService()
+    {
+        return Cc["@mozilla.org/widget/clipboardhelper;1"].getService(Ci.nsIClipboardHelper);
+    },
+
+    /**
      * Copies string to clipboard.
      */
     copy(str)
     {
-        Components.classes["@mozilla.org/widget/clipboardhelper;1"]
-            .getService(Components.interfaces.nsIClipboardHelper)
-            .copyString(str);
+        this.ClipboardService.copyString(str);
     },
 
     /**
@@ -47,6 +69,33 @@ const Common = {
             });
         }
         return element;
+    },
+
+    /**
+     * Creates a widget.
+     */
+    createWidget(id, label, tooltiptext, defaultArea, onCreated)
+    {
+        CustomizableUI.createWidget({
+            defaultArea,
+            id,
+            label,
+            tooltiptext,
+            onCreated
+        });
+    },
+
+    /**
+     * Loads CSS.
+     *
+     * @param {string} cssStr CSS string.
+     */
+    loadCSS(cssStr)
+    {
+        this.StyleSheetService.loadAndRegisterSheet(
+            this.IOService.newURI("data:text/css;base64," + btoa(cssStr), null, null),
+            this.StyleSheetService.USER_SHEET
+        );
     },
 
     /**
