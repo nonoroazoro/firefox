@@ -95,10 +95,10 @@ const TabPlus = {
      */
     newTabRight()
     {
-        // gBrowser.tabContainer.addEventListener("TabOpen", (e) =>
-        // {
-        //     gBrowser.moveTabTo(e.target, gBrowser.mCurrentTab._tPos + 1);
-        // });
+        gBrowser.tabContainer.addEventListener("TabOpen", (e) =>
+        {
+            gBrowser.moveTabTo(e.target, gBrowser.tabContainer.selectedIndex + 1);
+        });
     },
 
     /*
