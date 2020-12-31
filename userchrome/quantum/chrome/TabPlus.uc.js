@@ -1,36 +1,32 @@
 // ==UserScript==
 // @name           TabPlus.uc.js
-// @namespace      https://github.com/nonoroazoro
 // @description    Enhance the Tabs.
 // @charset        UTF-8
-// @version        1.1  2019-05-22  Disable newTabRight.
-// @version        1.0  2018-03-20  Added support for Firefox Quantum.
+// @history        2020-12-30  Added support for Firefox 84.
+// @homepageURL    https://github.com/nonoroazoro/firefox/tree/master/userchrome/quantum
+// @include        chrome://browser/content/browser.xhtml
+// @include        chrome://browser/content/browser.xul
 // ==/UserScript==
 
 const TabPlus = {
-    init: function ()
+    init()
     {
-        if (location.href == "chrome://browser/content/browser.xul")
-        {
-            this.openLinkInString = openLinkIn.toString();
-            this.gURLBarHandleCommandString = gURLBar.handleCommand.toString();
-
-            // this.openBookmarksInNewTab();
-            this.openLocationsInNewTab();
-            this.dblClickCloseTab();
-            this.openLeftTabAfterClose();
-            this.newTabRight();
-        }
+        // this.openBookmarksInNewTab();
+        // this.openLocationsInNewTab();
+        this.doubleClickCloseTab();
+        this.newTabRight();
+        this.openLeftTabAfterClose();
+        this.viewImageInNewTab();
     },
 
     /*
      * Open in new Tab: Bookmarks.
      */
-    openBookmarksInNewTab: function ()
+    openBookmarksInNewTab()
     {
         try
         {
-            let newFunc = this.openLinkInString.replace(`w.gBrowser.getTabForBrowser(targetBrowser).pinned`, `true`);
+            let newFunc = openLinkIn.toString().replace(`w.gBrowser.getTabForBrowser(targetBrowser).pinned`, `true`);
 
             // Open in current tab when the uri is same.
             newFunc = newFunc.replace(
@@ -47,12 +43,12 @@ const TabPlus = {
     /*
      * Open in new Tab: Location Bar.
      */
-    openLocationsInNewTab: function ()
+    openLocationsInNewTab()
     {
         try
         {
             // Ignore Alt + Enter.
-            let newFunc = this.gURLBarHandleCommandString.replace(/&&\n.+altKey &&/, "&&");
+            let newFunc = gURLBar.handleCommand.toString().replace(/&&\n.+altKey &&/, "&&");
 
             // Open in current tab when the uri is same.
             newFunc = newFunc.replace(
@@ -67,24 +63,37 @@ const TabPlus = {
     },
 
     /*
-     * Double click to close Tab.
+     * Double click to close tab.
      */
-    dblClickCloseTab: function ()
+    doubleClickCloseTab()
     {
         gBrowser.tabContainer.addEventListener("dblclick", (e) =>
         {
-            if (e.target.localName == "tab" && e.button == 0)
+            if (e.button == 0 & !e.ctrlKey)
             {
-                gBrowser.removeTab(e.target, { animate: true });
+                const tab = e.target.closest(".tabbrowser-tab");
+                if (tab)
+                {
+                    gBrowser.removeTab(tab, { animate: true });
+                }
             }
         });
+    },
+
+    /*
+     * View image in new tab.
+     */
+    viewImageInNewTab()
+    {
+        document.getElementById("context-viewimage")
+            .setAttribute("oncommand", `openTrustedLinkIn(gContextMenu.imageURL, "tab")`);
     },
 
     /*
      * Create new Tabs on the right of the current Tab.
      *
      */
-    newTabRight: function ()
+    newTabRight()
     {
         // gBrowser.tabContainer.addEventListener("TabOpen", (e) =>
         // {
@@ -93,9 +102,9 @@ const TabPlus = {
     },
 
     /*
-     * Open the left Tab when the current Tab is closed.
+     * Open left tab after closing current tab.
      */
-    openLeftTabAfterClose: function ()
+    openLeftTabAfterClose()
     {
         gBrowser.tabContainer.addEventListener("TabClose", (e) =>
         {
@@ -105,7 +114,7 @@ const TabPlus = {
                 gBrowser.selectedTab = leftTab;
             }
         });
-    },
+    }
 };
 
 TabPlus.init();
