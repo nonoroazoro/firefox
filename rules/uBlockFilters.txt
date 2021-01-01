@@ -87,6 +87,8 @@ www.douyu.com##.PlayerToolbar
 www.douyu.com###js-aside
 www.douyu.com###js-player-guessgame
 www.facebook.com###pagelet_growth_expanding_cta
+www.huya.com##.player-banner-gift
+www.huya.com###player-marquee-wrap
 www.iciba.com##.ad-sign
 www.iciba.com##.cb-downloadbar
 www.iciba.com##.cb-downmask
