@@ -1,10 +1,9 @@
 /* Hide unused location bar items. */
-#pageActionButton, #reader-mode-button, #urlbar-zoom-button
+#pageActionButton, #pageActionSeparator, #reader-mode-button, #urlbar-zoom-button
 {
     display: none;
 }
 
-/* Hide unused panel button. */
 #PanelUI-button
 {
     display: none;
