@@ -219,10 +219,7 @@ const KeyChanger = {
         try
         {
             data = decodeURIComponent(escape(data));
-        }
-        catch
-        {
-        }
+        } catch { }
         sStream.close();
         fStream.close();
         return data;

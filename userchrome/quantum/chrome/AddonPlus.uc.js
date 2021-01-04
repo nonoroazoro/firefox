@@ -34,7 +34,7 @@ const AddonPlus = {
         }
     ],
 
-    prepareMenuItems: function (items)
+    prepareMenuItems(items)
     {
         return items.map((item) =>
         {
@@ -42,7 +42,7 @@ const AddonPlus = {
         });
     },
 
-    prepareAddons: function ()
+    prepareAddons()
     {
         return new Promise((resolve) =>
         {
@@ -50,7 +50,7 @@ const AddonPlus = {
         });
     },
 
-    initMenu: function (parent)
+    initMenu(parent)
     {
         const items = this.prepareMenuItems(this.items);
         if (parent)
@@ -62,7 +62,7 @@ const AddonPlus = {
         }
     },
 
-    init: function ()
+    init()
     {
         document.addEventListener("DOMContentLoaded", (e) =>
         {
@@ -75,7 +75,7 @@ const AddonPlus = {
         });
     },
 
-    operate: function (disabled)
+    operate(disabled)
     {
         this.prepareAddons().then((addons) =>
         {
