@@ -37,6 +37,25 @@ return {
         }
     },
 
+    /**
+     * Translates selected text.
+     */
+    "F3": function ()
+    {
+        Common.evalExpression(`content.document.getSelection().toString()`, (message) =>
+        {
+            const text = message.data;
+            if (text === "")
+            {
+                Common.openURL(`http://dict.youdao.com`);
+            }
+            else
+            {
+                Common.openURL(`http://dict.youdao.com/search?q=${encodeURIComponent(text)}`);
+            }
+        });
+    },
+
     // Open About Page
     "F4": function ()
     {
@@ -204,7 +223,7 @@ return {
     // Copy all Thunder download links
     "Alt+M": function (e)
     {
-        ThunderPlus.copy();
+
     },
 
     // Save page to file
