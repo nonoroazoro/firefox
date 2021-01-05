@@ -70,6 +70,7 @@
 *.cockos.com
 *.codepen.io
 *.codepen.plumbing
+*.codepen.website
 *.codesandbox.io
 *.coggle.it
 *.commonjs.org
