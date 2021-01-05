@@ -86,6 +86,28 @@ const Common = {
     },
 
     /**
+     * Eval expression in current content document, return the value as the message of the callback.
+     *
+     * @param {string} script
+     * @param {(message) => void} callback
+     */
+    evalExpression(script, callback)
+    {
+        const eventId = Math.random().toString(36).substr(1, 9);
+        const messageManager = gBrowser.selectedBrowser.messageManager;
+        messageManager.addMessageListener(eventId, _handler);
+        function _handler(message)
+        {
+            messageManager.removeMessageListener(eventId, _handler, true);
+            if (callback)
+            {
+                callback(message);
+            }
+        }
+        messageManager.loadFrameScript(`data:,sendAsyncMessage("${eventId}", ${script})`, true);
+    },
+
+    /**
      * Loads CSS.
      *
      * @param {string} cssStr CSS string.
@@ -113,7 +135,7 @@ const Common = {
      */
     openURL(url, inBackground = false)
     {
-        openTrustedLinkIn(url, "tab", { inBackground });
+        openTrustedLinkIn(url, "tab", { inBackground, relatedToCurrent: true });
     },
 
     toast(message, title = "UserChrome.js")
