@@ -1,33 +1,33 @@
 return {
     // ******************************** Builtin ********************************
-    // Select Left Tab
+    // Select Left Tab.
     "1": "gBrowser.tabContainer.advanceSelectedTab(-1, true);",
 
-    // Select Right Tab
+    // Select Right Tab.
     "2": "gBrowser.tabContainer.advanceSelectedTab(1, true);",
 
-    // Scroll Left
+    // Scroll Left.
     "A": `goDoCommand("cmd_scrollLeft");`,
 
-    // Scroll Right
+    // Scroll Right.
     "D": `goDoCommand("cmd_scrollRight");`,
 
-    // Page Up
+    // Scroll page Up.
     "W": `goDoCommand("cmd_scrollPageUp");`,
 
-    // Page Down
+    // Scroll page Down.
     "S": `goDoCommand("cmd_scrollPageDown");`,
 
-    // Reload Skip Cache
+    // Reload skip cache.
     "R": "BrowserReloadSkipCache();",
 
-    // Open InoReader
+    // Open InoReader.
     "F1": function ()
     {
         Common.openURL("https://www.inoreader.com");
     },
 
-    // Open Google Cache of Current Page
+    // Open current page with google cache.
     "F2": function ()
     {
         const url = gBrowser.currentURI.spec;
@@ -38,7 +38,7 @@ return {
     },
 
     /**
-     * Translates selected text.
+     * Translate selected text.
      */
     "F3": function ()
     {
@@ -56,7 +56,7 @@ return {
     },
 
     /**
-     * Translates selected text.
+     * Translate selected text.
      */
     "Shift+F3": function ()
     {
@@ -73,95 +73,102 @@ return {
         });
     },
 
-    // Open About Page
+    // Open about page
     "F4": function ()
     {
         Common.openURL("about:about");
     },
 
-    // Open Profiles Folder
+    // Open profiles Folder.
     "F9": function ()
     {
         FileUtils.getDir("ProfD", []).launch();
     },
 
-    // Addons
+    // Open addons manager.
     "Alt+A": "BrowserOpenAddonsMgr();",
 
-    // Copy page URL
+    // Open bookmark search plus.
+    // "Alt+B": `PlacesCommandHook.showPlacesOrganizer("AllBookmarks");`,
+
+    // Copy page url.
     "Alt+C": function ()
     {
         Common.copy(gBrowser.currentURI.spec);
     },
 
-    // Focus URL bar
-    "Alt+D": "gURLBar.focus();",
+    // Focus url bar and select all.
+    "Alt+D": function ()
+    {
+        gURLBar.focus();
+        document.getElementById("urlbar-input").select();
+    },
 
-    // Clear History
+    // Clear history.
     "Alt+Delete": function ()
     {
         Common.doCommand("sanitizeItem");
     },
 
-    // History
+    // Open history manager.
     "Alt+H": `PlacesCommandHook.showPlacesOrganizer("History");`,
 
-    // Home Page
+    // Open home page.
     "Alt+Home": "BrowserHome();",
 
-    // Reader Mode
+    // Open reader mode.
     // "Alt+K": "ReaderParent.toggleReaderMode(event);",
 
-    // Back
+    // Go back.
     "Alt+Left": "BrowserBack()",
 
-    // Forward
+    // Go forward.
     "Alt+Right": "BrowserForward()",
 
-    // Firefox Color Picker
+    // Open firefox color picker.
     "Alt+P": function ()
     {
         Common.doCommand("menu_eyedropper");
     },
 
-    // Browse page info
+    // Browse page info.
     "Alt+U": "BrowserPageInfo();",
 
-    // Undo Closed Tab
+    // Undo closed Tab.
     "Alt+Z": "undoCloseTab();",
 
-    // Bookmarks
+    // Open bookmarks.
     "Ctrl+B": `PlacesCommandHook.showPlacesOrganizer("AllBookmarks");`,
 
-    // Inspect DOM Elements
+    // Inspect DOM elements.
     "Ctrl+E": function ()
     {
         Common.doCommand("menuitem_inspector");
     },
 
-    // New Tab
+    // Create a new tab.
     "Ctrl+N": "BrowserOpenTab();",
 
-    // Toggle mute and disable Mac's stupid Minimize shortcut
+    // Toggle mute and disable Mac's stupid minimize app shortcut.
     "Ctrl+M": function ()
     {
         gBrowser.selectedTab.toggleMuteAudio();
     },
 
-    // Preferences
+    // Open preferences.
     "Ctrl+P": "openPreferences();",
 
-    // Close Tab
+    // Close tab.
     "Ctrl+W": "BrowserCloseTabOrWindow();",
 
-    // Restart Firefox
+    // Restart Firefox.
     "Ctrl+Alt+R": function ()
     {
         Common.restartFirefox();
     },
 
     // ****************************** UserChrome.js ******************************
-    // NetEase Music Global Hotkey
+    // NetEase Music Global Hotkey.
     // "Ctrl+Alt+Left": function (e)
     // {
     //     // 感谢黑仪大螃蟹。
@@ -182,7 +189,7 @@ return {
     //     }
     // },
 
-    // NetEase Music Global Hotkey
+    // NetEase Music Global Hotkey.
     // "Ctrl+Alt+Right": function (e)
     // {
     //     // 感谢黑仪大螃蟹。
@@ -204,40 +211,40 @@ return {
     // },
 
     // ******************************** Addons ********************************
-    // RESTer
+    // Open RESTer.
     "F8": function ()
     {
         Common.openURL("moz-extension://8f6f7d5a-3885-3841-a4c5-34b8ff25dd23/site/index.html");
     },
 
-    // Convert to Simplified Chinese
+    // Convert to Simplified Chinese.
     // "Alt+J": function ()
     // {
     //     Common.doCommand("tongwen_softcup-browser-action", true);
     // },
 
-    // Convert to Traditional Chinese
+    // Convert to Traditional Chinese.
     // "Ctrl+Alt+J": function ()
     // {
     //     TongWen.trans(TongWen.TRAFLAG);
     // },
 
-    // Show QR Code
+    // Show QR code.
     // "Alt+Q": function (e)
     // {
     //     Common.doCommand("tinyqrcode_nonoroazoro_com-browser-action");
     // },
 
-    // Net Video Hunter
-    "Alt+N": "com.netvideohunter.downloader.Overlay_Instance.openMediaListWindow();",
+    // Open Net Video Hunter.
+    // "Alt+N": "com.netvideohunter.downloader.Overlay_Instance.openMediaListWindow();",
 
-    // Switch Proxy Mode
+    // Switch proxy mode.
     "X": function ()
     {
         Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-browser-action");
     },
 
-    // Copy all Thunder download links
+    // Copy all download links fro Thunder.
     "Alt+M": function (e)
     {
         Common.evalInContent(
@@ -273,7 +280,7 @@ return {
         );
     },
 
-    // Save page to file
+    // Save page to file.
     // "Alt+S": function (e)
     // {
     //     Common.doCommand("_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action", true);
