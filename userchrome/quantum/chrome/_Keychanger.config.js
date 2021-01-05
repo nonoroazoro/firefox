@@ -33,7 +33,7 @@ return {
         const url = gBrowser.currentURI.spec;
         if (url !== "" && !url.startsWith("about:"))
         {
-            Common.openURL(`https://www.google.com/search?q=cache:${url}`);
+            Common.openURL(`https://www.google.com/search?q=cache:${encodeURIComponent(url)}`);
         }
     },
 
@@ -42,16 +42,15 @@ return {
      */
     "F3": function ()
     {
-        Common.evalExpression(`content.document.getSelection().toString()`, (message) =>
+        Common.evalInContent(`content.document.getSelection().toString()`, (data) =>
         {
-            const text = message.data;
-            if (text === "")
+            if (data === "")
             {
                 Common.openURL(`http://dict.youdao.com`);
             }
             else
             {
-                Common.openURL(`http://dict.youdao.com/search?q=${encodeURIComponent(text)}`);
+                Common.openURL(`http://dict.youdao.com/search?q=${encodeURIComponent(data)}`);
             }
         });
     },
@@ -223,7 +222,37 @@ return {
     // Copy all Thunder download links
     "Alt+M": function (e)
     {
+        Common.evalInContent(
+            () =>
+            {
+                const urls = [];
+                urls.push(..._filterURLs(content.document.getElementsByTagName("a"), "href"));
+                urls.push(..._filterURLs(content.document.getElementsByTagName("input"), "value"));
+                urls.push(..._filterURLs(content.document.getElementsByTagName("textarea"), "value"));
 
+                function _filterURLs(elements, key)
+                {
+                    let value;
+                    const result = [];
+                    const regex = /(^ed2k:\/\/)|(^thunder:\/\/)|(^magnet:\?xt=)/i;
+                    for (const element of elements)
+                    {
+                        value = element[key].trim();
+                        if (regex.test(value))
+                        {
+                            result.push(value);
+                        }
+                    }
+                    return result;
+                }
+
+                return [...new Set(urls)].sort((a, b) => a.localeCompare(b)).join("\n");
+            },
+            (data) =>
+            {
+                Common.copy(data);
+            }
+        );
     },
 
     // Save page to file
