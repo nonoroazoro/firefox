@@ -14,7 +14,7 @@ const TabPlus = {
         // this.openBookmarksInNewTab();
         // this.openLocationsInNewTab();
         this.doubleClickCloseTab();
-        this.newTabRight();
+        // this.newTabRight();
         this.openLeftTabAfterClose();
         this.viewImageInNewTab();
     },
