@@ -55,6 +55,24 @@ return {
         });
     },
 
+    /**
+     * Translates selected text.
+     */
+    "Shift+F3": function ()
+    {
+        Common.evalInContent(`content.document.getSelection().toString()`, (data) =>
+        {
+            if (data === "")
+            {
+                Common.openURL(`https://translate.google.com`);
+            }
+            else
+            {
+                Common.openURL(`https://translate.google.com/?sl=auto&tl=zh-CN&text=${encodeURIComponent(data)}&op=translate`);
+            }
+        });
+    },
+
     // Open About Page
     "F4": function ()
     {
