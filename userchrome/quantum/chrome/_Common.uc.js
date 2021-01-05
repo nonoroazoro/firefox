@@ -86,12 +86,12 @@ const Common = {
     },
 
     /**
-     * Eval expression in current content document, return the value as the message of the callback.
+     * Eval expression in current content document, return the expression result as the data param of the callback.
      *
-     * @param {string} script
-     * @param {(message) => void} callback
+     * @param {string | () => any} expression
+     * @param {(data: any) => void} callback
      */
-    evalExpression(script, callback)
+    evalInContent(expression, callback)
     {
         const eventId = Math.random().toString(36).substr(1, 9);
         const messageManager = gBrowser.selectedBrowser.messageManager;
@@ -101,10 +101,11 @@ const Common = {
             messageManager.removeMessageListener(eventId, _handler, true);
             if (callback)
             {
-                callback(message);
+                callback(message.data);
             }
         }
-        messageManager.loadFrameScript(`data:,sendAsyncMessage("${eventId}", ${script})`, true);
+        const script = encodeURIComponent(typeof expression === "function" ? "(" + expression.toString() + ")()" : expression);
+        messageManager.loadFrameScript(`data:application/javascript;charset=utf-8,sendAsyncMessage("${eventId}", ${script})`, false);
     },
 
     /**
