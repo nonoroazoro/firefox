@@ -42,11 +42,11 @@ return {
      */
     "F3": function ()
     {
-        Common.evalInContent(`content.document.getSelection().toString()`, (data) =>
+        Common.evalInContent("content.document.getSelection().toString()", (data) =>
         {
             if (data === "")
             {
-                Common.openURL(`http://dict.youdao.com`);
+                Common.openURL("http://dict.youdao.com");
             }
             else
             {
@@ -60,11 +60,11 @@ return {
      */
     "Shift+F3": function ()
     {
-        Common.evalInContent(`content.document.getSelection().toString()`, (data) =>
+        Common.evalInContent("content.document.getSelection().toString()", (data) =>
         {
             if (data === "")
             {
-                Common.openURL(`https://translate.google.com`);
+                Common.openURL("https://translate.google.com/?sl=auto&tl=zh-CN");
             }
             else
             {
@@ -82,7 +82,7 @@ return {
     // Open profiles Folder.
     "F9": function ()
     {
-        FileUtils.getDir("ProfD", []).launch();
+        FileUtils.getDir("ProfD", ["chrome"]).launch();
     },
 
     // Open addons manager.
