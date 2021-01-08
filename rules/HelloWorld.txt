@@ -51,6 +51,7 @@ bootstrapcdn.com
 bose.cn
 browserstack.com
 btbtt.co
+buildofexile.com
 builtwith.com
 caniuse.com
 ccfbits.org
@@ -189,6 +190,7 @@ grimdawn.com
 grimtools.com
 gstatic.cn
 gstatic.com
+guru3d.com
 hacg.red
 happiestminds.com
 haskell.org
@@ -251,6 +253,7 @@ medium.com
 mega.nz
 microsoft.com
 mikocon.com
+miraheze.org
 mitmproxy.org
 momentcdn.net
 momentjs.cn
@@ -308,6 +311,7 @@ pixabay.com
 pixiv.net
 pixnet.net
 plot.ly
+poe-roadmap.com
 poe.ninja
 poe.trade
 poebuilds.cc
@@ -325,6 +329,7 @@ pornhub.com
 portablesoft.org
 pqrs.org
 prettier.io
+projectdiablo2.com
 pugjs.org
 pujia8.com
 pusher.com
@@ -402,6 +407,7 @@ sunface.io
 surge.sh
 syncthing.net
 t.co
+te4.org
 techbang.com
 telerik.com
 temp-mail.org
