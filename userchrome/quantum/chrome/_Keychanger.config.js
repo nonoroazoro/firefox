@@ -147,7 +147,11 @@ return {
     },
 
     // Create a new tab.
-    "Ctrl+N": "BrowserOpenTab();",
+    "Ctrl+N": function ()
+    {
+        // BrowserOpenTab();
+        Common.openURL("about:newtab");
+    },
 
     // Toggle mute and disable Mac's stupid minimize app shortcut.
     "Ctrl+M": function ()
