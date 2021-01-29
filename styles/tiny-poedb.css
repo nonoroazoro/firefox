@@ -1,0 +1,11 @@
+/* 隐藏顶部广告栏 */
+.page-content > div:nth-child(1), .page-content > div:nth-child(2)
+{
+    display: none !important;
+}
+
+/* 默认全部展开星团珠宝细节 */
+#DeliriumPassiveTreeExpansionSkillsnSmallClusterJewel tbody > tr > td:nth-child(2) > div:nth-child(3)
+{
+    display: block;
+}
