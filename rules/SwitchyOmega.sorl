@@ -401,6 +401,7 @@
 *.surge.sh
 *.syncthing.net
 *.t.co
+*.tanstack.com
 *.techbang.com
 *.telerik.com
 *.temp-mail.org
@@ -485,4 +486,3 @@
 *.zimuzu.tv
 *.zmz2017.com
 *.zodgame.us
-poe-roadmap.com
