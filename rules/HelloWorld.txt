@@ -95,6 +95,7 @@ deno.land
 devdocs.io
 devhints.cn
 devhints.io
+discord.com
 discordapp.com
 discourse-cdn-sjc1.com
 disqus.com
