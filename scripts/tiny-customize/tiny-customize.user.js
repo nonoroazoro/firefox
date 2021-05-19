@@ -19,6 +19,7 @@
 // @include     https://login.taobao.com/*
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
+// @include     https://sparticle999.github.io/*
 // @include     https://www.chiphell.com/*
 // @version     1.3.3
 // @grant       none
@@ -241,6 +242,22 @@ const getLazyActions = () =>
         elements.forEach((e) =>
         {
             e.textContent = e.textContent.slice(0, e.textContent.indexOf(" "));
+        });
+    }
+    else if (host === "sparticle999.github.io")
+    {
+        // 自动重复点击 Gain。
+        const elements = document.querySelectorAll(".gainButton > .btn");
+        elements.forEach((e) =>
+        {
+            const handler = e.onclick;
+            e.onclick = () =>
+            {
+                for (let i = 0; i < 10000; i++)
+                {
+                    handler();
+                }
+            };
         });
     }
 
