@@ -450,6 +450,7 @@ venngage.com
 videolan.org
 vimeo.com
 vimeocdn.com
+virtuoso.dev
 visualstudio.com
 vsassets.io
 w3.org
