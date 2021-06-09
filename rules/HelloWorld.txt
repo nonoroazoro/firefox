@@ -37,7 +37,6 @@ bahamut.com.tw
 baidupcs.com
 bangumi.moe
 baolibot.com
-battle.net
 bintray.com
 bit.ly
 bitbucket.org
@@ -81,6 +80,7 @@ coolshell.cn
 coppertino.com
 cpubenchmark.net
 cpuid.com
+craftofexile.com
 css-tricks.com
 css3generator.com
 curse.com
@@ -195,6 +195,7 @@ guru3d.com
 hacg.red
 happiestminds.com
 haskell.org
+hcaptcha.com
 hdpian.com
 headwayapp.co
 hedviginc.com
@@ -447,6 +448,7 @@ usemessages.com
 userstyles.org
 ustclug.org
 venngage.com
+ventoy.net
 videolan.org
 vimeo.com
 vimeocdn.com
