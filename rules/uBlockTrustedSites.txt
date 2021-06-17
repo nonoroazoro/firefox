@@ -6,6 +6,7 @@ moz-extension-scheme
 opera-scheme
 vivaldi-scheme
 # wyciwyg-scheme
+passport.jd.com
 poe-profile.info
 poedb.tw
 voice.google.com
