@@ -67,6 +67,7 @@ tieba.baidu.com###selectsearch-icon
 tieba.baidu.com###spage_liveshow_slide
 tieba.baidu.com###spage-tbshare-container
 tieba.baidu.com###threadListGroupCnt
+tieba.baidu.com###tiebaCustomPassLogin
 tieba.baidu.com###video_aside
 tieba.baidu.com###video_frs_head
 wiki.jikexueyuan.com##.bdselect_share_box
