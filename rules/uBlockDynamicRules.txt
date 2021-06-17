@@ -1,8 +1,6 @@
 no-csp-reports: * true
 no-scripting: behind-the-scene false
 * baomitu.com * block
-* changyan.itc.cn * block
-* changyan.sohu.com * block
 * cnzz.com * block
 * google-analytics.com * block
 * googlesyndication.com * block
