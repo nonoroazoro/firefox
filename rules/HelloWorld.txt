@@ -485,6 +485,7 @@ xbrowsersync.org
 xmarks.com
 xmonad.org
 yarnpkg.com
+ycombinator.com
 youtu.be
 youtube-nocookie.com
 youtube.com
