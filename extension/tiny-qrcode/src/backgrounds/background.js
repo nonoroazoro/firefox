@@ -1,42 +1,37 @@
 /* global qr */
 
-const cache = {};
+const cache = new Map();
 
 /**
  * Generate QR Code image.
  */
-function generateQRImage(p_message, p_sender, p_done)
+function generateQRImage(message, sender, done)
 {
-    let dataURL = cache[p_message.text];
+    let dataURL = cache.get(message.text);
     if (!dataURL)
     {
-        dataURL = qr.toDataURL(
-            {
-                mime: "image/png",
-                value: p_message.text,
-                size: p_message.size
-            }
-        );
-        cache[p_message.text] = dataURL;
+        dataURL = qr.toDataURL({
+            mime: "image/png",
+            value: message.text,
+            size: message.size
+        });
+        cache.set(message.text, dataURL);
     }
-
-    p_done({ dataURL });
+    done({ dataURL });
 }
 
 /**
  * Handle tab's onRemoved event. Remove cache of closed tab.
  */
-function onRemovedHandler(p_tabId, p_info)
+async function onRemovedHandler(tabId, info)
 {
-    if (!p_info.isWindowClosing)
+    if (!info.isWindowClosing)
     {
-        browser.tabs.get(p_tabId, (p_tab) =>
+        const tab = await browser.tabs.get(tabId);
+        if (tab)
         {
-            if (p_tab)
-            {
-                cache[p_tab.url] = null;
-            }
-        });
+            cache.clear(tab.url);
+        }
     }
 }
 
