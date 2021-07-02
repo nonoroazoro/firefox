@@ -50,9 +50,11 @@ tieba.baidu.com##.app_download_box
 tieba.baidu.com##.aside_region.celebrity
 tieba.baidu.com##.dialogJ
 tieba.baidu.com##.dialogJmodal
+tieba.baidu.com##.pop-mask
 tieba.baidu.com##.r-right-sec
 tieba.baidu.com##.r-top-sec
 tieba.baidu.com##.share_btn_wrapper
+tieba.baidu.com##.tang-pass-pop-login
 tieba.baidu.com##.tbui_aside_float_bar
 tieba.baidu.com##.top-sec
 tieba.baidu.com##.topic_list_box
