@@ -1,3 +1,9 @@
+*://*/?s=*
+*://*/cha.php?s=*
+*://*/list.php?s=*
+*://*/so.php
+*://*/so.php?s=*
+*://*/so/*
 *://blog.sytone.me/*
 *://www.thecheatscript.com/*
 *://www.wegame.com.cn/*
