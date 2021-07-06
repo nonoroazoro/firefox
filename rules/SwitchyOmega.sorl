@@ -244,10 +244,12 @@
 *.live.com
 *.lmgtfy.com
 *.lodash.com
+*.lomorage.com
 *.marketo.net
 *.material-ui.com
 *.mathisfun.com
 *.matplotlib.org
+*.matters.news
 *.maxcdn.com
 *.medium.com
 *.mega.nz
@@ -493,4 +495,3 @@
 *.zimuzu.tv
 *.zmz2017.com
 *.zodgame.us
-*.matters.news
