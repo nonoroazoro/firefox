@@ -5,6 +5,7 @@
 *://*/so.php?s=*
 *://*/so/*
 *://blog.sytone.me/*
+*://www.52audio.com/*
 *://www.thecheatscript.com/*
 *://www.wegame.com.cn/*
 *://zhm.100ke.info/*
