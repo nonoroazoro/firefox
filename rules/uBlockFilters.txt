@@ -72,6 +72,7 @@ tieba.baidu.com###threadListGroupCnt
 tieba.baidu.com###tiebaCustomPassLogin
 tieba.baidu.com###video_aside
 tieba.baidu.com###video_frs_head
+wefan.baidu.com###tiebaCustomPassLogin
 wiki.jikexueyuan.com##.bdselect_share_box
 www.3dmgame.com##.head
 www.3dmgame.com##.head_top
