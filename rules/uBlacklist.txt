@@ -5,6 +5,8 @@
 *://*/so.php?s=*
 *://*/so/*
 *://blog.sytone.me/*
+*://tiebac.baidu.com/*
+*://wefan.baidu.com/*
 *://www.52audio.com/*
 *://www.thecheatscript.com/*
 *://www.wegame.com.cn/*
