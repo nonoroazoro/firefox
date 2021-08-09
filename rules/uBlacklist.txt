@@ -8,6 +8,7 @@
 *://tiebac.baidu.com/*
 *://wefan.baidu.com/*
 *://www.52audio.com/*
+*://www.lohine.com/*
 *://www.thecheatscript.com/*
 *://www.wegame.com.cn/*
 *://zhm.100ke.info/*
