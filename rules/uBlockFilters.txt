@@ -102,6 +102,7 @@ www.iciba.com##.icIbahyI-des
 www.iciba.com##.info-hotwords
 www.iciba.com##.info-product
 www.iciba.com##.menu-mac-button
+www.infoq.cn##.selection-operation-bar
 www.inoreader.com###list_menu
 www.jscd.gov.cn##.bdselect_share_bg
 www.jscd.gov.cn##.bdselect_share_box
