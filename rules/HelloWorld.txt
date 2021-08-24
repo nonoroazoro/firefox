@@ -255,6 +255,7 @@ matplotlib.org
 matters.news
 maxcdn.com
 maxroll.gg
+median-xl.com
 medium.com
 mega.nz
 microsoft.com
