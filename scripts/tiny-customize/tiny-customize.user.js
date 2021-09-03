@@ -20,8 +20,9 @@
 // @include     https://login.xiami.com/*
 // @include     https://passport.jd.com/*
 // @include     https://sparticle999.github.io/*
+// @include     https://wiki.d.163.com/*
 // @include     https://www.chiphell.com/*
-// @version     1.3.3
+// @version     1.3.4
 // @grant       none
 // ==/UserScript==
 
@@ -260,6 +261,13 @@ const getLazyActions = () =>
             };
         });
     }
+    else if (host === "wiki.d.163.com")
+    {
+        // 底部总览框置顶。
+        const parent = document.getElementById("bodyContent");
+        const elements = document.querySelectorAll("#bodyContent > .Allbox");
+        parent.prepend(...elements);
+    }
 
     return actions;
 };
@@ -272,11 +280,8 @@ const exec = (p_actions) =>
     p_actions.forEach(p_action => p_action());
 };
 
-// 1. 立即执行。
 exec(getInstantActions());
-
-// 2. 延迟执行。
-window.addEventListener("load", () => exec(getLazyActions()), true);
+exec(getLazyActions());
 
 function _noop() { }
 
