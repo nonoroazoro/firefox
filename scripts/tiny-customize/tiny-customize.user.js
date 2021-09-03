@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name        Tiny-Customize
 // @description 为常用网站添加功能定制。例如：3DMGame、贴吧、淘宝、京东、GitHub...
-// @homepageURL https://github.com/nonoroazoro/firefox/tree/master/greasemonkey/tiny-customize
+// @homepageURL https://github.com/nonoroazoro/firefox/tree/master/scripts/tiny-customize
 // @namespace   https://greasyfork.org/zh-CN/scripts/19823-tiny-customize
 // @author      nonoroazoro
 // @include     /^https?:\/\/(.+\.)?github\./
