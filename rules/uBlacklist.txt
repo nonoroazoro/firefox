@@ -15,5 +15,6 @@
 *://*/so.php
 *://*/so.php?s=*
 *://*/so/*
+*://thewebdev.info/*
 *://tiebac.baidu.com/*
 *://wefan.baidu.com/*
