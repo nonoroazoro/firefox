@@ -1,4 +1,4 @@
-# UserChromeJS for Firefox 84
+# UserChromeJS for Firefox 92
 
 This UserChromeJS is based on [alice0775/userChrome.js](https://github.com/alice0775/userChrome.js) with some customization.
 
@@ -9,3 +9,9 @@ This UserChromeJS is based on [alice0775/userChrome.js](https://github.com/alice
 1. `config-prefs.js` loads `config.js`;
 
 1. `config.js` loads all `*.uc.js` scripts;
+
+## Installation
+
+- `Windows`: copy into `Firefox.exe` folder.
+
+- `Mac`: copy into `Firefox.app/Contents/Resources` folder.
