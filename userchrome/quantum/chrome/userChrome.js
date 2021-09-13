@@ -70,7 +70,7 @@
                 const result = {
                     file: p_file,
                     filename: p_file.leafName,
-                    url: fph.getURLSpecFromFile(p_file)
+                    url: fph.getURLSpecFromActualFile(p_file)
                 };
 
                 const findNextRe = /^\/\/ @(include|exclude)[ \t]+(\S+)/gm;
@@ -155,10 +155,6 @@
             if (typeof aObserver === "function")
             {
                 aObserver.observe = aObserver;
-            }
-            if (!(doc instanceof XULDocument))
-            {
-                return 0;
             }
             const observer = {
                 observe(p_subject, p_topic, p_data)
@@ -360,6 +356,10 @@
         const href = target.location.href;
         if (/^(about:(blank|newtab|home))/i.test(href)) return;
         if (!/^(about:|chrome:)/.test(href)) return;
+        // 略过对话框。
+        if (href == "chrome://global/content/commonDialog.xhtml") return;
+        if (href == "chrome://global/content/selectDialog.xhtml") return;
+        if (href == "chrome://global/content/alerts/alert.xhtml") return;
         DEBUG && console.log("Load in sidebar:", href);
         setTimeout(() =>
         {
