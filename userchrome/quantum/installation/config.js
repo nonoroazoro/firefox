@@ -1,4 +1,6 @@
-// 2019-12-11 fix 72 use "load" in config.js, working with Sub-Script/Overlay Loader v3.0.60mod
+// skip 1st line
+lockPref("toolkit.telemetry.enabled", false);
+
 try
 {
     const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
@@ -26,7 +28,7 @@ try
                 file.append("userChrome.js");
                 const fileURL = Services.io.getProtocolHandler("file")
                     .QueryInterface(Ci.nsIFileProtocolHandler)
-                    .getURLSpecFromFile(file) + "?" + file.lastModifiedTime;
+                    .getURLSpecFromActualFile(file) + "?" + file.lastModifiedTime;
                 Services.scriptloader.loadSubScript(fileURL, document.defaultView, "UTF-8");
             }
         }
