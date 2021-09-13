@@ -162,6 +162,12 @@ return {
     // Open preferences.
     "Ctrl+P": "openPreferences();",
 
+    // Create a new container tab.
+    "Ctrl+T": function ()
+    {
+        Common.doCommand("_c607c8df-14a7-4f28-894f-29e8722976af_-browser-action");
+    },
+
     // Close tab.
     "Ctrl+W": "BrowserCloseTabOrWindow();",
 

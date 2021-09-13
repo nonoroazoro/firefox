@@ -6,45 +6,18 @@
     display: none;
 }
 
+/*
+ * Hide application menu.
+ */
 #PanelUI-button
 {
     display: none;
 }
 
 /*
- * Disable megabar.
- * https://github.com/WesleyBranton/Remove-Firefox-Megabar
+ * Hide tab close buttons.
  */
-@-moz-document url(chrome://browser/content/browser.xhtml)
+#tabbrowser-tabs .tab-close-button
 {
-    /* Disable megabar. */
-    #urlbar[breakout][breakout-extend]
-    {
-        top: calc((var(--urlbar-toolbar-height) - var(--urlbar-height)) / 2) !important;
-        left: 0 !important;
-        width: 100% !important;
-    }
-
-    #urlbar[breakout][breakout-extend] > #urlbar-input-container
-    {
-        height: var(--urlbar-height) !important;
-        padding-block: 0 !important;
-        padding-inline: 0 !important;
-    }
-
-    #urlbar[breakout][breakout-extend] > #urlbar-background
-    {
-        animation-name: none !important;
-        box-shadow: 0 1px 4px rgba(0, 0, 0, .05) !important;
-    }
-
-    /* Hide blue border. */
-    #searchbar:focus-within, #urlbar[focused="true"] > #urlbar-background
-    {
-        border-color: hsla(240, 5%, 5%, .25) !important;
-    }
+    display: none;
 }
-
-/* 附加组件 about:addons */
-/* @-moz-document url-prefix(chrome://mozapps/content/extensions/aboutaddons.html)
- {} */
