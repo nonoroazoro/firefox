@@ -15,6 +15,9 @@
 *://*/so.php
 *://*/so.php?s=*
 *://*/so/*
+*://cuefactor.com/*
 *://thewebdev.info/*
 *://tiebac.baidu.com/*
 *://wefan.baidu.com/*
+*://www.ovagamespc.com/*
+*://zhuanile.com/*
