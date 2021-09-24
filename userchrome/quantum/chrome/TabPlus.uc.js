@@ -9,35 +9,21 @@
 // ==/UserScript==
 
 const TabPlus = {
-    init()
+    activate()
     {
-        // this.openBookmarksInNewTab();
-        // this.openLocationsInNewTab();
-        this.doubleClickCloseTab();
-        // this.newTabRight();
-        this.openLeftTabAfterClose();
+        // Double click to close the tab.
+        gBrowser.tabContainer.addEventListener("dblclick", this._handleTabDoubleClick);
+
+        // Open left tab after the current tab is closed.
+        gBrowser.tabContainer.addEventListener("TabClose", this._handleTabClose);
+
         this.viewImageInNewTab();
     },
 
-    /*
-     * Open in new Tab: Bookmarks.
-     */
-    openBookmarksInNewTab()
+    deactivate()
     {
-        try
-        {
-            let newFunc = openLinkIn.toString().replace(`w.gBrowser.getTabForBrowser(targetBrowser).pinned`, `true`);
-
-            // Open in current tab when the uri is same.
-            newFunc = newFunc.replace(
-                "targetBrowser.currentURI.host != uriObj.host",
-                "targetBrowser.currentURI.spec != uriObj.spec"
-            );
-
-            eval("openLinkIn = " + newFunc);
-        }
-        catch (e)
-        { }
+        gBrowser.tabContainer.removeEventListener("dblclick", this._handleTabDoubleClick);
+        gBrowser.tabContainer.removeEventListener("TabClose", this._handleTabClose);
     },
 
     /*
@@ -57,27 +43,7 @@ const TabPlus = {
             );
 
             eval("gURLBar.handleCommand = " + newFunc);
-        }
-        catch (e)
-        { }
-    },
-
-    /*
-     * Double click to close tab.
-     */
-    doubleClickCloseTab()
-    {
-        gBrowser.tabContainer.addEventListener("dblclick", (e) =>
-        {
-            if (e.button == 0 & !e.ctrlKey)
-            {
-                const tab = e.target.closest(".tabbrowser-tab");
-                if (tab)
-                {
-                    gBrowser.removeTab(tab, { animate: true });
-                }
-            }
-        });
+        } catch { }
     },
 
     /*
@@ -89,32 +55,26 @@ const TabPlus = {
             .setAttribute("oncommand", `openTrustedLinkIn(gContextMenu.imageURL, "tab")`);
     },
 
-    /*
-     * Create new Tabs on the right of the current Tab.
-     *
-     */
-    newTabRight()
+    _handleTabDoubleClick(e)
     {
-        gBrowser.tabContainer.addEventListener("TabOpen", (e) =>
+        if (e.button == 0 & !e.ctrlKey)
         {
-            gBrowser.moveTabTo(e.target, gBrowser.tabContainer.selectedIndex + 1);
-        });
+            const tab = e.target.closest(".tabbrowser-tab");
+            if (tab)
+            {
+                gBrowser.removeTab(tab, { animate: true });
+            }
+        }
     },
 
-    /*
-     * Open left tab after closing current tab.
-     */
-    openLeftTabAfterClose()
+    _handleTabClose(e)
     {
-        gBrowser.tabContainer.addEventListener("TabClose", (e) =>
+        const leftTab = e.target.previousSibling;
+        if (leftTab)
         {
-            const leftTab = e.target.previousSibling;
-            if (leftTab)
-            {
-                gBrowser.selectedTab = leftTab;
-            }
-        });
+            gBrowser.selectedTab = leftTab;
+        }
     }
 };
 
-TabPlus.init();
+Common.register(TabPlus);
