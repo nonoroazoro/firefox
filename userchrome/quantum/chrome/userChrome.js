@@ -2,7 +2,7 @@
 
 (function ()
 {
-    const DEBUG = true;
+    const DEBUG = false;
     const REPLACE_CACHE = true;
     const BOWSER_CHROME_URL = "chrome://browser/content/browser.xhtml";
 
