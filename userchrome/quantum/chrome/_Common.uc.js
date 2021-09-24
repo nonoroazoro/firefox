@@ -241,5 +241,53 @@ const Common = {
         // Components.classes["@mozilla.org/toolkit/app-startup;1"]
         //     .getService(Components.interfaces.nsIAppStartup)
         //     .quit(Components.interfaces.nsIAppStartup.eAttemptQuit | Components.interfaces.nsIAppStartup.eRestart);
+    },
+
+    /**
+     * Registers a plugin that has implemented the `activate` and `deactivate` methods.
+     */
+    register(plugin)
+    {
+        // plugin: { activate, deactivate }
+        if (typeof plugin.activate === "function")
+        {
+            function _handleUnload()
+            {
+                plugin.deactivate();
+                window.removeEventListener("unload", _handleUnload);
+            };
+
+            function start()
+            {
+                // Activate when the Firefox window has finished starting up.
+                plugin.activate();
+                if (typeof plugin.deactivate === "function")
+                {
+                    // Deactivate when the Firefox window has closed.
+                    window.addEventListener("unload", _handleUnload);
+                }
+            }
+
+            // Register when the browser window has finished starting up.
+            if (gBrowserInit.delayedStartupFinished)
+            {
+                start();
+            }
+            else
+            {
+                const handleDelayedStartupFinished = (subject, topic) =>
+                {
+                    if (
+                        topic == "browser-delayed-startup-finished"
+                        && subject == window
+                    )
+                    {
+                        Services.obs.removeObserver(handleDelayedStartupFinished, topic);
+                        start();
+                    }
+                };
+                Services.obs.addObserver(handleDelayedStartupFinished, "browser-delayed-startup-finished");
+            }
+        }
     }
 };
