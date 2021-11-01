@@ -321,6 +321,7 @@ pixabay.com
 pixiv.net
 pixnet.net
 plot.ly
+poe-profile.info
 poe-roadmap.com
 poe.ninja
 poe.trade
@@ -439,7 +440,6 @@ travis-ci.org
 trouter.io
 trow.cc
 truste.com
-vn.cz
 ttvnw.net
 tumblr.com
 twimg.com
@@ -469,6 +469,7 @@ vimeo.com
 vimeocdn.com
 virtuoso.dev
 visualstudio.com
+vn.cz
 vsassets.io
 w3.org
 w3schools.com
