@@ -1,11 +1,10 @@
-about-scheme
+# about-scheme
 chrome-extension-scheme
 chrome-scheme
-edge-scheme
+# edge-scheme
 moz-extension-scheme
 opera-scheme
-passport.jd.com
-poedb.tw
 vivaldi-scheme
+# wyciwyg-scheme
+passport.jd.com
 voice.google.com
-wyciwyg-scheme
