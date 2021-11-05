@@ -7,4 +7,3 @@ opera-scheme
 vivaldi-scheme
 # wyciwyg-scheme
 passport.jd.com
-voice.google.com
