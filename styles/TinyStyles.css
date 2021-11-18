@@ -5,10 +5,10 @@
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
-
-/* 凯恩之角 */
 @-moz-document domain("wiki.d.163.com")
 {
+    /* 凯恩之角 */
+
     /* 隐藏顶部留白 */
     #mw-head-base, #mw-page-base
     {
@@ -27,10 +27,10 @@
         display: none;
     }
 }
-
-/* 斗鱼 */
 @-moz-document domain("www.douyu.com")
 {
+    /* 斗鱼 */
+
     .layout-Player-main
     {
         margin-right: unset !important;
@@ -58,10 +58,10 @@
         height: 0 !important;
     }
 }
-
-/* 虎牙 */
 @-moz-document domain("www.huya.com")
 {
+    /* 虎牙 */
+
     /* 隐藏虎牙顶栏 */
     .duya-header
     {
@@ -140,10 +140,10 @@
         margin-right: 0 !important;
     }
 }
-
-/* 金山词霸 */
 @-moz-document domain("www.iciba.com")
 {
+    /* 金山词霸 */
+
     .container
     {
         width: 1200px !important;
@@ -177,10 +177,10 @@
         width: 100% !important;
     }
 }
-
-/* PoEDB */
 @-moz-document domain("poedb.tw")
 {
+    /* PoEDB */
+
     /* 默认全部展开巨型星团珠宝细节 */
     #DeliriumPassiveTreeExpansionSkillsnLargeClusterJewel tbody > tr > td:nth-child(2) > div:nth-child(3)
     {
@@ -199,10 +199,10 @@
         display: block;
     }
 }
-
-/* PoE TW 官方交易 */
 @-moz-document url-prefix("https://web.poe.garena.tw/trade/search")
 {
+    /* PoE TW 官方交易 */
+
     .gsitebar-wrap
     {
         display: none;
@@ -250,19 +250,19 @@
         display: none !important;
     }
 }
-
-/* Reddit */
 @-moz-document domain("reddit.com")
 {
+    /* Reddit */
+
     a
     {
         color: #0084FF !important;
     }
 }
-
-/* Wowhead */
 @-moz-document domain("wowhead.com")
 {
+    /* Wowhead */
+
     #sidebar-wrapper
     {
         display: none;
