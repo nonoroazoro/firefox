@@ -199,9 +199,9 @@
         display: block;
     }
 }
-@-moz-document url-prefix("https://web.poe.garena.tw/trade/search")
+@-moz-document url-prefix("https://www.pathofexile.com/trade/search"), url-prefix("https://web.poe.garena.tw/trade/search")
 {
-    /* PoE TW 官方交易 */
+    /* PoE 官方交易 */
 
     .gsitebar-wrap
     {
@@ -246,6 +246,12 @@
     }
 
     .top-btn
+    {
+        display: none !important;
+    }
+
+    /* 隐藏国际服广告 */
+    .news-banner
     {
         display: none !important;
     }
