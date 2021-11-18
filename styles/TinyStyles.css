@@ -257,10 +257,16 @@
         background-color: #FBD148 !important;
     }
 
-    .search-advanced-items .search-advanced-pane:nth-child(2) .filter-group .multiselect__input
+    .search-advanced-items .search-advanced-pane:nth-child(2) .filter-group .multiselect__tags
+    {
+        padding: 0 !important;
+    }
+
+    .search-advanced-items .search-advanced-pane:nth-child(2) .filter-group .multiselect__tags .multiselect__input
     {
         color: black !important;
         background-color: #1C7947 !important;
+        line-height: 26px !important;
     }
 
     .mutate-type-pseudo
