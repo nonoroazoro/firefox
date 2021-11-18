@@ -199,10 +199,28 @@
         display: block;
     }
 }
-@-moz-document url-prefix("https://www.pathofexile.com/trade/search"), url-prefix("https://web.poe.garena.tw/trade/search")
+@-moz-document url-prefix("https://www.pathofexile.com/trade"), url-prefix("https://web.poe.garena.tw/trade")
 {
     /* PoE 官方交易 */
 
+    #statusBar, .language-select, .linkBack
+    {
+        display: none;
+    }
+
+    /* 隐藏国际服语言选择器 */
+    .language-select
+    {
+        display: none;
+    }
+
+    /* 隐藏国际服广告 */
+    .news-banner
+    {
+        display: none !important;
+    }
+
+    /* 隐藏台服顶栏 */
     .gsitebar-wrap
     {
         display: none;
@@ -213,9 +231,14 @@
         display: none;
     }
 
-    .top
+    #trade
     {
-        margin-top: 8px;
+        padding-top: 8px;
+    }
+
+    .btn.remove-btn
+    {
+        background-color: #C85C5C !important;
     }
 
     .controls-center .search-btn
@@ -246,12 +269,6 @@
     }
 
     .top-btn
-    {
-        display: none !important;
-    }
-
-    /* 隐藏国际服广告 */
-    .news-banner
     {
         display: none !important;
     }
