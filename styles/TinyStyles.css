@@ -1,0 +1,203 @@
+@-moz-document domain(wiki.d.163.com)
+{
+    /* 隐藏顶部留白 */
+    #mw-head-base, #mw-page-base
+    {
+        display: none;
+    }
+
+    /* 隐藏顶栏 */
+    #mw-head
+    {
+        display: none;
+    }
+
+    /* 隐藏底栏 */
+    #footer
+    {
+        display: none;
+    }
+}
+@-moz-document domain(www.douyu.com)
+{
+    .layout-Player-main
+    {
+        margin-right: unset !important;
+    }
+
+    .layout-Player
+    {
+        margin-top: 10px;
+    }
+
+    body.is-fullScreenPage .layout-Player-video
+    {
+        bottom: 0;
+    }
+
+    body.is-fullScreenPage .layout-Player
+    {
+        margin-top: 0;
+    }
+
+    #js-player-toolbar
+    {
+        background-color: transparent !important;
+        border: none !important;
+        height: 0 !important;
+    }
+}
+@-moz-document domain(www.huya.com)
+{
+    /* 隐藏虎牙顶栏 */
+    .duya-header
+    {
+        display: none;
+    }
+
+    /* 隐藏视频上方内容 */
+    #matchComponent2
+    {
+        display: none;
+    }
+
+    /* 隐藏左侧工具栏 */
+    .mod-sidebar
+    {
+        display: none;
+    }
+
+    /* 隐藏右侧聊天栏 */
+    .room-core-r
+    {
+        display: none;
+    }
+
+    /* 隐藏视频下方内容 */
+    #match-cms-content
+    {
+        display: none;
+    }
+
+    /* 隐藏虎牙工具按钮 */
+    .room-hd-r
+    {
+        display: none;
+    }
+
+    /* 隐藏网页全屏时的侧栏图标 */
+    #player-fullpage-right-btn
+    {
+        display: none !important;
+    }
+
+    /* 隐藏网页全屏时的小窗播放按钮 */
+    #player-pc-watch-btn
+    {
+        display: none !important;
+    }
+
+    /* 隐藏全屏时的订阅图标 */
+    #player-subscribe-wap
+    {
+        display: none !important;
+    }
+
+    /* 隐藏全屏时的礼物栏 */
+    .gift-info-wrap
+    {
+        display: none;
+    }
+
+    /* 隐藏礼物栏 */
+    #player-gift-wrap
+    {
+        display: none !important;
+    }
+
+    /* 整体布局 */
+    #J_mainRoom, #J_mainWrap
+    {
+        padding: 0;
+    }
+
+    /* 视频布局 */
+    .room-core-l
+    {
+        margin-right: 0 !important;
+    }
+}
+@-moz-document domain(www.iciba.com)
+{
+    .container
+    {
+        width: 1200px !important;
+    }
+
+    .container a
+    {
+        color: #1596f5 !important;
+    }
+
+    .menu
+    {
+        left: -100px !important;
+        margin-left: 0 !important;
+    }
+
+    .container-left
+    {
+        width: 970px !important;
+    }
+
+    .container-right
+    {
+        width: 200px !important;
+    }
+}
+@-moz-document domain(dj.iciba.com)
+{
+    .fl.main
+    {
+        width: 100% !important;
+    }
+}
+@-moz-document domain(poedb.tw)
+{
+    /* 默认全部展开巨型星团珠宝细节 */
+    #DeliriumPassiveTreeExpansionSkillsnLargeClusterJewel tbody > tr > td:nth-child(2) > div:nth-child(3)
+    {
+        display: block;
+    }
+
+    /* 默认全部展开中型星团珠宝细节 */
+    #DeliriumPassiveTreeExpansionSkillsnMediumClusterJewel tbody > tr > td:nth-child(2) > div:nth-child(3)
+    {
+        display: block;
+    }
+
+    /* 默认全部展开小型星团珠宝细节 */
+    #DeliriumPassiveTreeExpansionSkillsnSmallClusterJewel tbody > tr > td:nth-child(2) > div:nth-child(3)
+    {
+        display: block;
+    }
+}
+@-moz-document domain(reddit.com)
+{
+    a
+    {
+        color: #0084FF !important;
+    }
+}
+@-moz-document domain(wowhead.com)
+{
+    #sidebar-wrapper
+    {
+        display: none;
+    }
+
+    #page-content
+    {
+        padding-right: 0;
+    }
+}
