@@ -21,6 +21,7 @@
 *://tiebac.baidu.com/*
 *://wefan.baidu.com/*
 *://www.dmpans.com/*
+*://www.javascriptcn.com/*
 *://www.ovagamespc.com/*
 *://www.wpansou.com/*
 *://zhuanile.com/*
