@@ -1,4 +1,13 @@
-@-moz-document domain(wiki.d.163.com)
+/* ==UserStyle==
+@name           TinyStyles
+@namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
+@version        1.0.0
+@description    Tiny styles for some websites.
+@author         Nonoroazoro
+==/UserStyle== */
+
+/* 凯恩之角 */
+@-moz-document domain("wiki.d.163.com")
 {
     /* 隐藏顶部留白 */
     #mw-head-base, #mw-page-base
@@ -18,7 +27,9 @@
         display: none;
     }
 }
-@-moz-document domain(www.douyu.com)
+
+/* 斗鱼 */
+@-moz-document domain("www.douyu.com")
 {
     .layout-Player-main
     {
@@ -47,7 +58,9 @@
         height: 0 !important;
     }
 }
-@-moz-document domain(www.huya.com)
+
+/* 虎牙 */
+@-moz-document domain("www.huya.com")
 {
     /* 隐藏虎牙顶栏 */
     .duya-header
@@ -127,7 +140,9 @@
         margin-right: 0 !important;
     }
 }
-@-moz-document domain(www.iciba.com)
+
+/* 金山词霸 */
+@-moz-document domain("www.iciba.com")
 {
     .container
     {
@@ -155,14 +170,16 @@
         width: 200px !important;
     }
 }
-@-moz-document domain(dj.iciba.com)
+@-moz-document domain("dj.iciba.com")
 {
     .fl.main
     {
         width: 100% !important;
     }
 }
-@-moz-document domain(poedb.tw)
+
+/* PoEDB */
+@-moz-document domain("poedb.tw")
 {
     /* 默认全部展开巨型星团珠宝细节 */
     #DeliriumPassiveTreeExpansionSkillsnLargeClusterJewel tbody > tr > td:nth-child(2) > div:nth-child(3)
@@ -182,14 +199,69 @@
         display: block;
     }
 }
-@-moz-document domain(reddit.com)
+
+/* PoE TW 官方交易 */
+@-moz-document url-prefix("https://web.poe.garena.tw/trade/search")
+{
+    .gsitebar-wrap
+    {
+        display: none;
+    }
+
+    .logo
+    {
+        display: none;
+    }
+
+    .top
+    {
+        margin-top: 8px;
+    }
+
+    .controls-center .search-btn
+    {
+        background-color: #193498 !important;
+    }
+
+    .controls-right > .clear-btn
+    {
+        background-color: #C85C5C !important;
+    }
+
+    .controls-right > .toggle-search-btn
+    {
+        color: black !important;
+        background-color: #FBD148 !important;
+    }
+
+    .search-advanced-items .search-advanced-pane:nth-child(2) .filter-group .multiselect__input
+    {
+        color: black !important;
+        background-color: #1C7947 !important;
+    }
+
+    .mutate-type-pseudo
+    {
+        background-color: #172774 !important;
+    }
+
+    .top-btn
+    {
+        display: none !important;
+    }
+}
+
+/* Reddit */
+@-moz-document domain("reddit.com")
 {
     a
     {
         color: #0084FF !important;
     }
 }
-@-moz-document domain(wowhead.com)
+
+/* Wowhead */
+@-moz-document domain("wowhead.com")
 {
     #sidebar-wrapper
     {
