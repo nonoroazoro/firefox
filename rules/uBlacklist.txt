@@ -16,6 +16,7 @@
 *://*/so.php?s=*
 *://*/so/*
 *://awesomeopensource.com/*
+*://causlayer.orgs.hk/*
 *://cuefactor.com/*
 *://thewebdev.info/*
 *://tiebac.baidu.com/*
