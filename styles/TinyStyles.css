@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.0.1
+@version        1.0.2
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -302,7 +302,7 @@
         padding-right: 0;
     }
 }
-@-moz-document domain("medium.com")
+@-moz-document domain("medium.com"), domain("plainenglish.io"), domain("itnext.io")
 {
     /* Medium */
 
