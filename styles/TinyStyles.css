@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.0.0
+@version        1.0.1
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -300,5 +300,15 @@
     #page-content
     {
         padding-right: 0;
+    }
+}
+@-moz-document domain("medium.com")
+{
+    /* Medium */
+
+    /* 隐藏选择文本后的工具栏 */
+    body > script:last-of-type + div
+    {
+        display: none;
     }
 }
