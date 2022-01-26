@@ -18,9 +18,11 @@
 *://awesomeopensource.com/*
 *://causlayer.orgs.hk/*
 *://cuefactor.com/*
+*://m.zhangyoubao.com/*
 *://thewebdev.info/*
 *://tiebac.baidu.com/*
 *://wefan.baidu.com/*
+*://www.3loumao.org/*
 *://www.dmpans.com/*
 *://www.javascriptcn.com/*
 *://www.ovagamespc.com/*
