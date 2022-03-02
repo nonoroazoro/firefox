@@ -2,6 +2,7 @@
 *://*.360kuai.com/*
 *://*.3loumao.org/*
 *://*.52audio.com/*
+*://*.9game.cn/*
 *://*.da-quan.net/*
 *://*.dmpans.com/*
 *://*.hanlefang.net/*
@@ -9,6 +10,7 @@
 *://*.latexcapacity.com/*
 *://*.lohine.com/*
 *://*.ovagamespc.com/*
+*://*.shicimingju.com/*
 *://*.systemcity.cn/*
 *://*.sytone.me/*
 *://*.thecheatscript.com/*
