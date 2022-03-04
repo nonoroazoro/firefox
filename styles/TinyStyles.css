@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.0.3
+@version        1.0.4
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -310,5 +310,20 @@
     body > script:last-of-type + div
     {
         display: none;
+    }
+}
+@-moz-document domain("eldenring.wiki.fextralife.com")
+{
+    /* Elden Ring Wiki */
+
+    /* 优化地图工具 */
+    #form-header, #sidebar-wrapper
+    {
+        display: none;
+    }
+
+    #wrapper
+    {
+        padding-left: 0;
     }
 }
