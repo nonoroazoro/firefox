@@ -98,6 +98,7 @@ devhints.cn
 devhints.io
 diablowiki.net
 discord.com
+discord.gg
 discordapp.com
 discourse-cdn-sjc1.com
 disqus.com
@@ -339,6 +340,7 @@ poeutil.com
 popmotion.io
 pornhub.com
 portablesoft.org
+powerpyx.com
 pqrs.org
 prettier.io
 projectdiablo2.com
@@ -444,6 +446,7 @@ trow.cc
 truste.com
 ttvnw.net
 tumblr.com
+tupian.li
 twimg.com
 twitch.tv
 twitchcdn.net
