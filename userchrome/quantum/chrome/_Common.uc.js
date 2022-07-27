@@ -93,7 +93,7 @@ const Common = {
      */
     evalInContent(expression, callback)
     {
-        const eventId = Math.random().toString(36).substr(1, 9);
+        const eventId = Math.random().toString(36).substring(2);
         const messageManager = gBrowser.selectedBrowser.messageManager;
         messageManager.addMessageListener(eventId, _handler);
         function _handler(message)
