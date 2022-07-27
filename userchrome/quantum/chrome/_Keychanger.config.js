@@ -46,11 +46,11 @@ return {
         {
             if (data === "")
             {
-                Common.openURL("http://dict.youdao.com");
+                Common.openURL("https://dict.youdao.com");
             }
             else
             {
-                Common.openURL(`http://dict.youdao.com/search?q=${encodeURIComponent(data)}`);
+                Common.openURL(`https://dict.youdao.com/result?word=${encodeURIComponent(data)}&lang=en`);
             }
         });
     },
