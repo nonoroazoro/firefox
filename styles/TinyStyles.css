@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.0.4
+@version        1.0.5
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -312,18 +312,37 @@
         display: none;
     }
 }
-@-moz-document domain("eldenring.wiki.fextralife.com")
+@-moz-document domain("fandom.com")
 {
-    /* Elden Ring Wiki */
+    /* Fandom */
 
-    /* 优化地图工具 */
-    #form-header, #sidebar-wrapper
+    /* 隐藏屎黄栏 */
+    .global-navigation
     {
         display: none;
     }
 
-    #wrapper
+    .main-container
     {
-        padding-left: 0;
+        margin-left: unset;
+        width: unset;
+    }
+
+    /* 隐藏左上角、右下角工具栏 */
+    .WikiaBarWrapper, .page-side-tools__wrapper
+    {
+        display: none;
+    }
+
+    /* 隐藏右侧栏 */
+    .page__right-rail
+    {
+        display: none;
+    }
+
+    /* 隐藏底栏 */
+    #mixed-content-footer, .global-footer, .page-footer
+    {
+        display: none;
     }
 }
