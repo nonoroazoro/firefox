@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.0.7
+@version        1.0.9
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -352,6 +352,26 @@
 
     /* Hide ads */
     .items > div:not(.container), .product > div:not(.container), .profile > div:not(.container)
+    {
+        display: none;
+    }
+}
+@-moz-document domain("icy-veins.com")
+{
+    /* D2 - Builds */
+
+    /* Hide ads */
+    .premium_banners_limited
+    {
+        display: none;
+    }
+}
+@-moz-document url-prefix("https://maxroll.gg/d2/d2planner/")
+{
+    /* D2 - Maxroll */
+
+    /* Hide ads */
+    #d2planner-left, #d2planner-right
     {
         display: none;
     }
