@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.0.10
+@version        1.1.0
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -371,7 +371,7 @@
     /* D2 - Maxroll */
 
     /* Hide ads */
-    #d2planner-left, #d2planner-right, .adsmanager-ad-container
+    #d2-desktop-left-sidebar, #d2-desktop-left-sidebar-ws, #d2-desktop-right-sidebar, #d2-desktop-right-sidebar-ws, #d2planner-left, #d2planner-right, .adsmanager-ad-container
     {
         display: none !important;
     }
