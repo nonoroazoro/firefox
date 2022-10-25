@@ -14,4 +14,4 @@ This UserChromeJS is based on [alice0775/userChrome.js](https://github.com/alice
 
 - `Windows`: copy into `Firefox.exe` folder.
 
-- `Mac`: copy into `Firefox.app/Contents/Resources` folder.
+- `Mac`: copy files from the installation folder into `Firefox.app/Contents/Resources` folder.
