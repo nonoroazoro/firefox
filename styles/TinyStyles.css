@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.1.1
+@version        1.1.2
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -342,28 +342,6 @@
 
     /* 隐藏底栏 */
     #mixed-content-footer, .global-footer, .page-footer
-    {
-        display: none;
-    }
-}
-@-moz-document domain("traderie.com")
-{
-    /* D2 - Traderie */
-
-    /* Hide ads */
-    .items > div:not(.container), .product > div:not(.container), .profile > div:not(.container)
-    {
-        display: none;
-    }
-
-    /* Hide ads */
-    .home > .home-section:nth-child(1), div.home-section:nth-child(2)
-    {
-        display: none;
-    }
-
-    /* Hide ads */
-    .bJRhxR, .guLgba
     {
         display: none;
     }
