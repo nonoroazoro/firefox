@@ -73,6 +73,11 @@ tieba.baidu.com###threadListGroupCnt
 tieba.baidu.com###tiebaCustomPassLogin
 tieba.baidu.com###video_aside
 tieba.baidu.com###video_frs_head
+traderie.com##.items > div:not(.container)
+traderie.com##.product > div:not(.container)
+traderie.com##.profile > div:not(.container)
+traderie.com##div.home-section:nth-of-type(1)
+traderie.com##div.home-section:nth-of-type(2)
 web.poe.garena.tw###J-sitebar
 wefan.baidu.com###tiebaCustomPassLogin
 wiki.jikexueyuan.com##.bdselect_share_box
