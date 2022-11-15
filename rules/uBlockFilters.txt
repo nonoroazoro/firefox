@@ -16,6 +16,7 @@ blog.163.com##.js-show-regGuideLayer.f-trans.m-regGuideLayer
 blog.csdn.net##.save_code
 dict.youdao.com##.c-logo
 dict.youdao.com##.dialog-guide-download
+dict.youdao.com##.small-logo
 dict.youdao.com###callback
 dict.youdao.com###doc2
 dict.youdao.com###follow
