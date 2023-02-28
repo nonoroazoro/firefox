@@ -301,6 +301,7 @@ office365.com
 ondemand.com
 onenote.com
 onesignal.com
+openai.com
 openrec.tv
 outlook.com
 ownedcore.com
