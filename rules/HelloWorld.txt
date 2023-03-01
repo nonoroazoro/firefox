@@ -61,6 +61,7 @@ challonge.com
 chartjs.org
 chinagfw.org
 cililian.me
+civitai.com
 clarenceho.net
 clippingmagic.com
 cloudflare.com
