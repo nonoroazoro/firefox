@@ -6,4 +6,5 @@ moz-extension-scheme
 opera-scheme
 vivaldi-scheme
 # wyciwyg-scheme
+auth.garena.com
 passport.jd.com
