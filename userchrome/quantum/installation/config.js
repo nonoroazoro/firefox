@@ -1,12 +1,8 @@
 // skip 1st line
-lockPref("toolkit.telemetry.enabled", false);
 
 try
 {
-    const { classes: Cc, interfaces: Ci, utils: Cu } = Components;
-
-    Cu.import("resource://gre/modules/Services.jsm");
-    Cu.import("resource://gre/modules/osfile.jsm");
+    const { classes: Cc, interfaces: Ci, } = Components;
 
     function UserChrome_js()
     {
@@ -14,7 +10,7 @@ try
     };
 
     UserChrome_js.prototype = {
-        observe(aSubject, aTopic, aData)
+        observe(aSubject)
         {
             aSubject.addEventListener("load", this, true);
         },
@@ -24,12 +20,16 @@ try
             const document = aEvent.originalTarget;
             if (document.location && document.location.protocol === "chrome:")
             {
-                const file = Services.dirsvc.get("UChrm", Ci.nsIFile);
+                const ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+                const fph = ios.getProtocolHandler("file").QueryInterface(Ci.nsIFileProtocolHandler);
+                const ds = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties);
+
+                const file = ds.get("UChrm", Ci.nsIFile);
                 file.append("userChrome.js");
-                const fileURL = Services.io.getProtocolHandler("file")
-                    .QueryInterface(Ci.nsIFileProtocolHandler)
-                    .getURLSpecFromActualFile(file) + "?" + file.lastModifiedTime;
-                Services.scriptloader.loadSubScript(fileURL, document.defaultView, "UTF-8");
+                const fileURL = fph.getURLSpecFromActualFile(file) + "?" + file.lastModifiedTime;
+                Cc["@mozilla.org/moz/jssubscript-loader;1"]
+                    .getService(Ci.mozIJSSubScriptLoader)
+                    .loadSubScript(fileURL, document.defaultView, "UTF-8");
             }
         }
     };
