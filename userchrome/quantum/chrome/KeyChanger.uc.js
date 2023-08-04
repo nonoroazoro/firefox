@@ -38,7 +38,11 @@ const KeyChanger = {
 
     makeKeys()
     {
-        const config = this.loadText(FileUtils.getFile("UChrm", ["_Keychanger.config.js"], false));
+        const ds = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties);
+        const file = ds.get("UChrm", Components.interfaces.nsIFile);
+        file.append("_Keychanger.config.js");
+
+        const config = this.loadText(file);
         if (!config)
         {
             return null;
