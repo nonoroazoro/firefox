@@ -50,7 +50,7 @@ return {
             }
             else
             {
-                Common.openURL(`https://dict.youdao.com/result?word=${encodeURIComponent(data)}&lang=en`);
+                Common.openURL(`https://dict.youdao.com/search?q=${encodeURIComponent(data)}`);
             }
         });
     },
@@ -251,7 +251,7 @@ return {
     // Switch proxy mode.
     "X": function ()
     {
-        Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-browser-action");
+        Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-BAP");
     },
 
     // Copy all download links fro Thunder.
