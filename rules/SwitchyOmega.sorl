@@ -421,6 +421,7 @@
 *.surge.sh
 *.syncthing.net
 *.t.co
+*.tailwindui.com
 *.tanstack.com
 *.techbang.com
 *.telerik.com
