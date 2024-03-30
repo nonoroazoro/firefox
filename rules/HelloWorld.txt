@@ -165,10 +165,6 @@ gamepedia.com
 gamepressure.com
 gamer.com.tw
 gametsg.com
-garena.com
-garena.tw
-garenanow.com
-garenapoe.com
 geti2p.net
 getpocket.com
 getsitecontrol.com
@@ -316,6 +312,7 @@ parler.com
 passportjs.org
 pastebin.com
 pathofexile.com
+pathofexile.tw
 paypal.com
 pcgamestorrents.com
 pcgamingwiki.com
@@ -333,6 +330,7 @@ plot.ly
 poe-profile.info
 poe-roadmap.com
 poe.ninja
+poe.trade
 poebuilds.cc
 poecdn.com
 poedb.tw
@@ -396,6 +394,7 @@ shadowsocks.la
 shareicon.net
 shields.io
 sketchbook.com
+skidrowcodex.net
 skidrowgamesreloaded.com
 skype.com
 skypeassets.com
@@ -416,6 +415,7 @@ stackedit.io
 stackexchange.com
 stackoverflow.com
 staltz.com
+starcraft2.com
 startpage.com
 steamcommunity.com
 steamdb.info
@@ -454,6 +454,7 @@ truste.com
 ttvnw.net
 tumblr.com
 tupian.li
+turtle-wow.org
 twimg.com
 twitch.tv
 twitchcdn.net
