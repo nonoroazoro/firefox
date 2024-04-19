@@ -4,25 +4,26 @@
 // @homepageURL https://github.com/nonoroazoro/firefox/tree/master/scripts/tiny-customize
 // @namespace   https://greasyfork.org/zh-CN/scripts/19823-tiny-customize
 // @author      nonoroazoro
-// @include     /^https?:\/\/(.+\.)?github\./
-// @include     http://bbs.3dmgame.com/*
-// @include     http://bbs.kafan.cn/*
-// @include     http://css-blocks.com/*
-// @include     http://forum.gamer.com.tw/*
-// @include     http://poedb.tw/dps*
-// @include     http://subhd.com/*
-// @include     http://tieba.baidu.com/*
-// @include     http://www.ruanyifeng.com/*
-// @include     https://auth.alipay.com/*
-// @include     https://forum.gamer.com.tw/*
-// @include     https://kbs.sports.qq.com/*
-// @include     https://login.taobao.com/*
-// @include     https://login.xiami.com/*
-// @include     https://passport.jd.com/*
-// @include     https://sparticle999.github.io/*
-// @include     https://wiki.d.163.com/*
-// @include     https://www.chiphell.com/*
-// @version     1.3.4
+// @match       /^https?:\/\/(.+\.)?github\./
+// @match       http://bbs.3dmgame.com/*
+// @match       http://bbs.kafan.cn/*
+// @match       http://css-blocks.com/*
+// @match       http://forum.gamer.com.tw/*
+// @match       http://poedb.tw/dps*
+// @match       http://subhd.com/*
+// @match       http://tieba.baidu.com/*
+// @match       http://www.ruanyifeng.com/*
+// @match       https://auth.alipay.com/*
+// @match       https://forum.gamer.com.tw/*
+// @match       https://kbs.sports.qq.com/*
+// @match       https://login.taobao.com/*
+// @match       https://login.xiami.com/*
+// @match       https://passport.jd.com/*
+// @match       https://sparticle999.github.io/*
+// @match       https://sudos.help/*
+// @match       https://wiki.d.163.com/*
+// @match       https://www.chiphell.com/*
+// @version     1.4.0
 // @grant       none
 // ==/UserScript==
 
@@ -267,6 +268,20 @@ const getLazyActions = () =>
         const parent = document.getElementById("bodyContent");
         const elements = document.querySelectorAll("#bodyContent > .Allbox");
         parent.prepend(...elements);
+    }
+    else if (host === "sudos.help")
+    {
+        // 转换交易地址为 PoE TW。
+        document.addEventListener("click", (e) =>
+        {
+            if (e.target.tagName === "A" && e.target.href && e.target.href.includes("www.pathofexile.com/trade/search"))
+            {
+                e.target.href = decodeURIComponent(e.target.href)
+                    .replace("www.pathofexile.com", "pathofexile.tw")
+                    .replace("Filled Coffin", "滿靈柩")
+                    .replace("Necropolis", "魔影墓場");
+            }
+        }, true);
     }
 
     return actions;
