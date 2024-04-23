@@ -24,7 +24,7 @@
 // @match       https://sudos.help/*
 // @match       https://wiki.d.163.com/*
 // @match       https://www.chiphell.com/*
-// @version     1.4.2
+// @version     1.4.3
 // @grant       none
 // ==/UserScript==
 
@@ -106,14 +106,14 @@ const getInstantActions = () =>
                     if (href.includes("/tw/"))
                     {
                         window.open(
-                            `https://pathofexile.tw/trade/search/魔影墓場?q={"query":{"type":"${e.target.textContent}","filters":{"trade_filters":{"filters":{"price":{"min":2}}}}}}`,
+                            `https://pathofexile.tw/trade/search/魔影墓場?q={"query":{"type":"${e.target.textContent}","status":{"option":"online"},"filters":{"trade_filters":{"filters":{"price":{"min":2}}}}}}`,
                             "_blank"
                         );
                     }
                     else if (href.includes("/us/"))
                     {
                         window.open(
-                            `https://www.pathofexile.com/trade/search/Necropolis?q={"query":{"type":"${e.target.textContent}","filters":{"trade_filters":{"filters":{"price":{"min":2}}}}}}`,
+                            `https://www.pathofexile.com/trade/search/Necropolis?q={"query":{"type":"${e.target.textContent}","status":{"option":"online"},"filters":{"trade_filters":{"filters":{"price":{"min":2}}}}}}`,
                             "_blank"
                         );
                     }
