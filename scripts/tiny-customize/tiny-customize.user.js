@@ -24,7 +24,7 @@
 // @match       https://sudos.help/*
 // @match       https://wiki.d.163.com/*
 // @match       https://www.chiphell.com/*
-// @version     1.4.1
+// @version     1.4.2
 // @grant       none
 // ==/UserScript==
 
@@ -92,13 +92,13 @@ const getInstantActions = () =>
 
         actions.push(() =>
         {
-            const elem = document.querySelector(".itemBoxContent .lc");
+            const elem = document.querySelector(".itemBoxContent .lc") || document.querySelector(".TextDivinationCard .ItemType");
             if (elem)
             {
                 if (href.includes("/tw/") || href.includes("/us/"))
                 {
                     elem.style.cursor = "pointer";
-                    elem.style.color = "var(--craftaffectwarning-color)";
+                    elem.style.color = "var(--lightning-color)";
                 }
 
                 elem.addEventListener("click", e =>
