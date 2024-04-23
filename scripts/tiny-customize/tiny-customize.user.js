@@ -9,7 +9,6 @@
 // @match       http://bbs.kafan.cn/*
 // @match       http://css-blocks.com/*
 // @match       http://forum.gamer.com.tw/*
-// @match       http://poedb.tw/dps*
 // @match       http://subhd.com/*
 // @match       http://tieba.baidu.com/*
 // @match       http://www.ruanyifeng.com/*
@@ -19,11 +18,13 @@
 // @match       https://login.taobao.com/*
 // @match       https://login.xiami.com/*
 // @match       https://passport.jd.com/*
+// @match       https://poe.ninja/*
+// @match       https://poedb.tw/*
 // @match       https://sparticle999.github.io/*
 // @match       https://sudos.help/*
 // @match       https://wiki.d.163.com/*
 // @match       https://www.chiphell.com/*
-// @version     1.4.0
+// @version     1.4.1
 // @grant       none
 // ==/UserScript==
 
@@ -85,29 +86,39 @@ const getInstantActions = () =>
             }
         });
     }
-    else if (/^https?:\/\/poedb\.tw(\/?.*)\/dps/.test(href))
+    else if (host === "poedb.tw")
     {
         // 流亡编年史。
 
-        // 屏蔽默认自动全选物品信息、自动查询物品信息。
         actions.push(() =>
         {
-            const elem = document.querySelector("#iteminfo");
-            const form = document.querySelector(`form[action^="dps"]`);
-            elem.addEventListener("click", e => e.stopPropagation(), true);
-            elem.addEventListener("keydown", (e) =>
+            const elem = document.querySelector(".itemBoxContent .lc");
+            if (elem)
             {
-                if (e.key === "Enter")
+                if (href.includes("/tw/") || href.includes("/us/"))
                 {
-                    form.submit();
-                    e.preventDefault();
+                    elem.style.cursor = "pointer";
+                    elem.style.color = "var(--craftaffectwarning-color)";
                 }
-            });
 
-            elem.addEventListener("paste", () =>
-            {
-                setTimeout(() => form.submit(), 0);
-            });
+                elem.addEventListener("click", e =>
+                {
+                    if (href.includes("/tw/"))
+                    {
+                        window.open(
+                            `https://pathofexile.tw/trade/search/魔影墓場?q={"query":{"type":"${e.target.textContent}","filters":{"trade_filters":{"filters":{"price":{"min":2}}}}}}`,
+                            "_blank"
+                        );
+                    }
+                    else if (href.includes("/us/"))
+                    {
+                        window.open(
+                            `https://www.pathofexile.com/trade/search/Necropolis?q={"query":{"type":"${e.target.textContent}","filters":{"trade_filters":{"filters":{"price":{"min":2}}}}}}`,
+                            "_blank"
+                        );
+                    }
+                }, true);
+            }
         });
     }
     else if (host === "subhd.com")
@@ -280,6 +291,23 @@ const getLazyActions = () =>
                     .replace("www.pathofexile.com", "pathofexile.tw")
                     .replace("Filled Coffin", "滿靈柩")
                     .replace("Necropolis", "魔影墓場");
+            }
+        }, true);
+    }
+    else if (host === "poe.ninja")
+    {
+        // 转换 Wiki 地址为 PoEDB。
+        document.addEventListener("click", (e) =>
+        {
+            if (
+                e.target.tagName === "A"
+                && e.target.className
+                && e.target.className.includes("wikiLink")
+                && e.target.href
+                && e.target.href.includes("poewiki.net/wiki")
+            )
+            {
+                e.target.href = e.target.href.replace("poewiki.net/wiki", "poedb.tw/tw").replaceAll("%20", "_").replaceAll(" ", "_");
             }
         }, true);
     }
