@@ -2,6 +2,7 @@
 // @name           KeyChanger.uc.js
 // @description    Add custom keybindings to Firefox.
 // @charset        UTF-8
+// @history        2024-04-25  Added support for Firefox 125.
 // @history        2020-12-30  Added support for Firefox 84.
 // @homepageURL    https://github.com/nonoroazoro/firefox/tree/master/userchrome/quantum
 // ==/UserScript==
@@ -38,11 +39,8 @@ const KeyChanger = {
 
     makeKeys()
     {
-        const ds = Components.classes["@mozilla.org/file/directory_service;1"].getService(Components.interfaces.nsIProperties);
-        const file = ds.get("UChrm", Components.interfaces.nsIFile);
-        file.append("_Keychanger.config.js");
-
-        const config = this.loadText(file);
+        const path = PathUtils.join(PathUtils.profileDir, "chrome", "_Keychanger.config.js");
+        const config = this.loadText(new FileUtils.File(path));
         if (!config)
         {
             return null;
