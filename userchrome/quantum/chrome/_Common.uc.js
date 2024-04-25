@@ -126,7 +126,8 @@ const Common = {
      */
     launch(filename)
     {
-        FileUtils.getFile("UChrm", ["program", filename]).launch();
+        const file = new FileUtils.File(PathUtils.join(PathUtils.profileDir, "chrome", "program", filename))
+        file.launch();
     },
 
     /**
