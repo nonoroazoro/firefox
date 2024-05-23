@@ -1,7 +1,7 @@
 /* ==UserStyle==
 @name           TinyStyles
 @namespace      https://github.com/nonoroazoro/firefox/blob/master/styles/TinyStyles.css
-@version        1.1.4
+@version        1.1.5
 @description    Tiny styles for some websites.
 @author         Nonoroazoro
 ==/UserStyle== */
@@ -374,5 +374,19 @@
     #d2-desktop-left-sidebar, #d2-desktop-left-sidebar-ws, #d2-desktop-right-sidebar, #d2-desktop-right-sidebar-ws, #d2planner-left, #d2planner-right, .adsmanager-ad-container
     {
         display: none !important;
+    }
+}
+@-moz-document domain("www.d2core.com")
+{
+    /* 暗黑核 */
+
+    .planner-skill .content .skill
+    {
+        opacity: .4;
+    }
+
+    .planner-skill .content .skill.spent
+    {
+        opacity: 1;
     }
 }
