@@ -20,9 +20,9 @@
   },
   "devDependencies": {
     "babel-eslint": "^10.1.0",
-    "eslint": "^8.23.0",
-    "eslint-config-zoro": "^5.34.0",
-    "husky": "^8.0.1",
-    "lint-staged": "^13.0.3"
+    "eslint": "^9.9.1",
+    "eslint-config-zoro": "^6.1.0",
+    "husky": "^9.1.5",
+    "lint-staged": "^15.2.10"
   }
 }
