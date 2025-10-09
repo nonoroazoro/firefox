@@ -6,9 +6,9 @@ try
 
     try
     {
-        // Load file: /chrome/chrome.manifest
+        // Load file: /chrome/userChrome.manifest
         const file = Services.dirsvc.get("UChrm", Ci.nsIFile);
-        file.append("chrome.manifest");
+        file.append("userChrome.manifest");
         Components.manager.QueryInterface(Ci.nsIComponentRegistrar).autoRegister(file);
     } catch { }
 
