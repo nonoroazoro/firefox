@@ -2,12 +2,13 @@
 // @name           _Common.uc.js
 // @description    Common library for UserChrome.js.
 // @charset        UTF-8
+// @history        2025-10-09  Added support for Firefox 143.
 // @history        2024-04-25  Added support for Firefox 125.
 // @history        2020-12-30  Added support for Firefox 84.
 // @homepageURL    https://github.com/nonoroazoro/firefox/tree/master/userchrome/quantum
 // ==/UserScript==
 
-const Common = {
+window.Common = {
     /**
      * Gets Firefox IOService.
      */
