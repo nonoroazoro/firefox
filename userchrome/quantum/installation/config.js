@@ -2,7 +2,15 @@
 
 try
 {
-    const { classes: Cc, interfaces: Ci, } = Components;
+    const { classes: Cc, interfaces: Ci } = Components;
+
+    try
+    {
+        // Load file: /chrome/chrome.manifest
+        const file = Services.dirsvc.get("UChrm", Ci.nsIFile);
+        file.append("chrome.manifest");
+        Components.manager.QueryInterface(Ci.nsIComponentRegistrar).autoRegister(file);
+    } catch { }
 
     function UserChrome_js()
     {
@@ -20,16 +28,13 @@ try
             const document = aEvent.originalTarget;
             if (document.location && document.location.protocol === "chrome:")
             {
-                const ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
-                const fph = ios.getProtocolHandler("file").QueryInterface(Ci.nsIFileProtocolHandler);
-                const ds = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties);
-
-                const file = ds.get("UChrm", Ci.nsIFile);
+                // Load file: /chrome/userChrome.js
+                const file = Services.dirsvc.get("UChrm", Ci.nsIFile);
                 file.append("userChrome.js");
-                const fileURL = fph.getURLSpecFromActualFile(file) + "?" + file.lastModifiedTime;
-                Cc["@mozilla.org/moz/jssubscript-loader;1"]
-                    .getService(Ci.mozIJSSubScriptLoader)
-                    .loadSubScript(fileURL, document.defaultView, "UTF-8");
+                Services.scriptloader.loadSubScript(
+                    "chrome://userchromejs/content/userChrome.js?" + file.lastModifiedTime,
+                    document.defaultView
+                );
             }
         }
     };
@@ -38,7 +43,7 @@ try
     {
         new UserChrome_js();
     }
-} catch { };
+} catch { }
 
 try
 {
