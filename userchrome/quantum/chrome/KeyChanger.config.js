@@ -7,25 +7,22 @@ return {
     "2": "gBrowser.tabContainer.advanceSelectedTab(1, true);",
 
     // Scroll Left.
-    "A": `goDoCommand("cmd_scrollLeft");`,
+    "A": "goDoCommand('cmd_scrollLeft');",
 
     // Scroll Right.
-    "D": `goDoCommand("cmd_scrollRight");`,
+    "D": "goDoCommand('cmd_scrollRight');",
 
     // Scroll page Up.
-    "W": `goDoCommand("cmd_scrollPageUp");`,
+    "W": "goDoCommand('cmd_scrollPageUp');",
 
     // Scroll page Down.
-    "S": `goDoCommand("cmd_scrollPageDown");`,
+    "S": "goDoCommand('cmd_scrollPageDown');",
 
     // Reload skip cache.
-    "R": "BrowserReloadSkipCache();",
+    "R": "BrowserCommands.reloadSkipCache();",
 
     // Open InoReader.
-    "F1": function ()
-    {
-        Common.openURL("https://www.inoreader.com");
-    },
+    "F1": "Common.openURL('https://www.inoreader.com');",
 
     // Open current page with google cache.
     "F2": function ()
@@ -74,10 +71,7 @@ return {
     },
 
     // Open about page
-    "F4": function ()
-    {
-        Common.openURL("about:about");
-    },
+    "F4": "Common.openURL('about:about')",
 
     // Open profiles Folder.
     "F9": function ()
@@ -86,16 +80,13 @@ return {
     },
 
     // Open addons manager.
-    "Alt+A": "BrowserOpenAddonsMgr();",
+    "Alt+A": "BrowserAddonUI.openAddonsMgr();",
 
     // Open bookmark search plus.
     // "Alt+B": `PlacesCommandHook.showPlacesOrganizer("AllBookmarks");`,
 
     // Copy page url.
-    "Alt+C": function ()
-    {
-        Common.copy(gBrowser.currentURI.spec);
-    },
+    "Alt+C": "Common.copy(gBrowser.currentURI.spec)",
 
     // Focus url bar and select all.
     "Alt+D": function ()
@@ -105,34 +96,28 @@ return {
     },
 
     // Clear history.
-    "Alt+Delete": function ()
-    {
-        Common.doCommand("sanitizeItem");
-    },
+    "Alt+Delete": "Common.doCommand('sanitizeItem')",
 
     // Open history manager.
-    "Alt+H": `PlacesCommandHook.showPlacesOrganizer("History");`,
+    "Alt+H": "PlacesCommandHook.showPlacesOrganizer('History');",
 
     // Open home page.
-    "Alt+Home": "BrowserHome();",
+    "Alt+Home": "BrowserCommands.home();",
 
     // Open reader mode.
     // "Alt+K": "ReaderParent.toggleReaderMode(event);",
 
     // Go back.
-    "Alt+Left": "BrowserBack()",
+    "Alt+Left": "BrowserCommands.back();",
 
     // Go forward.
-    "Alt+Right": "BrowserForward()",
+    "Alt+Right": "BrowserCommands.forward();",
 
     // Open firefox color picker.
-    "Alt+P": function ()
-    {
-        Common.doCommand("menu_eyedropper");
-    },
+    "Alt+P": "Common.doCommand('menu_eyedropper');",
 
     // Browse page info.
-    "Alt+U": "BrowserPageInfo();",
+    "Alt+U": "BrowserCommands.pageInfo();",
 
     // Undo closed Tab.
     "Alt+Z": "undoCloseTab();",
@@ -147,17 +132,10 @@ return {
     },
 
     // Create a new tab.
-    "Ctrl+N": function ()
-    {
-        // BrowserOpenTab();
-        Common.openURL("about:newtab");
-    },
+    "Ctrl+N": "BrowserCommands.openTab();",
 
     // Toggle mute and disable Mac's stupid minimize app shortcut.
-    "Ctrl+M": function ()
-    {
-        gBrowser.selectedTab.toggleMuteAudio();
-    },
+    "Ctrl+M": "gBrowser.selectedTab.toggleMuteAudio();",
 
     // Open preferences.
     "Ctrl+P": "openPreferences();",
@@ -169,13 +147,10 @@ return {
     },
 
     // Close tab.
-    // "Ctrl+W": "BrowserCloseTabOrWindow();",
+    "Ctrl+W": "BrowserCommands.closeTabOrWindow();",
 
     // Restart Firefox.
-    "Ctrl+Alt+R": function ()
-    {
-        Common.restartFirefox();
-    },
+    "Ctrl+Alt+R": "Common.restartFirefox();",
 
     // ****************************** UserChrome.js ******************************
     // NetEase Music Global Hotkey.
@@ -249,10 +224,7 @@ return {
     // "Alt+N": "com.netvideohunter.downloader.Overlay_Instance.openMediaListWindow();",
 
     // Switch proxy mode.
-    "X": function ()
-    {
-        Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-BAP");
-    },
+    "X": "Common.doCommand('switchyomega_feliscatus_addons_mozilla_org-BAP');",
 
     // Copy all download links fro Thunder.
     "Alt+M": function ()
