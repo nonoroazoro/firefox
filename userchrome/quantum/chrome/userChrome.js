@@ -61,8 +61,8 @@
             }
             catch { }
 
-            console.log("Prepared Scripts:", this.scripts)
-            console.log("Prepared Overlays:", this.overlays)
+            console.log("UserChrome.js - Scripts:", this.scripts);
+            console.log("UserChrome.js - Overlays:", this.overlays);
 
             // Parses script from file.
             function _parseScriptFile(p_content, p_file)
