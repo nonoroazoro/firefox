@@ -1,4 +1,4 @@
-// 2020-12-31
+// 2025-10-09
 
 (function ()
 {
@@ -61,8 +61,8 @@
             }
             catch { }
 
-            console.log("UserChrome.js - Scripts:", this.scripts);
-            console.log("UserChrome.js - Overlays:", this.overlays);
+            DEBUG && console.log("UserChrome.js - Scripts:", this.scripts);
+            DEBUG && console.log("UserChrome.js - Overlays:", this.overlays);
 
             // Parses script from file.
             function _parseScriptFile(p_content, p_file)
