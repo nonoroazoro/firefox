@@ -251,7 +251,6 @@ return {
     // Switch proxy mode.
     "X": function ()
     {
-        console.log('switchyomega_feliscatus_addons_mozilla_org-BAP', window);
         Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-BAP");
     },
 
