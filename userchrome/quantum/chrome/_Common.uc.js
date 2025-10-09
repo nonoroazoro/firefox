@@ -79,16 +79,17 @@ window.Common = {
     createWidget(id, label, tooltiptext, defaultArea, onCreated)
     {
         CustomizableUI.createWidget({
-            defaultArea,
             id,
             label,
             tooltiptext,
+            defaultArea,
             onCreated
         });
     },
 
     /**
-     * Eval expression in current content document, return the expression result as the data param of the callback.
+     * Eval expression in current content document,
+     * return the expression result as the data param of the callback.
      *
      * @param {string | () => any} expression
      * @param {(data: any) => void} callback
@@ -113,12 +114,12 @@ window.Common = {
     /**
      * Loads CSS.
      *
-     * @param {string} cssStr CSS string.
+     * @param {string} cssString CSS string.
      */
-    loadCSS(cssStr)
+    loadCSS(cssString)
     {
         this.StyleSheetService.loadAndRegisterSheet(
-            this.IOService.newURI("data:text/css;base64," + btoa(cssStr), null, null),
+            this.IOService.newURI("data:text/css;base64," + btoa(cssString), null, null),
             this.StyleSheetService.USER_SHEET
         );
     },
@@ -232,9 +233,14 @@ window.Common = {
         return;
     },
 
-    getSelectedText()
+    /**
+     * Gets the selected text.
+     *
+     * @param {(text: string) => void} callback
+     */
+    getSelectedText(callback)
     {
-        return BrowserUtils.getSelectionDetails(content).fullText;
+        this.evalInContent("content.document.getSelection().toString()", callback)
     },
 
     restartFirefox()

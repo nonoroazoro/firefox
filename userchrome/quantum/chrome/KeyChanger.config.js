@@ -42,15 +42,15 @@ return {
      */
     "F3": function ()
     {
-        Common.evalInContent("content.document.getSelection().toString()", (data) =>
+        Common.getSelectedText((text) =>
         {
-            if (data === "")
+            if (text == null || text.trim() === "")
             {
                 Common.openURL("https://dict.youdao.com");
             }
             else
             {
-                Common.openURL(`https://dict.youdao.com/search?q=${encodeURIComponent(data)}`);
+                Common.openURL(`https://dict.youdao.com/search?q=${encodeURIComponent(text)}`);
             }
         });
     },
@@ -60,15 +60,15 @@ return {
      */
     "Shift+F3": function ()
     {
-        Common.evalInContent("content.document.getSelection().toString()", (data) =>
+        Common.getSelectedText((text) =>
         {
-            if (data === "")
+            if (text == null || text.trim() === "")
             {
                 Common.openURL("https://translate.google.com/?sl=auto&tl=zh-CN");
             }
             else
             {
-                Common.openURL(`https://translate.google.com/?sl=auto&tl=zh-CN&text=${encodeURIComponent(data)}&op=translate`);
+                Common.openURL(`https://translate.google.com/?sl=auto&tl=zh-CN&text=${encodeURIComponent(text)}&op=translate`);
             }
         });
     },
