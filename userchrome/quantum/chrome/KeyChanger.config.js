@@ -169,7 +169,7 @@ return {
     },
 
     // Close tab.
-    "Ctrl+W": "BrowserCloseTabOrWindow();",
+    // "Ctrl+W": "BrowserCloseTabOrWindow();",
 
     // Restart Firefox.
     "Ctrl+Alt+R": function ()
@@ -179,7 +179,7 @@ return {
 
     // ****************************** UserChrome.js ******************************
     // NetEase Music Global Hotkey.
-    // "Ctrl+Alt+Left": function (e)
+    // "Ctrl+Alt+Left": function ()
     // {
     //     // 感谢黑仪大螃蟹。
     //     if (gBrowser.selectedBrowser.documentURI.asciiHost !== "music.163.com")
@@ -200,7 +200,7 @@ return {
     // },
 
     // NetEase Music Global Hotkey.
-    // "Ctrl+Alt+Right": function (e)
+    // "Ctrl+Alt+Right": function ()
     // {
     //     // 感谢黑仪大螃蟹。
     //     if (gBrowser.selectedBrowser.documentURI.asciiHost != "music.163.com")
@@ -240,7 +240,7 @@ return {
     // },
 
     // Show QR code.
-    // "Alt+Q": function (e)
+    // "Alt+Q": function ()
     // {
     //     Common.doCommand("tinyqrcode_nonoroazoro_com-browser-action");
     // },
@@ -251,11 +251,12 @@ return {
     // Switch proxy mode.
     "X": function ()
     {
+        console.log('switchyomega_feliscatus_addons_mozilla_org-BAP', window);
         Common.doCommand("switchyomega_feliscatus_addons_mozilla_org-BAP");
     },
 
     // Copy all download links fro Thunder.
-    "Alt+M": function (e)
+    "Alt+M": function ()
     {
         Common.evalInContent(
             () =>
@@ -291,7 +292,7 @@ return {
     },
 
     // Save page to file.
-    // "Alt+S": function (e)
+    // "Alt+S": function ()
     // {
     //     Common.doCommand("_531906d3-e22f-4a6c-a102-8057b88a1a63_-browser-action", true);
     // }

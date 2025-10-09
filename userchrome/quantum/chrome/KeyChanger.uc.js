@@ -2,16 +2,17 @@
 // @name           KeyChanger.uc.js
 // @description    Add custom keybindings to Firefox.
 // @charset        UTF-8
+// @history        2025-10-09  Added support for Firefox 143.
 // @history        2024-04-25  Added support for Firefox 125.
 // @history        2020-12-30  Added support for Firefox 84.
 // @homepageURL    https://github.com/nonoroazoro/firefox/tree/master/userchrome/quantum
 // ==/UserScript==
 
 const KeyChanger = {
-    register()
+    registerKeys()
     {
-        const keys = this.makeKeys();
-        if (keys)
+        const keysFragment = this._makeKeys();
+        if (keysFragment)
         {
             // Remove old keychanger-keyset.
             let keyset = document.getElementById("keychanger-keyset");
@@ -21,50 +22,59 @@ const KeyChanger = {
             }
 
             // Backup Firefox default keys.
-            const fragment = document.createDocumentFragment();
+            const firefoxKeysFragment = document.createDocumentFragment();
             for (let k of document.getElementsByTagName("keyset"))
             {
-                fragment.appendChild(k);
+                firefoxKeysFragment.appendChild(k);
             }
 
             // Prepare custom keys.
             keyset = Common.createXULElement("keyset", { id: "keychanger-keyset" });
-            keyset.appendChild(keys);
+            keyset.appendChild(keysFragment);
 
             // Insert default and custom keys.
             const container = document.getElementById("mainPopupSet").parentNode;
-            container.prepend(keyset, fragment);
+            container.prepend(keyset, firefoxKeysFragment);
         }
     },
 
-    makeKeys()
+    registerMenu()
     {
-        const path = PathUtils.join(PathUtils.profileDir, "chrome", "_Keychanger.config.js");
-        const config = this.loadText(new FileUtils.File(path));
-        if (!config)
+        if (document.getElementById("keychanger-menu") == null)
         {
-            return null;
+            const container = document.getElementById("menu_preferences").parentNode;
+            const separator = Common.createXULElement("menuseparator", { id: "keychanger-separator" });
+            const menu = Common.createXULElement("menuitem", { id: "keychanger-menu", label: "Reload KeyChanger", accesskey: "R" });
+            menu.addEventListener("command", () => this.registerKeys());
+            container.append(separator, menu);
         }
+    },
 
-        const sandbox = new Components.utils.Sandbox(new XPCNativeWrapper(window));
-        const keys = Components.utils.evalInSandbox("(function () {" + config + "})()", sandbox);
-        if (!keys)
+    _makeKeys()
+    {
+        const path = PathUtils.join(PathUtils.profileDir, "chrome", "KeyChanger.config.js");
+        const config = this._loadFile(new FileUtils.File(path)) ?? "return {};";
+
+        const sandbox = new Components.utils.Sandbox(window, { sandboxPrototype: window, sameZoneAs: window, });
+        const commands = Components.utils.evalInSandbox("(function () {" + config + "})()", sandbox);
+        const commandKeys = Object.keys(commands);
+        if (commandKeys.length === 0)
         {
-            return null;
+            return;
         }
 
         const fragment = document.createDocumentFragment();
-        Object.keys(keys).forEach(n =>
+        commandKeys.forEach(commandKey =>
         {
-            let keyString = n.toUpperCase().split("+");
             let modifiers = "";
             let k;
             let key;
             let keycode;
 
-            for (let i = 0, l = keyString.length; i < l; i++)
+            const commandKeyStrings = commandKey.toUpperCase().split("+");
+            for (let i = 0, l = commandKeyStrings.length; i < l; i++)
             {
-                k = keyString[i];
+                k = commandKeyStrings[i];
                 switch (k)
                 {
                     case "CTRL":
@@ -175,22 +185,21 @@ const KeyChanger = {
                 elem.setAttribute("keycode", keycode);
             }
 
-            const cmd = keys[n];
-            switch (typeof cmd)
+            const command = commands[commandKey];
+            const commandType = typeof command;
+            switch (commandType)
             {
                 case "function":
-                    elem.setAttribute("oncommand", "(" + cmd.toString() + ").call(this, event);");
+                    elem.addEventListener("command", Components.utils.evalInSandbox("(" + command + ")", sandbox));
                     break;
 
-                case "object":
-                    Object.keys(cmd).forEach(function (a)
-                    {
-                        elem.setAttribute(a, cmd[a]);
-                    }, this);
+                case "string":
+                    elem.addEventListener("command", Components.utils.evalInSandbox("(function (e) {" + command + "})", sandbox));
                     break;
 
                 default:
-                    elem.setAttribute("oncommand", cmd);
+                    console.log('Unknown command type:', commandKey, command, commandType);
+                    break;
             }
             fragment.appendChild(elem);
         }, this);
@@ -198,23 +207,11 @@ const KeyChanger = {
         return fragment;
     },
 
-    createMenu()
-    {
-        const container = document.getElementById("menu_preferences").parentNode;
-        const separator = Common.createXULElement("menuseparator", { id: "keychanger-separator" });
-        const menu = Common.createXULElement("menuitem", {
-            label: "Reload KeyChanger",
-            accesskey: "R",
-            oncommand: "KeyChanger.register()"
-        });;
-        container.append(separator, menu);
-    },
-
-    loadText(configFile)
+    _loadFile(file)
     {
         const fStream = Components.classes["@mozilla.org/network/file-input-stream;1"].createInstance(Components.interfaces.nsIFileInputStream);
         const sStream = Components.classes["@mozilla.org/scriptableinputstream;1"].createInstance(Components.interfaces.nsIScriptableInputStream);
-        fStream.init(configFile, -1, 0, 0);
+        fStream.init(file, -1, 0, 0);
         sStream.init(fStream);
 
         let data = sStream.read(sStream.available());
@@ -228,5 +225,5 @@ const KeyChanger = {
     }
 };
 
-KeyChanger.createMenu();
-KeyChanger.register();
+KeyChanger.registerMenu();
+KeyChanger.registerKeys();
