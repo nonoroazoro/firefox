@@ -1,4 +1,4 @@
-# UserChromeJS for Firefox 92
+# UserChromeJS for Firefox 143
 
 This UserChromeJS is based on [alice0775/userChrome.js](https://github.com/alice0775/userChrome.js) with some customization.
 
@@ -12,6 +12,12 @@ This UserChromeJS is based on [alice0775/userChrome.js](https://github.com/alice
 
 ## Installation
 
-- `Windows`: copy into `Firefox.exe` folder.
+- for `Windows`:
+    1. copy files from `installation` folder into `Firefox.exe` folder.
 
-- `Mac`: copy files from the installation folder into `Firefox.app/Contents/Resources` folder.
+    1. copy `chrome` folder into your `Firefox profiles` folder.
+
+- for `Mac`:
+    1. copy files from `installation` folder into `Firefox.app/Contents/Resources` folder.
+
+    1. copy `chrome` folder into your `Firefox profiles` folder.
