@@ -120,7 +120,7 @@ return {
     "Alt+U": "BrowserCommands.pageInfo();",
 
     // Undo closed Tab.
-    "Alt+Z": "undoCloseTab();",
+    "Alt+Z": "SessionWindowUI.undoCloseTab(window);",
 
     // Open bookmarks.
     "Ctrl+B": `PlacesCommandHook.showPlacesOrganizer("AllBookmarks");`,
