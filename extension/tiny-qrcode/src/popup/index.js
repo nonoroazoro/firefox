@@ -1,10 +1,26 @@
 const qrImage = document.getElementById("qrImage");
+const qrText = document.getElementById("qrText");
 
 // Open QR image in a new tab.
 qrImage.addEventListener("click", (e) =>
 {
     window.open(e.target.src);
     window.close();
+});
+
+// Update QR code when user types in the input.
+let debounceTimer;
+qrText.addEventListener("input", (e) =>
+{
+    clearTimeout(debounceTimer);
+    const text = e.target.value.trim();
+    if (text !== "")
+    {
+        debounceTimer = setTimeout(() =>
+        {
+            generateQRCodeImage(text);
+        }, 500);
+    }
 });
 
 browser.tabs.onActivated.addListener(onActivatedHandler);
@@ -55,9 +71,18 @@ function onUpdatedHandler(tabId, tabInfo, tab)
 }
 
 /**
- * Update QR Code image to the <img> in the popup.
+ * Update text and image.
  */
 function updateQRCodeImage(text)
+{
+    qrText.value = text;
+    generateQRCodeImage(text);
+}
+
+/**
+ * Generate image.
+ */
+function generateQRCodeImage(text)
 {
     browser.runtime.sendMessage(
         {
