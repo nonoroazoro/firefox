@@ -4,6 +4,7 @@
 *://*.52audio.com/*
 *://*.9game.cn/*
 *://*.candou.com/*
+*://*.csdn.net/*
 *://*.da-quan.net/*
 *://*.dmpans.com/*
 *://*.hanlefang.net/*
