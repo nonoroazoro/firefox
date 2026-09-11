@@ -4,14 +4,6 @@ try
 {
     const { classes: Cc, interfaces: Ci } = Components;
 
-    try
-    {
-        // Load file: /chrome/userChrome.manifest
-        const file = Services.dirsvc.get("UChrm", Ci.nsIFile);
-        file.append("userChrome.manifest");
-        Components.manager.QueryInterface(Ci.nsIComponentRegistrar).autoRegister(file);
-    } catch { }
-
     function UserChrome_js()
     {
         Services.obs.addObserver(this, "domwindowopened", false);
@@ -28,13 +20,16 @@ try
             const document = aEvent.originalTarget;
             if (document.location && document.location.protocol === "chrome:")
             {
-                // Load file: /chrome/userChrome.js
-                const file = Services.dirsvc.get("UChrm", Ci.nsIFile);
+                const ds = Cc["@mozilla.org/file/directory_service;1"].getService(Ci.nsIProperties);
+                const ios = Cc["@mozilla.org/network/io-service;1"].getService(Ci.nsIIOService);
+                const fph = ios.getProtocolHandler("file").QueryInterface(Ci.nsIFileProtocolHandler);
+                const file = ds.get("UChrm", Ci.nsIFile);
                 file.append("userChrome.js");
-                Services.scriptloader.loadSubScript(
-                    "chrome://userchromejs/content/userChrome.js?" + file.lastModifiedTime,
-                    document.defaultView
-                );
+                const fileURL = fph.getURLSpecFromActualFile(file) + "?" + file.lastModifiedTime;
+                Services.scriptloader.loadSubScriptWithOptions(fileURL, {
+                    target: document.defaultView,
+                    allowUnsafeURL: true
+                });
             }
         }
     };

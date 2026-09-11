@@ -253,15 +253,19 @@
                 return;
             }
 
-            const scriptLoader = Components.classes["@mozilla.org/moz/jssubscript-loader;1"]
-                .getService(Components.interfaces.mozIJSSubScriptLoader);
             this.scripts.forEach((script, index) =>
             {
                 if (script.regex.test(href))
                 {
                     try
                     {
-                        scriptLoader.loadSubScript(script.url + "?" + this.getLastModifiedTime(script.file), doc.defaultView, script.charset);
+                        Services.scriptloader.loadSubScriptWithOptions(
+                            script.url + "?" + this.getLastModifiedTime(script.file),
+                            {
+                                target: doc.defaultView,
+                                allowUnsafeURL: true
+                            }
+                        );
                         DEBUG && console.log(`Loaded Script ${index + 1}:`, script.filename);
                     }
                     catch (error)
@@ -288,7 +292,7 @@
     DEBUG && console.info("Load in url:", location.href);
     // Bug 330458 Cannot dynamically load an overlay using document.loadOverlay
     // until a previous overlay is completely loaded
-    if (gBrowser != null)
+    if (typeof gBrowser !== "undefined" && gBrowser != null)
     {
         userChrome.runScripts(document);
         setTimeout(() => { userChrome.runOverlays(document); }, 0);
