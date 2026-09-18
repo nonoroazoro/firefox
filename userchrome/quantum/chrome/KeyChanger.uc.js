@@ -23,7 +23,7 @@ const KeyChanger = {
 
             // Backup Firefox default keys.
             const firefoxKeysFragment = document.createDocumentFragment();
-            for (let k of document.getElementsByTagName("keyset"))
+            for (const k of Array.from(document.getElementsByTagName("keyset")))
             {
                 firefoxKeysFragment.appendChild(k);
             }

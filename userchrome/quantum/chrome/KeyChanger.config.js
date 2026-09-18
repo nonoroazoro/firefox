@@ -24,16 +24,6 @@ return {
     // Open InoReader.
     "F1": "Common.openURL('https://www.inoreader.com');",
 
-    // Open current page with google cache.
-    "F2": function ()
-    {
-        const url = gBrowser.currentURI.spec;
-        if (url !== "" && !url.startsWith("about:"))
-        {
-            Common.openURL(`https://www.google.com/search?q=cache:${encodeURIComponent(url)}`);
-        }
-    },
-
     /**
      * Translate selected text.
      */
@@ -89,11 +79,7 @@ return {
     "Alt+C": "Common.copy(gBrowser.currentURI.spec)",
 
     // Focus url bar and select all.
-    "Alt+D": function ()
-    {
-        gURLBar.focus();
-        document.getElementById("urlbar-input").select();
-    },
+    "Alt+D": "openLocation(e);",
 
     // Clear history.
     "Alt+Delete": "Common.doCommand('sanitizeItem')",
@@ -143,7 +129,7 @@ return {
     // Create a new container tab.
     "Ctrl+T": function ()
     {
-        Common.doCommand("_c607c8df-14a7-4f28-894f-29e8722976af_-browser-action");
+        Common.doCommand("_c607c8df-14a7-4f28-894f-29e8722976af_-BAP");
     },
 
     // Close tab.
